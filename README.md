@@ -1,3 +1,10 @@
-## Frankie Ramirez's personal site
+## Frankie Ramirez
+### Software Engineer
 
-Keeping it simple for now. Just download my resume and link off to my LinkedIn profile.
+```
+{
+  "age": "31",
+  "married": true,
+  "skills": ['typescript', 'react', 'nextjs', 'tailwindcss']
+}
+```
