@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import { PerformanceMetrics } from "@/components/performance-metrics";
 
 interface HomeClientProps {
