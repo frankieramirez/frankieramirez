@@ -8,8 +8,8 @@ export function PageFooter() {
     <footer className="py-8 relative z-10">
       <div className="container flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
         <div>
-          <p className="text-sm text-muted-foreground font-pixel">
-            © {new Date().getFullYear()} FRANKIE RAMIREZ. ALL RIGHTS RESERVED.
+          <p className="text-sm text-muted-foreground font-pixel uppercase">
+            © {new Date().getFullYear()} Frankie Ramirez. All rights reserved.
           </p>
         </div>
         <div className="flex items-center gap-4">

@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: email,
+      from: toEmail,
       to: [toEmail], // Resend expects an array of email addresses
       subject: formSubject
         ? `Contact Form: ${formSubject}`
