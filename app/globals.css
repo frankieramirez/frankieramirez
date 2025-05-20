@@ -2,19 +2,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    image-rendering: pixelated;
-  }
-}
-
 /* Pixelated border utility */
 .pixel-borders {
   box-shadow: 0 -4px 0 0 theme("colors.primary.DEFAULT"),
@@ -363,5 +350,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    image-rendering: pixelated;
   }
 }
