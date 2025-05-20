@@ -34,53 +34,18 @@ export function HomeClient({ children }: HomeClientProps) {
     const pixelSize = 8; // Size of each "pixel" block
     const pixelGap = 1; // Gap between pixels
 
-    // Set canvas dimensions
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight * 3;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight * 3}px`;
-
-      // Disable anti-aliasing for pixelated look
-      ctx.imageSmoothingEnabled = false;
+    // Define the type for a single pixel
+    type Pixel = {
+      x: number;
+      y: number;
+      color: string;
+      blinkSpeed: number;
+      blinkState: boolean;
+      lastBlink: number;
+      blinkInterval: number;
     };
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Create pixel grid
-    const createPixelGrid = () => {
-      const cols = Math.ceil(canvas.width / (pixelSize + pixelGap));
-      const rows = Math.ceil(canvas.height / (pixelSize + pixelGap));
-      const pixels: Array<{
-        x: number;
-        y: number;
-        color: string;
-        blinkSpeed: number;
-        blinkState: boolean;
-        lastBlink: number;
-        blinkInterval: number;
-      }> = [];
-
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          // Only create some pixels for a sparse effect
-          if (Math.random() > 0.97) {
-            pixels.push({
-              x: x * (pixelSize + pixelGap),
-              y: y * (pixelSize + pixelGap),
-              color: getRandomColor(),
-              blinkSpeed: Math.random() * 0.02 + 0.01,
-              blinkState: Math.random() > 0.5,
-              lastBlink: 0,
-              blinkInterval: Math.random() * 2000 + 1000,
-            });
-          }
-        }
-      }
-
-      return pixels;
-    };
+    let pixels: Pixel[] = [];
 
     // Get random retro color
     function getRandomColor() {
@@ -95,7 +60,45 @@ export function HomeClient({ children }: HomeClientProps) {
       return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    const pixels = createPixelGrid();
+    // Create pixel grid
+    const createPixelGrid = (): Pixel[] => {
+      const cols = Math.ceil(canvas.width / (pixelSize + pixelGap));
+      const rows = Math.ceil(canvas.height / (pixelSize + pixelGap));
+      const gridPixels: Pixel[] = [];
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          // Only create some pixels for a sparse effect
+          if (Math.random() > 0.97) {
+            gridPixels.push({
+              x: x * (pixelSize + pixelGap),
+              y: y * (pixelSize + pixelGap),
+              color: getRandomColor(),
+              blinkSpeed: Math.random() * 0.02 + 0.01,
+              blinkState: Math.random() > 0.5,
+              lastBlink: 0,
+              blinkInterval: Math.random() * 2000 + 1000,
+            });
+          }
+        }
+      }
+      return gridPixels;
+    };
+
+    // Set canvas dimensions and regenerate grid
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight * 3;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight * 3}px`;
+
+      // Disable anti-aliasing for pixelated look
+      ctx.imageSmoothingEnabled = false;
+      pixels = createPixelGrid(); // Regenerate pixel grid on resize
+    };
+
+    resizeCanvas(); // Initial call to set up canvas and create pixels
+    window.addEventListener("resize", resizeCanvas);
 
     // Animation loop
     const animate = (timestamp: number) => {
