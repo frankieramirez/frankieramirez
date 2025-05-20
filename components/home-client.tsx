@@ -152,12 +152,6 @@ export function HomeClient({ children }: HomeClientProps) {
 
       <main className="relative z-10 max-w-4xl mx-auto">{children}</main>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-pixel-bounce z-20">
-        <Link href="#about" scroll={false} aria-label="Scroll down">
-          <ChevronDown className="h-8 w-8 text-primary" />
-        </Link>
-      </div>
-
       <PerformanceMetrics />
     </div>
   );

@@ -1,4 +1,4 @@
-import { Linkedin, Mail } from "lucide-react";
+import { ChevronDown, Linkedin, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -78,13 +78,9 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* The ChevronDown for scrolling to #about will be part of the main layout in home-client/InteractiveHomeWrapper if it needs to be outside this section */}
-      {/* For now, keeping it here, assuming section might control its own "scroll to next" affordance */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-pixel-bounce">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-pixel-bounce z-20">
         <Link href="#about" scroll={false} aria-label="Scroll down">
-          {/* ChevronDown import will be needed if we keep this, or it can be passed as a prop or live in the parent wrapper */}
-          {/* For now, assuming ChevronDown will be added or this part moved */}
-          {/* <ChevronDown className="h-8 w-8 text-primary" /> */}
+          <ChevronDown className="h-8 w-8 text-primary" />
         </Link>
       </div>
     </section>
