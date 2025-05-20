@@ -150,7 +150,7 @@ export default function PixelContactForm() {
   ) => {
     try {
       // TODO: Update your /api/send-email to verify the recaptchaToken on the server-side.
-      const response = await fetch("/api/send-email", {
+      const response = await fetch("/api/contact", {
         // Changed endpoint
         method: "POST",
         headers: {
