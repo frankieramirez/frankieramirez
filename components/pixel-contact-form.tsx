@@ -38,21 +38,6 @@ export default function PixelContactForm() {
   const recaptchaLoaded = useRef(false);
   const [honeypotWebsite, setHoneypotWebsite] = useState(""); // For honeypot
 
-  // Fetch reCAPTCHA site key from server
-  // useEffect(() => {
-  //   const fetchRecaptchaKey = async () => {
-  //     try {
-  //       const response = await fetch("/api/recaptcha-key");
-  //       const data = await response.json();
-  //       setRecaptchaSiteKey(data.siteKey);
-  //     } catch (error) {
-  //       console.error("Failed to fetch reCAPTCHA site key:", error);
-  //     }
-  //   };
-  //
-  //   fetchRecaptchaKey();
-  // }, []);
-
   useEffect(() => {
     if (recaptchaSiteKey && !recaptchaLoaded.current) {
       const script = document.createElement("script");
