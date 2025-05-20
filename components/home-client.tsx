@@ -150,7 +150,7 @@ export function HomeClient({ children }: HomeClientProps) {
         className="fixed top-0 left-0 w-full h-full z-[-20]"
       />
 
-      <main className="relative z-10">{children}</main>
+      <main className="relative z-10 max-w-4xl mx-auto">{children}</main>
 
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-pixel-bounce z-20">
         <Link href="#about" scroll={false} aria-label="Scroll down">
