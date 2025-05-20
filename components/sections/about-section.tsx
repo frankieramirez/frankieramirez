@@ -16,17 +16,17 @@ export function AboutSection() {
           </h2>
 
           <div className="mt-8 space-y-6 text-lg text-muted-foreground">
-            <p className="font-pixel text-sm leading-relaxed">
-              EXPERIENCED SENIOR USER INTERFACE ENGINEER WITH A DEMONSTRATED
-              HISTORY OF WORKING IN THE INFORMATION TECHNOLOGY AND SERVICES
-              INDUSTRY. STRONG ENGINEERING PROFESSIONAL WITH A BACHELOR OF
-              SCIENCE (B.S.) FOCUSED IN WEB DESIGN & DEVELOPMENT FROM FULL SAIL
-              UNIVERSITY.
+            <p className="font-pixel text-sm leading-relaxed uppercase">
+              Experienced senior user interface engineer with a demonstrated
+              history of working in the information technology and services
+              industry. Strong engineering professional with a Bachelor of
+              Science (B.S.) focused in Web Design & Development from Full Sail
+              University.
             </p>
-            <p className="font-pixel text-sm leading-relaxed">
-              I SPECIALIZE IN BUILDING EXCEPTIONAL DIGITAL EXPERIENCES, FROM
-              COMPONENT LIBRARIES AND DESIGN SYSTEMS TO HIGH-PERFORMANCE WEB
-              APPLICATIONS.
+            <p className="font-pixel text-sm leading-relaxed uppercase">
+              I specialize in building exceptional digital experiences, from
+              component libraries and design systems to high-performance web
+              applications.
             </p>
           </div>
 

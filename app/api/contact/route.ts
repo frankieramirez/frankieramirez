@@ -2,10 +2,28 @@ import type { NextRequest } from "next/server"; // Or use Request if preferred
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const toEmail = process.env.RESEND_TO_EMAIL!;
+const resendApiKey = process.env.RESEND_API_KEY;
+const toEmail = process.env.RESEND_TO_EMAIL;
 
 export async function POST(req: NextRequest) {
+  if (!resendApiKey) {
+    console.error("RESEND_API_KEY is not set.");
+    return NextResponse.json(
+      { message: "Server configuration error: RESEND_API_KEY is missing." },
+      { status: 500 }
+    );
+  }
+
+  if (!toEmail) {
+    console.error("RESEND_TO_EMAIL is not set.");
+    return NextResponse.json(
+      { message: "Server configuration error: RESEND_TO_EMAIL is missing." },
+      { status: 500 }
+    );
+  }
+
+  const resend = new Resend(resendApiKey);
+
   try {
     const {
       name,

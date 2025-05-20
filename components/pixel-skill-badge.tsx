@@ -1,9 +1,14 @@
+type FeaturedVariant = "primary" | "secondary" | "accent";
+
 interface PixelSkillBadgeProps {
   name: string;
-  featured?: string;
+  featured?: FeaturedVariant;
 }
 
-export function PixelSkillBadge({ name, featured = "" }: PixelSkillBadgeProps) {
+export function PixelSkillBadge({
+  name,
+  featured = "primary",
+}: PixelSkillBadgeProps) {
   let borderClass = "pixel-borders-thin";
   let textClass = "";
 
