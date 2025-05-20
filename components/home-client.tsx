@@ -11,8 +11,8 @@ import PixelContactForm from "./pixel-contact-form";
 
 export function HomeClient() {
   const [scrollY, setScrollY] = useState(0);
-  const canvasRef = useRef(null);
-  const animationRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const animationRef = useRef<number | null>(null);
 
   // Handle scroll for parallax effects
   useEffect(() => {
@@ -29,6 +29,7 @@ export function HomeClient() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     const pixelSize = 8; // Size of each "pixel" block
     const pixelGap = 1; // Gap between pixels
 
@@ -88,7 +89,7 @@ export function HomeClient() {
     const pixels = createPixelGrid();
 
     // Animation loop
-    const animate = (timestamp) => {
+    const animate = (timestamp: number) => {
       animationRef.current = requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -425,7 +426,12 @@ export function HomeClient() {
 }
 
 // Pixelated Skill Badge Component
-function PixelSkillBadge({ name, featured = "" }) {
+interface PixelSkillBadgeProps {
+  name: string;
+  featured?: string;
+}
+
+function PixelSkillBadge({ name, featured = "" }: PixelSkillBadgeProps) {
   let borderClass = "pixel-borders-thin";
   let textClass = "";
 
@@ -455,7 +461,13 @@ function PixelSkillBadge({ name, featured = "" }) {
 }
 
 // Pixelated Contact Item Component
-function PixelContactItem({ icon, text, href }) {
+interface PixelContactItemProps {
+  icon: React.ReactNode;
+  text: string;
+  href?: string;
+}
+
+function PixelContactItem({ icon, text, href }: PixelContactItemProps) {
   const content = (
     <div className="flex items-center gap-4 text-sm">
       <div className="flex h-10 w-10 items-center justify-center bg-background pixel-borders-thin">
