@@ -34,24 +34,24 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function PixelContactForm() {
-  const [recaptchaSiteKey, setRecaptchaSiteKey] = useState("");
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
   const recaptchaLoaded = useRef(false);
   const [honeypotWebsite, setHoneypotWebsite] = useState(""); // For honeypot
 
   // Fetch reCAPTCHA site key from server
-  useEffect(() => {
-    const fetchRecaptchaKey = async () => {
-      try {
-        const response = await fetch("/api/recaptcha-key");
-        const data = await response.json();
-        setRecaptchaSiteKey(data.siteKey);
-      } catch (error) {
-        console.error("Failed to fetch reCAPTCHA site key:", error);
-      }
-    };
-
-    fetchRecaptchaKey();
-  }, []);
+  // useEffect(() => {
+  //   const fetchRecaptchaKey = async () => {
+  //     try {
+  //       const response = await fetch("/api/recaptcha-key");
+  //       const data = await response.json();
+  //       setRecaptchaSiteKey(data.siteKey);
+  //     } catch (error) {
+  //       console.error("Failed to fetch reCAPTCHA site key:", error);
+  //     }
+  //   };
+  //
+  //   fetchRecaptchaKey();
+  // }, []);
 
   useEffect(() => {
     if (recaptchaSiteKey && !recaptchaLoaded.current) {
