@@ -13,12 +13,47 @@ export async function POST(req: NextRequest) {
       message,
       company,
       subject: formSubject,
+      recaptchaToken,
     } = await req.json();
 
     // Basic validation
     if (!name || !email || !message) {
       return NextResponse.json(
         { message: "Missing required fields: name, email, or message." },
+        { status: 400 }
+      );
+    }
+
+    if (!recaptchaToken) {
+      return NextResponse.json(
+        { message: "reCAPTCHA token is missing." },
+        { status: 400 }
+      );
+    }
+
+    const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY;
+    if (!recaptchaSecretKey) {
+      console.error("RECAPTCHA_SECRET_KEY is not set.");
+      return NextResponse.json(
+        { message: "Server configuration error regarding reCAPTCHA." },
+        { status: 500 }
+      );
+    }
+
+    const recaptchaResponse = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${recaptchaToken}`,
+      { method: "POST" }
+    );
+
+    const recaptchaData = await recaptchaResponse.json();
+
+    if (!recaptchaData.success) {
+      console.error("reCAPTCHA verification failed:", recaptchaData);
+      return NextResponse.json(
+        {
+          message: "reCAPTCHA verification failed.",
+          details: recaptchaData["error-codes"],
+        },
         { status: 400 }
       );
     }
