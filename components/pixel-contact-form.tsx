@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/components/ui/use-toast";
 import { useForm } from "@tanstack/react-form";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 // Global type declarations for reCAPTCHA
 declare global {
