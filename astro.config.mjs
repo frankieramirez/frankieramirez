@@ -2,7 +2,6 @@
 import { defineConfig, fontProviders } from "astro/config";
 
 import partytown from "@astrojs/partytown";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -10,7 +9,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://frankieramirez.com", // Update with your actual domain
   integrations: [
-    react(),
     partytown({
       config: {
         forward: ["dataLayer.push"],
@@ -22,14 +20,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
     build: {
       cssCodeSplit: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            motion: ["motion"],
-            lucide: ["lucide-react"],
-          },
-        },
-      },
     },
   },
   build: {
