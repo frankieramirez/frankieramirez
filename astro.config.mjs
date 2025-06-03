@@ -1,10 +1,54 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from "astro/config";
 
-import react from '@astrojs/react';
-import partytown from '@astrojs/partytown';
+import partytown from "@astrojs/partytown";
+import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), partytown()]
+  site: "https://frankieramirez.com", // Update with your actual domain
+  integrations: [
+    react(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+    sitemap(),
+  ],
+  vite: {
+    plugins: [tailwindcss()],
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            motion: ["motion"],
+            lucide: ["lucide-react"],
+          },
+        },
+      },
+    },
+  },
+  build: {
+    inlineStylesheets: "auto",
+  },
+  output: "static",
+  compressHTML: true,
+  experimental: {
+    clientPrerender: true,
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: "Manrope",
+        weights: [200, 300, 400, 500, 600, 700, 800],
+        styles: ["normal"],
+        cssVariable: "--font-manrope",
+        display: "swap",
+        subsets: ["latin"],
+      },
+    ],
+  },
 });

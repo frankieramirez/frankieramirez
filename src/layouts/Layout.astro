@@ -1,22 +1,95 @@
+---
+import { Font } from "astro:assets";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = "Frankie Ramirez | Software Engineer",
+  description = "Creative professional focused on building meaningful digital experiences through design and technology. Based in New Jersey.",
+  image = "/og-image.jpg",
+  canonical = Astro.url.href,
+} = Astro.props;
+
+const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, siteUrl).href} />
+    <meta property="og:site_name" content="Frankie Ramirez" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, siteUrl).href} />
+    <meta property="twitter:creator" content="@frankieramirez" />
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://x.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
+
+    <!-- Optimized Manrope Font with Astro's experimental API -->
+    <Font cssVariable="--font-manrope" preload />
+
+    <!-- Global styles with font variable -->
+    <style>
+      :root {
+        font-family: var(--font-manrope), system-ui, sans-serif;
+      }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Frankie Ramirez",
+        "jobTitle": "Software Engineer",
+        "description": "Creative professional focused on building meaningful digital experiences through design and technology",
+        "url": "https://frankieramirez.com",
+        "sameAs": [
+          "https://linkedin.com/in/frankieramirez",
+          "https://x.com/frankieramirez",
+          "https://github.com/frankieramirez"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "New Jersey",
+          "addressCountry": "US"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
