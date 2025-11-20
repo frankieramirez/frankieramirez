@@ -8,14 +8,41 @@ export interface Props {
   canonical?: string;
 }
 
+const defaultTitle = "Frankie Ramirez | Frontend Architect & Design Engineer";
+const defaultDescription =
+  "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering. Based in New Jersey.";
+const defaultImage = "/apple-touch-icon.png"; // Replace with a 1200x630 OG image when available
 const {
-  title = "Frankie Ramirez | Software Engineer",
-  description = "Creative professional focused on building meaningful digital experiences through design and technology. Based in New Jersey.",
-  image = "/og-image.jpg",
-  canonical = Astro.url.href,
+  title = defaultTitle,
+  description = defaultDescription,
+  image = defaultImage,
+  canonical,
 } = Astro.props;
 
 const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
+const siteHref = Astro.site?.href ?? siteUrl;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
+const ogImage = new URL(image, siteHref).href;
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Frankie Ramirez",
+  jobTitle: "Frontend Architect & Design Engineer",
+  description:
+    "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering",
+  url: siteHref,
+  image: ogImage,
+  sameAs: [
+    "https://linkedin.com/in/frankieramirez",
+    "https://x.com/frankiedevs",
+    "https://github.com/frankieramirez",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "New Jersey",
+    addressCountry: "US",
+  },
+};
 ---
 
 <!doctype html>
@@ -28,27 +55,27 @@ const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, siteUrl).href} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Frankie Ramirez" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, siteUrl).href} />
-    <meta property="twitter:creator" content="@frankieramirez" />
+    <meta property="twitter:image" content={ogImage} />
+    <meta property="twitter:creator" content="@frankiedevs" />
 
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,26 +97,7 @@ const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
     </style>
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Frankie Ramirez",
-        "jobTitle": "Software Engineer",
-        "description": "Creative professional focused on building meaningful digital experiences through design and technology",
-        "url": "https://frankieramirez.com",
-        "sameAs": [
-          "https://linkedin.com/in/frankieramirez",
-          "https://x.com/frankieramirez",
-          "https://github.com/frankieramirez"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressRegion": "New Jersey",
-          "addressCountry": "US"
-        }
-      }
-    </script>
+    <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
   </head>
   <body>
     <slot />
