@@ -57,13 +57,15 @@ const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
     <link rel="dns-prefetch" href="https://x.com" />
     <link rel="dns-prefetch" href="https://github.com" />
 
-    <!-- Optimized Manrope Font with Astro's experimental API -->
-    <Font cssVariable="--font-manrope" preload />
+    <!-- Optimized Fonts with Astro's experimental API -->
+    <Font cssVariable="--font-manrope" src="manrope" display="swap" />
+    <Font cssVariable="--font-space" src="space-grotesk" display="swap" />
 
     <!-- Global styles with font variable -->
     <style>
       :root {
         font-family: var(--font-manrope), system-ui, sans-serif;
+        --font-serif: var(--font-space), sans-serif; /* Using Space Grotesk as the "display" font */
       }
     </style>
 

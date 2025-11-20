@@ -1,0 +1,65 @@
+---
+interface Props {
+  class?: string;
+  title?: string;
+  description?: string;
+  href?: string;
+  span?: "1" | "2" | "3" | "full";
+  rowSpan?: "1" | "2";
+}
+
+const {
+  class: className,
+  title,
+  description,
+  href,
+  span = "1",
+  rowSpan = "1",
+  ...rest
+} = Astro.props;
+
+const spanClasses = {
+  "1": "col-span-1",
+  "2": "col-span-1 md:col-span-2",
+  "3": "col-span-1 md:col-span-3",
+  full: "col-span-1 md:col-span-4",
+};
+
+const rowSpanClasses = {
+  "1": "row-span-1",
+  "2": "row-span-1 md:row-span-2",
+};
+
+const Tag = href ? "a" : "div";
+---
+
+<Tag
+  {...rest}
+  href={href}
+  class:list={[
+    "group relative flex flex-col overflow-hidden rounded-3xl bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:bg-card dark:border dark:border-white/5",
+    spanClasses[span],
+    rowSpanClasses[rowSpan],
+    href && "hover:scale-[1.02] cursor-pointer",
+    className,
+  ]}
+>
+  <div class="relative z-10 flex flex-col h-full">
+    <slot />
+    {(title || description) && (
+      <div class="mt-auto pt-4">
+        {title && (
+          <h3 class="text-lg font-bold text-foreground font-serif tracking-tight">
+            {title}
+          </h3>
+        )}
+        {description && (
+          <p class="text-sm text-muted-foreground mt-1">{description}</p>
+        )}
+      </div>
+    )}
+  </div>
+  
+  {/* Subtle gradient overlay for depth */}
+  <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/5 dark:to-white/5 pointer-events-none" />
+</Tag>

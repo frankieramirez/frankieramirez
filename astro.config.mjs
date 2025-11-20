@@ -39,6 +39,15 @@ export default defineConfig({
         display: "swap",
         subsets: ["latin"],
       },
+      {
+        provider: fontProviders.google(),
+        name: "Space Grotesk",
+        weights: [300, 400, 500, 600, 700],
+        styles: ["normal"],
+        cssVariable: "--font-space",
+        display: "swap",
+        subsets: ["latin"],
+      },
     ],
   },
 });
