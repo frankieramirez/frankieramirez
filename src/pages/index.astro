@@ -2,13 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import BentoGrid from "../layouts/BentoGrid.astro";
 import BentoItem from "../components/BentoItem.astro";
+import Timeline from "../components/Timeline.astro";
 import { Image } from "astro:assets";
 import avatar from "../assets/avatar.jpg";
 import "../styles/global.css";
 ---
 
 <Layout>
-  <main class="min-h-screen bg-background p-4 md:p-8 flex items-center justify-center">
+  <main class="min-h-screen bg-background p-4 md:p-8 flex flex-col items-center justify-center relative">
     <BentoGrid class="animate-fade-in">
       <!-- Hero Section -->
       <BentoItem span="2" rowSpan="2" class="bg-primary text-primary-foreground dark:bg-card dark:text-foreground !border-none relative overflow-hidden">
@@ -137,6 +138,10 @@ import "../styles/global.css";
       </BentoItem>
 
     </BentoGrid>
+
+    <div class="relative z-10 w-full mt-20">
+      <Timeline />
+    </div>
   </main>
 </Layout>
 
