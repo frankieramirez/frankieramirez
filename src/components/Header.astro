@@ -1,0 +1,208 @@
+---
+const navLinks = [
+  { href: "#about", label: "About" },
+  { href: "#expertise", label: "Expertise" },
+  { href: "#experience", label: "Experience" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav class="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="font-serif text-xl font-bold tracking-tight hover:text-primary transition-colors">
+      FR
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative"
+          data-section={link.href.replace("#", "")}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+        aria-label="Toggle theme"
+      >
+        <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+
+      <!-- CTA -->
+      <a
+        href="#contact"
+        class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+      >
+        Get in Touch
+      </a>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+        aria-label="Open menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu" class="md:hidden fixed inset-0 bg-background/95 backdrop-blur-xl z-40 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex flex-col items-center justify-center h-full gap-8">
+      {navLinks.map((link, i) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link text-2xl font-serif font-bold text-foreground hover:text-primary transition-colors opacity-0 translate-y-4"
+          style={`transition-delay: ${i * 80}ms`}
+          data-section={link.href.replace("#", "")}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        class="mobile-nav-link mt-4 px-6 py-3 text-base font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity opacity-0 translate-y-4"
+        style="transition-delay: 320ms"
+      >
+        Get in Touch
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-16"></div>
+
+<script>
+  // Header scroll effect
+  const header = document.getElementById("site-header");
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) {
+        header?.classList.add("bg-background/80", "backdrop-blur-xl", "border-b", "border-border");
+      } else {
+        header?.classList.remove("bg-background/80", "backdrop-blur-xl", "border-b", "border-border");
+      }
+    },
+    { threshold: 0, rootMargin: "-64px 0px 0px 0px" }
+  );
+
+  const sentinel = document.createElement("div");
+  sentinel.style.position = "absolute";
+  sentinel.style.top = "0";
+  sentinel.style.height = "1px";
+  sentinel.style.width = "1px";
+  document.body.prepend(sentinel);
+  observer.observe(sentinel);
+
+  // Active section tracking
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            const section = link.getAttribute("data-section");
+            if (section === entry.target.id) {
+              link.classList.add("text-primary");
+              link.classList.remove("text-muted-foreground");
+            } else {
+              link.classList.remove("text-primary");
+              link.classList.add("text-muted-foreground");
+            }
+          });
+        }
+      });
+    },
+    { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+  );
+
+  sections.forEach((section) => sectionObserver.observe(section));
+
+  // Theme toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle?.addEventListener("click", () => {
+    document.documentElement.classList.toggle("dark");
+    const isDark = document.documentElement.classList.contains("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+
+  // Mobile menu
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = mobileMenu?.querySelectorAll(".mobile-nav-link");
+
+  let menuOpen = false;
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      mobileMenu?.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        mobileMenu?.classList.remove("opacity-0");
+        mobileMenu?.classList.add("opacity-100");
+        mobileLinks?.forEach((link) => {
+          link.classList.remove("opacity-0", "translate-y-4");
+          link.classList.add("opacity-100", "translate-y-0");
+        });
+      });
+      document.body.style.overflow = "hidden";
+    } else {
+      mobileMenu?.classList.remove("opacity-100");
+      mobileMenu?.classList.add("opacity-0");
+      mobileLinks?.forEach((link) => {
+        link.classList.add("opacity-0", "translate-y-4");
+        link.classList.remove("opacity-100", "translate-y-0");
+      });
+      document.body.style.overflow = "";
+      setTimeout(() => mobileMenu?.classList.add("hidden"), 300);
+    }
+  }
+
+  menuBtn?.addEventListener("click", toggleMenu);
+  mobileLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (menuOpen) toggleMenu();
+    });
+  });
+</script>
+
+<style>
+  .mobile-nav-link {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.text-primary::after {
+    width: 100%;
+  }
+</style>

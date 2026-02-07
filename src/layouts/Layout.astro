@@ -1,5 +1,8 @@
 ---
 import { Font } from "astro:assets";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 export interface Props {
   title?: string;
@@ -11,7 +14,7 @@ export interface Props {
 const defaultTitle = "Frankie Ramirez | Frontend Architect & Design Engineer";
 const defaultDescription =
   "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering. Based in New Jersey.";
-const defaultImage = "/apple-touch-icon.png"; // Replace with a 1200x630 OG image when available
+const defaultImage = "/apple-touch-icon.png";
 const {
   title = defaultTitle,
   description = defaultDescription,
@@ -19,7 +22,7 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
+const siteUrl = "https://frankieramirez.com";
 const siteHref = Astro.site?.href ?? siteUrl;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
 const ogImage = new URL(image, siteHref).href;
@@ -92,14 +95,53 @@ const personSchema = {
     <style>
       :root {
         font-family: var(--font-manrope), system-ui, sans-serif;
-        --font-serif: var(--font-space), sans-serif; /* Using Space Grotesk as the "display" font */
+        --font-serif: var(--font-space), sans-serif;
       }
     </style>
 
     <!-- Structured Data -->
     <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
+
+    <!-- Theme initialization (runs before paint to prevent flash) -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme || 'light');
+    </script>
   </head>
-  <body>
+  <body class="bg-background text-foreground min-h-screen">
+    <Header />
     <slot />
+    <Footer />
+
+    <!-- Global scroll-reveal observer for all .scroll-animate elements -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+            }
+          });
+        },
+        { rootMargin: "-10% 0px -10% 0px", threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".scroll-animate").forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

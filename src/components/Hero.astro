@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.jpg";
+---
+
+<section class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 relative overflow-hidden">
+  <!-- Background gradient orbs -->
+  <div class="gradient-orb top-1/3 left-1/3 bg-primary/20 dark:bg-primary/10" aria-hidden="true"></div>
+  <div class="gradient-orb-2 top-2/3 right-1/4 bg-primary/10 dark:bg-primary/5" aria-hidden="true"></div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10 animate-stagger-in">
+    <!-- Avatar -->
+    <div class="mb-8">
+      <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-border shadow-lg">
+        <Image
+          src={avatar}
+          alt="Frankie Ramirez"
+          class="w-full h-full object-cover"
+          width={80}
+          height={80}
+        />
+      </div>
+    </div>
+
+    <!-- Available badge -->
+    <div class="mb-8">
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card/50 text-muted-foreground">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Available for work
+      </span>
+    </div>
+
+    <!-- Name -->
+    <h1 class="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-4">
+      Frankie Ramirez
+    </h1>
+
+    <!-- Title -->
+    <p class="text-xl md:text-2xl text-muted-foreground mb-4">
+      Frontend Architect & Design Engineer
+    </p>
+
+    <!-- Tagline -->
+    <p class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mb-10">
+      Building system-aligned, scalable web applications with modern JavaScript frameworks and AI-augmented engineering.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+      >
+        Get in Touch
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <a
+        href="#about"
+        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg border border-border hover:bg-secondary transition-colors"
+      >
+        Learn More
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in-late">
+    <a href="#about" class="flex flex-col items-center gap-2 text-muted-foreground/50 hover:text-muted-foreground transition-colors" aria-label="Scroll down">
+      <span class="text-[10px] uppercase tracking-widest">Scroll</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7" />
+      </svg>
+    </a>
+  </div>
+</section>
