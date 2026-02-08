@@ -54,7 +54,10 @@ Layout → Header → main: Hero → About → Expertise → Contact → Footer
 - **Section choreography**: About and Expertise paragraphs clip-reveal left-to-right. Key terms highlighted with Geist Pixel Square accent font.
 - **Circular theme wipe**: Theme toggle triggers `clip-path: circle()` overlay that expands from button center, swaps `.dark` class at midpoint. Script in `Header.astro`.
 
-**Fonts**: Manrope (sans) and Space Grotesk (display/serif) loaded via Astro's experimental font API in `astro.config.mjs`, exposed as `--font-manrope` and `--font-space` CSS variables. **Geist Pixel Square** (accent) is self-hosted from `public/fonts/` via `@font-face` in `global.css`, exposed as `--font-pixel`. Applied via `.font-pixel` utility class to section labels and inline key terms.
+**Fonts**: All self-hosted from `public/fonts/` via `@font-face` in `global.css` with `<link rel="preload">` in Layout.astro:
+- **Geist Sans** (variable, 100–900) — primary body and heading typeface (`--font-sans`, `--font-serif`)
+- **Geist Pixel Square** — accent typeface for monogram, section labels, inline key terms (`--font-pixel`, `.font-pixel` utility)
+No Google Fonts or Astro font API — purely static, preloaded woff2 files.
 
 **Theme toggle**: Inline `is:inline` script in `Layout.astro` `<head>` initializes theme before paint (prevents flash). Toggle button in Header triggers circular wipe overlay (`clip-path: circle()` expanding from button center) and swaps `.dark` class on `<html>` at animation midpoint. Falls back to instant swap with `prefers-reduced-motion`. localStorage persistence + `prefers-color-scheme` fallback.
 
@@ -74,10 +77,18 @@ Layout → Header → main: Hero → About → Expertise → Contact → Footer
 - Hero canvas has its own `<script>` block — this is the exception to the "no per-component scripts" rule since it's interactive canvas JS, not scroll reveal.
 - All animations must respect `prefers-reduced-motion`. Canvas renders one static frame; CSS animations disabled by the global reduced-motion rule; theme wipe falls back to instant swap.
 
+**Accessibility patterns**:
+- Skip-to-main link (`<a href="#main" class="skip-link">`) before Header, styled in `global.css`
+- `aria-hidden="true"` on all decorative SVG icons (parent `<a>` or `<button>` has `aria-label`)
+- `aria-pressed` on theme toggle (synced by script)
+- `aria-expanded` on mobile menu button (synced by `toggleMenu()`)
+- Escape key closes mobile menu + returns focus to hamburger
+- Focus trap within mobile menu overlay (Tab cycles through links)
+- WCAG AA contrast on all text (dark mode muted-foreground boosted to `oklch(0.60 ...)`)
+
 ## Key Dependencies
 
-- **@astrojs/partytown** — Third-party script isolation (configured to forward `dataLayer.push`)
 - **@astrojs/sitemap** — Auto-generated sitemap on build
 - **sharp** — Image optimization
 - **tw-animate-css** — Extended Tailwind animation utilities
-- **geist** — Vercel's Geist font family (Geist Pixel Square variant used as accent typeface)
+- **geist** — Vercel's Geist font family (Geist Sans variable + Geist Pixel Square)

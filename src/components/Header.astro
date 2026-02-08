@@ -35,11 +35,12 @@ const navLinks = [
         id="theme-toggle"
         class="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
         aria-label="Toggle theme"
+        aria-pressed="false"
       >
-        <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       </button>
@@ -56,9 +57,10 @@ const navLinks = [
       <button
         id="mobile-menu-btn"
         class="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
-        aria-label="Open menu"
+        aria-label="Menu"
+        aria-expanded="false"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
@@ -144,6 +146,15 @@ const navLinks = [
   const themeToggle = document.getElementById("theme-toggle");
   let isAnimating = false;
 
+  // Init aria-pressed from current theme state
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", String(document.documentElement.classList.contains("dark")));
+  }
+
+  function updateThemeAria(isDark: boolean) {
+    themeToggle?.setAttribute("aria-pressed", String(isDark));
+  }
+
   themeToggle?.addEventListener("click", () => {
     if (isAnimating) return;
 
@@ -153,6 +164,7 @@ const navLinks = [
     if (prefersReduced) {
       document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", willBeDark ? "dark" : "light");
+      updateThemeAria(willBeDark);
       return;
     }
 
@@ -180,6 +192,7 @@ const navLinks = [
     setTimeout(() => {
       document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", willBeDark ? "dark" : "light");
+      updateThemeAria(willBeDark);
     }, 250);
 
     // Clean up after animation
@@ -204,6 +217,8 @@ const navLinks = [
 
   function toggleMenu() {
     menuOpen = !menuOpen;
+    menuBtn?.setAttribute("aria-expanded", String(menuOpen));
+
     if (menuOpen) {
       mobileMenu?.classList.remove("hidden");
       requestAnimationFrame(() => {
@@ -215,6 +230,11 @@ const navLinks = [
         });
       });
       document.body.style.overflow = "hidden";
+      // Focus the first link after animation settles
+      setTimeout(() => {
+        const firstLink = mobileMenu?.querySelector(".mobile-nav-link") as HTMLElement | null;
+        firstLink?.focus();
+      }, 100);
     } else {
       mobileMenu?.classList.remove("opacity-100");
       mobileMenu?.classList.add("opacity-0");
@@ -224,6 +244,7 @@ const navLinks = [
       });
       document.body.style.overflow = "";
       setTimeout(() => mobileMenu?.classList.add("hidden"), 300);
+      menuBtn?.focus();
     }
   }
 
@@ -232,6 +253,29 @@ const navLinks = [
     link.addEventListener("click", () => {
       if (menuOpen) toggleMenu();
     });
+  });
+
+  // Escape key closes mobile menu
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menuOpen) {
+      toggleMenu();
+    }
+  });
+
+  // Focus trap within mobile menu
+  mobileMenu?.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab" || !menuOpen) return;
+    const focusable = mobileMenu.querySelectorAll<HTMLElement>("a, button");
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 </script>
 

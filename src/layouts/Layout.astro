@@ -34,6 +34,10 @@ const personSchema = {
     "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering",
   url: siteHref,
   image: ogImage,
+  logo: {
+    "@type": "ImageObject",
+    url: new URL("/favicon.svg", siteHref).href,
+  },
   sameAs: [
     "https://linkedin.com/in/frankieramirez",
     "https://x.com/frankiedevs",
@@ -59,9 +63,14 @@ const personSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Favicon -->
+    <meta name="author" content="Frankie Ramirez" />
+
+    <!-- Favicon & Manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1f1d2b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfaf5" media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -70,6 +79,7 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Frankie Ramirez" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -78,6 +88,10 @@ const personSchema = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
     <meta property="twitter:creator" content="@frankiedevs" />
+
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="https://linkedin.com" />
@@ -107,6 +121,7 @@ const personSchema = {
     </script>
   </head>
   <body class="bg-background text-foreground min-h-screen">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <Header />
     <slot />
     <Footer />

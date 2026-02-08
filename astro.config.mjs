@@ -1,21 +1,13 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://frankieramirez.com", // Update with your actual domain
-  integrations: [
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
-    }),
-    sitemap(),
-  ],
+  site: "https://frankieramirez.com",
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
     build: {
