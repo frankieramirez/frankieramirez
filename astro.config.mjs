@@ -1,21 +1,13 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig } from "astro/config";
 
-import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://frankieramirez.com", // Update with your actual domain
-  integrations: [
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
-    }),
-    sitemap(),
-  ],
+  site: "https://frankieramirez.com",
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
     build: {
@@ -29,25 +21,5 @@ export default defineConfig({
   compressHTML: true,
   experimental: {
     clientPrerender: true,
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: "Manrope",
-        weights: [200, 300, 400, 500, 600, 700, 800],
-        styles: ["normal"],
-        cssVariable: "--font-manrope",
-        display: "swap",
-        subsets: ["latin"],
-      },
-      {
-        provider: fontProviders.google(),
-        name: "Space Grotesk",
-        weights: [300, 400, 500, 600, 700],
-        styles: ["normal"],
-        cssVariable: "--font-space",
-        display: "swap",
-        subsets: ["latin"],
-      },
-    ],
   },
 });

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Frankie Ramirez built with Astro v5, Tailwind CSS v4, and TypeScript. Static single-page site with a bento grid layout, dark/light theme toggle, and scroll-animated timeline. No backend or API routes — purely static generation.
+Personal portfolio site for Frankie Ramirez built with Astro v5, Tailwind CSS v4, and TypeScript. Static single-page site with section-based layout, fixed navigation, dark/light theme toggle, and scroll-animated sections. Minimalist, leerob-inspired aesthetic with signature interactive touches. No backend or API routes — purely static generation.
 
 ## Commands
 
@@ -23,17 +23,43 @@ No test framework is configured. Use `pnpm build` + `pnpm preview` as the gating
 
 **Routing**: File-based via `src/pages/`. Currently a single page (`index.astro`).
 
-**Layout hierarchy**: `Layout.astro` (root HTML shell with SEO/meta/fonts) → `BentoGrid.astro` (responsive grid container) → `BentoItem.astro` (individual cards with optional link wrapping).
+**Layout hierarchy**: `Layout.astro` (root HTML shell with SEO/meta/fonts, Header, Footer, theme init script, global scroll observer) → page content via `<slot />`.
+
+**Page structure** (`index.astro`):
+```
+Layout → Header → main: Hero → About → Expertise → Contact → Footer
+```
 
 **Key components**:
-- `BentoItem.astro` — Accepts `span` (1–3 or full), `rowSpan`, optional `href`. Renders as `<a>` or `<div>` accordingly.
-- `Timeline.astro` — Vertical timeline with hardcoded career/life events. Uses Intersection Observer via inline `<script>` for scroll-triggered animations.
+- `Header.astro` — Fixed navigation with scroll-triggered backdrop blur, active section highlighting, circular theme wipe toggle (sun/moon), mobile hamburger overlay with staggered animations. Nav links: About, Focus, Contact.
+- `Footer.astro` — Monogram, nav links, social icons, copyright.
+- `Hero.astro` — Full-viewport hero with canvas particle constellation background, name, title, tagline, single mailto CTA. No avatar.
+- `About.astro` — Single-column (`max-w-3xl`) bio text with clip-reveal animation on paragraphs.
+- `Expertise.astro` — Prose-based "Focus" section with 3 paragraphs describing areas of expertise. Uses `.font-pixel` inline spans for key terms. No cards, no tilt.
+- `Contact.astro` — Heading, short sentence, email link, social icon row (GitHub, LinkedIn, X). No form.
+- `SectionHeading.astro` — Reusable section header with label (uppercase accent in Geist Pixel font), title (serif h2), optional description. Props: `label`, `title`, `description?`, `align?`.
 
-**Styling**: Tailwind v4 with inline theme configuration in `src/styles/global.css` (no `tailwind.config.js`). Design tokens use OKLCh color space with CSS variables for light/dark mode parity. Custom animation keyframes (`fadeIn`, `slideUp`, `scaleIn`, `fadeInUp`) and utility classes defined in the same file. Respects `prefers-reduced-motion`.
+**Styling**: Tailwind v4 with inline theme configuration in `src/styles/global.css` (no `tailwind.config.js`). Design tokens use OKLCh color space with CSS variables for light/dark mode parity. Warm amber accent (`oklch 0.78 0.145 65` dark / `oklch 0.65 0.16 55` light). Custom animation keyframes and utility classes defined in the same file. Respects `prefers-reduced-motion`.
 
-**Fonts**: Manrope (sans) and Space Grotesk (display) loaded via Astro's experimental font API in `astro.config.mjs`, exposed as `--font-manrope` and `--font-space` CSS variables.
+**Animation architecture** (two-tier progressive enhancement):
 
-**Theme toggle**: Inline JS in `index.astro` toggles `.dark` class on `<html>` with localStorage persistence and `prefers-color-scheme` fallback.
+1. **Baseline (all browsers)**: `.scroll-animate` class starts at `opacity: 0; translateY(40px)` and transitions to visible when `.in-view` is added by a single global IntersectionObserver in `Layout.astro`.
+
+2. **Enhanced (CSS scroll-driven animations)**: Wrapped in `@supports (animation-timeline: view())`. Animation classes (`.clip-reveal`, `.scale-subtle-in`, `.parallax-slow`) use native scroll-driven animations. These classes override the IO-based opacity/transform so elements aren't invisible in supporting browsers. The global IO observer skips elements that have these enhanced classes.
+
+**Signature interactions** (zero npm dependencies, ~5KB total JS):
+- **Hero canvas particles**: ~150 amber dots (60 on mobile) with brownian motion, cursor attraction, connection lines. Fades on scroll. Script in `Hero.astro`.
+- **Scroll progress bar**: 2px amber bar at bottom of header, fills left→right. Pure CSS `animation-timeline: scroll()` with JS fallback.
+- **Scroll spine**: Fixed vertical indicator on right viewport edge (desktop only) with 3 section dots (about, expertise, contact) that pulse when active. Markup in `Layout.astro`.
+- **Section choreography**: About and Expertise paragraphs clip-reveal left-to-right. Key terms highlighted with Geist Pixel Square accent font.
+- **Circular theme wipe**: Theme toggle triggers `clip-path: circle()` overlay that expands from button center, swaps `.dark` class at midpoint. Script in `Header.astro`.
+
+**Fonts**: All self-hosted from `public/fonts/` via `@font-face` in `global.css` with `<link rel="preload">` in Layout.astro:
+- **Geist Sans** (variable, 100–900) — primary body and heading typeface (`--font-sans`, `--font-serif`)
+- **Geist Pixel Square** — accent typeface for monogram, section labels, inline key terms (`--font-pixel`, `.font-pixel` utility)
+No Google Fonts or Astro font API — purely static, preloaded woff2 files.
+
+**Theme toggle**: Inline `is:inline` script in `Layout.astro` `<head>` initializes theme before paint (prevents flash). Toggle button in Header triggers circular wipe overlay (`clip-path: circle()` expanding from button center) and swaps `.dark` class on `<html>` at animation midpoint. Falls back to instant swap with `prefers-reduced-motion`. localStorage persistence + `prefers-color-scheme` fallback.
 
 **Images**: Use `astro:assets` Image component (optimized by Sharp) for files in `src/assets/`. Static files in `public/` are served as-is.
 
@@ -46,10 +72,23 @@ No test framework is configured. Use `pnpm build` + `pnpm preview` as the gating
 - Tailwind utility-first; new design tokens go in `global.css` `:root` variables to maintain light/dark parity.
 - Commits: short imperative subjects, scoped to one concern.
 - For visual changes, verify both light/dark modes and reduced-motion behavior.
+- Section components are self-contained `.astro` files with their own markup and styles. Scroll animation is handled globally — do not add per-component IntersectionObservers for `.scroll-animate`.
+- New scroll animations go in `global.css` inside the `@supports (animation-timeline: view())` block. The IO fallback in `Layout.astro` automatically skips elements with CSS scroll-driven animation classes.
+- Hero canvas has its own `<script>` block — this is the exception to the "no per-component scripts" rule since it's interactive canvas JS, not scroll reveal.
+- All animations must respect `prefers-reduced-motion`. Canvas renders one static frame; CSS animations disabled by the global reduced-motion rule; theme wipe falls back to instant swap.
+
+**Accessibility patterns**:
+- Skip-to-main link (`<a href="#main" class="skip-link">`) before Header, styled in `global.css`
+- `aria-hidden="true"` on all decorative SVG icons (parent `<a>` or `<button>` has `aria-label`)
+- `aria-pressed` on theme toggle (synced by script)
+- `aria-expanded` on mobile menu button (synced by `toggleMenu()`)
+- Escape key closes mobile menu + returns focus to hamburger
+- Focus trap within mobile menu overlay (Tab cycles through links)
+- WCAG AA contrast on all text (dark mode muted-foreground boosted to `oklch(0.60 ...)`)
 
 ## Key Dependencies
 
-- **@astrojs/partytown** — Third-party script isolation (configured to forward `dataLayer.push`)
 - **@astrojs/sitemap** — Auto-generated sitemap on build
 - **sharp** — Image optimization
 - **tw-animate-css** — Extended Tailwind animation utilities
+- **geist** — Vercel's Geist font family (Geist Sans variable + Geist Pixel Square)

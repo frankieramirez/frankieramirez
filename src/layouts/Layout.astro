@@ -1,5 +1,7 @@
 ---
-import { Font } from "astro:assets";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 export interface Props {
   title?: string;
@@ -11,7 +13,7 @@ export interface Props {
 const defaultTitle = "Frankie Ramirez | Frontend Architect & Design Engineer";
 const defaultDescription =
   "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering. Based in New Jersey.";
-const defaultImage = "/apple-touch-icon.png"; // Replace with a 1200x630 OG image when available
+const defaultImage = "/apple-touch-icon.png";
 const {
   title = defaultTitle,
   description = defaultDescription,
@@ -19,7 +21,7 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = "https://frankieramirez.com"; // Update with your actual domain
+const siteUrl = "https://frankieramirez.com";
 const siteHref = Astro.site?.href ?? siteUrl;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
 const ogImage = new URL(image, siteHref).href;
@@ -32,6 +34,10 @@ const personSchema = {
     "Frontend architect building system-aligned, performant web experiences with modern JavaScript and design engineering",
   url: siteHref,
   image: ogImage,
+  logo: {
+    "@type": "ImageObject",
+    url: new URL("/favicon.svg", siteHref).href,
+  },
   sameAs: [
     "https://linkedin.com/in/frankieramirez",
     "https://x.com/frankiedevs",
@@ -57,9 +63,14 @@ const personSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Favicon -->
+    <meta name="author" content="Frankie Ramirez" />
+
+    <!-- Favicon & Manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1f1d2b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfaf5" media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -68,6 +79,7 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Frankie Ramirez" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -77,29 +89,106 @@ const personSchema = {
     <meta property="twitter:image" content={ogImage} />
     <meta property="twitter:creator" content="@frankiedevs" />
 
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
+
     <!-- Performance optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://linkedin.com" />
     <link rel="dns-prefetch" href="https://x.com" />
     <link rel="dns-prefetch" href="https://github.com" />
 
-    <!-- Optimized Fonts with Astro's experimental API -->
-    <Font cssVariable="--font-manrope" src="manrope" display="swap" />
-    <Font cssVariable="--font-space" src="space-grotesk" display="swap" />
-
-    <!-- Global styles with font variable -->
-    <style>
-      :root {
-        font-family: var(--font-manrope), system-ui, sans-serif;
-        --font-serif: var(--font-space), sans-serif; /* Using Space Grotesk as the "display" font */
-      }
-    </style>
-
     <!-- Structured Data -->
     <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
+
+    <!-- Theme initialization (runs before paint to prevent flash) -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme || 'light');
+    </script>
   </head>
-  <body>
+  <body class="bg-background text-foreground min-h-screen">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <Header />
     <slot />
+    <Footer />
+
+    <!-- Scroll spine (desktop only) -->
+    <div class="scroll-spine" aria-hidden="true">
+      <div class="scroll-spine-dot" data-spine-section="about"></div>
+      <div class="scroll-spine-track">
+        <div class="scroll-spine-fill"></div>
+      </div>
+      <div class="scroll-spine-dot" data-spine-section="expertise"></div>
+      <div class="scroll-spine-track">
+        <div class="scroll-spine-fill"></div>
+      </div>
+      <div class="scroll-spine-dot" data-spine-section="contact"></div>
+    </div>
+
+    <!-- Global scroll-reveal observer + scroll spine activation -->
+    <script>
+      const hasScrollTimeline = CSS.supports("animation-timeline", "view()");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+            }
+          });
+        },
+        { rootMargin: "-10% 0px -10% 0px", threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".scroll-animate").forEach((el) => {
+        // Skip elements that have CSS scroll-driven animation classes
+        if (hasScrollTimeline && (
+          el.classList.contains("clip-reveal") ||
+          el.classList.contains("scale-subtle-in")
+        )) return;
+        observer.observe(el);
+      });
+
+      // Scroll spine dot activation
+      const spineObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const dot = document.querySelector(
+              `.scroll-spine-dot[data-spine-section="${entry.target.id}"]`
+            );
+            if (dot) dot.classList.toggle("active", entry.isIntersecting);
+          });
+        },
+        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      );
+      document.querySelectorAll("section[id]").forEach((s) => spineObserver.observe(s));
+
+      // JS fallback for scroll progress bar (if no CSS scroll-timeline support)
+      if (!hasScrollTimeline) {
+        const bar = document.querySelector(".scroll-progress-bar");
+        const spineFills = document.querySelectorAll(".scroll-spine-fill");
+        if (bar || spineFills.length) {
+          window.addEventListener("scroll", () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            if (bar) bar.style.transform = `scaleX(${pct})`;
+            spineFills.forEach((f) => (f.style.transform = `scaleY(${pct})`));
+          }, { passive: true });
+        }
+      }
+    </script>
   </body>
 </html>
