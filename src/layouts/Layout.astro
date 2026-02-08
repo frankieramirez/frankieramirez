@@ -1,5 +1,4 @@
 ---
-import { Font } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -81,23 +80,9 @@ const personSchema = {
     <meta property="twitter:creator" content="@frankiedevs" />
 
     <!-- Performance optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://linkedin.com" />
     <link rel="dns-prefetch" href="https://x.com" />
     <link rel="dns-prefetch" href="https://github.com" />
-
-    <!-- Optimized Fonts with Astro's experimental API -->
-    <Font cssVariable="--font-manrope" src="manrope" display="swap" />
-    <Font cssVariable="--font-space" src="space-grotesk" display="swap" />
-
-    <!-- Global styles with font variable -->
-    <style>
-      :root {
-        font-family: var(--font-manrope), system-ui, sans-serif;
-        --font-serif: var(--font-space), sans-serif;
-      }
-    </style>
 
     <!-- Structured Data -->
     <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
@@ -126,8 +111,23 @@ const personSchema = {
     <slot />
     <Footer />
 
-    <!-- Global scroll-reveal observer for all .scroll-animate elements -->
+    <!-- Scroll spine (desktop only) -->
+    <div class="scroll-spine" aria-hidden="true">
+      <div class="scroll-spine-dot" data-spine-section="about"></div>
+      <div class="scroll-spine-track">
+        <div class="scroll-spine-fill"></div>
+      </div>
+      <div class="scroll-spine-dot" data-spine-section="expertise"></div>
+      <div class="scroll-spine-track">
+        <div class="scroll-spine-fill"></div>
+      </div>
+      <div class="scroll-spine-dot" data-spine-section="contact"></div>
+    </div>
+
+    <!-- Global scroll-reveal observer + scroll spine activation -->
     <script>
+      const hasScrollTimeline = CSS.supports("animation-timeline", "view()");
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -140,8 +140,40 @@ const personSchema = {
       );
 
       document.querySelectorAll(".scroll-animate").forEach((el) => {
+        // Skip elements that have CSS scroll-driven animation classes
+        if (hasScrollTimeline && (
+          el.classList.contains("clip-reveal") ||
+          el.classList.contains("scale-subtle-in")
+        )) return;
         observer.observe(el);
       });
+
+      // Scroll spine dot activation
+      const spineObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const dot = document.querySelector(
+              `.scroll-spine-dot[data-spine-section="${entry.target.id}"]`
+            );
+            if (dot) dot.classList.toggle("active", entry.isIntersecting);
+          });
+        },
+        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      );
+      document.querySelectorAll("section[id]").forEach((s) => spineObserver.observe(s));
+
+      // JS fallback for scroll progress bar (if no CSS scroll-timeline support)
+      if (!hasScrollTimeline) {
+        const bar = document.querySelector(".scroll-progress-bar");
+        const spineFills = document.querySelectorAll(".scroll-spine-fill");
+        if (bar || spineFills.length) {
+          window.addEventListener("scroll", () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            if (bar) bar.style.transform = `scaleX(${pct})`;
+            spineFills.forEach((f) => (f.style.transform = `scaleY(${pct})`));
+          }, { passive: true });
+        }
+      }
     </script>
   </body>
 </html>

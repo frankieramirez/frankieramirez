@@ -1,86 +1,26 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
-
-interface ExpertiseCategory {
-  title: string;
-  description: string;
-  icon: string;
-  skills: string[];
-}
-
-const categories: ExpertiseCategory[] = [
-  {
-    title: "Frontend Architecture",
-    description: "Building scalable component architectures and performance-critical applications with modern frameworks.",
-    icon: "layers",
-    skills: ["React", "Next.js", "Astro", "TypeScript"],
-  },
-  {
-    title: "Design Engineering",
-    description: "Bridging design intent with engineering precision — from design tokens to production-ready UI systems.",
-    icon: "palette",
-    skills: ["Tailwind CSS", "Design Systems", "Figma", "Motion"],
-  },
-  {
-    title: "Platform & Tooling",
-    description: "Developer experience, build tooling, and infrastructure that helps teams ship faster with confidence.",
-    icon: "terminal",
-    skills: ["Node.js", "Vite", "TanStack", "CI/CD"],
-  },
-];
 ---
 
 <section id="expertise" class="section">
-  <div class="max-w-6xl mx-auto px-4 md:px-8">
+  <div class="max-w-3xl mx-auto px-4 md:px-8">
     <div class="scroll-animate">
       <SectionHeading
-        label="Expertise"
-        title="Skills & Technologies"
-        description="Focused on the tools and practices that enable teams to build exceptional user experiences at scale."
+        label="Focus"
+        title="What I Do"
       />
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
-      {categories.map((category, i) => (
-        <div
-          class="scroll-animate card-hover group rounded-2xl border border-border bg-card p-6 md:p-8"
-          style={`transition-delay: ${i * 100}ms`}
-        >
-          <!-- Icon -->
-          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-            {category.icon === "layers" && (
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-              </svg>
-            )}
-            {category.icon === "palette" && (
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-              </svg>
-            )}
-            {category.icon === "terminal" && (
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            )}
-          </div>
-
-          <!-- Title -->
-          <h3 class="text-lg font-serif font-bold mb-3">{category.title}</h3>
-
-          <!-- Description -->
-          <p class="text-sm text-muted-foreground leading-relaxed mb-5">{category.description}</p>
-
-          <!-- Skill badges -->
-          <div class="flex flex-wrap gap-2">
-            {category.skills.map((skill) => (
-              <span class="px-3 py-1 text-xs font-medium rounded-full bg-secondary text-secondary-foreground">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
+    <div class="space-y-6 scroll-animate">
+      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal">
+        I build <span class="font-pixel text-foreground">frontend architectures</span> — the kind of scalable, component-driven systems that let teams ship fast without accumulating debt. React, Next.js, Astro, TypeScript — the framework matters less than the abstractions underneath it.
+      </p>
+      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 100ms">
+        I think a lot about the space between design and engineering. <span class="font-pixel text-foreground">Design systems</span>, tokens, motion, layout — the craft of translating a designer's intent into production UI that feels exactly right. Tailwind, Figma, and a strong opinion about spacing scales.
+      </p>
+      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 200ms">
+        On the platform side, I care about <span class="font-pixel text-foreground">developer experience</span> — build tooling, CI/CD pipelines, and the infrastructure that makes a team's daily work feel effortless. Good DX compounds over time.
+      </p>
     </div>
   </div>
 </section>

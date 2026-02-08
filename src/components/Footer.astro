@@ -8,8 +8,7 @@ const socialLinks = [
 
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#experience", label: "Experience" },
+  { href: "#expertise", label: "Focus" },
   { href: "#contact", label: "Contact" },
 ];
 ---
@@ -19,7 +18,7 @@ const navLinks = [
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
       <!-- Left -->
       <div>
-        <a href="/" class="font-serif text-xl font-bold tracking-tight hover:text-primary transition-colors">FR</a>
+        <a href="/" class="font-pixel text-xl font-bold tracking-tight hover:text-primary transition-colors">FR</a>
         <p class="text-sm text-muted-foreground mt-2">Frontend Architect & Design Engineer</p>
       </div>
 
@@ -62,7 +61,7 @@ const navLinks = [
     <!-- Bottom bar -->
     <div class="mt-8 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
       <p>&copy; {new Date().getFullYear()} Frankie Ramirez. All rights reserved.</p>
-      <p>Built with Astro & Tailwind CSS</p>
+      <p class="font-pixel">Built with Astro & Tailwind CSS</p>
     </div>
   </div>
 </footer>

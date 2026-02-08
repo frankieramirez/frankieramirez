@@ -1,16 +1,17 @@
 ---
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#experience", label: "Experience" },
+  { href: "#expertise", label: "Focus" },
   { href: "#contact", label: "Contact" },
 ];
 ---
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
   <nav class="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="font-serif text-xl font-bold tracking-tight hover:text-primary transition-colors">
+    <a href="/" class="font-pixel text-xl font-bold tracking-tight hover:text-primary transition-colors">
       FR
     </a>
 
@@ -139,12 +140,59 @@ const navLinks = [
 
   sections.forEach((section) => sectionObserver.observe(section));
 
-  // Theme toggle
+  // Theme toggle with circular wipe
   const themeToggle = document.getElementById("theme-toggle");
+  let isAnimating = false;
+
   themeToggle?.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-    const isDark = document.documentElement.classList.contains("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    if (isAnimating) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const willBeDark = !document.documentElement.classList.contains("dark");
+
+    if (prefersReduced) {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", willBeDark ? "dark" : "light");
+      return;
+    }
+
+    isAnimating = true;
+    const rect = themeToggle.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    // Target theme background color
+    const targetBg = willBeDark
+      ? "oklch(0.13 0.015 260)"
+      : "oklch(0.985 0.005 80)";
+
+    const overlay = document.createElement("div");
+    overlay.classList.add("theme-wipe");
+    overlay.style.backgroundColor = targetBg;
+    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+    document.body.appendChild(overlay);
+
+    // Force reflow, then animate
+    overlay.offsetHeight;
+    overlay.style.clipPath = `circle(150vmax at ${x}px ${y}px)`;
+
+    // Swap theme at midpoint
+    setTimeout(() => {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", willBeDark ? "dark" : "light");
+    }, 250);
+
+    // Clean up after animation
+    overlay.addEventListener("transitionend", () => {
+      overlay.remove();
+      isAnimating = false;
+    });
+
+    // Safety timeout in case transitionend doesn't fire
+    setTimeout(() => {
+      overlay.remove();
+      isAnimating = false;
+    }, 700);
   });
 
   // Mobile menu

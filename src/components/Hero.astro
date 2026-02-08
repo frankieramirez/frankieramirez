@@ -1,42 +1,18 @@
 ---
-import { Image } from "astro:assets";
-import avatar from "../assets/avatar.jpg";
 ---
 
 <section class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 relative overflow-hidden">
-  <!-- Background gradient orbs -->
-  <div class="gradient-orb top-1/3 left-1/3 bg-primary/20 dark:bg-primary/10" aria-hidden="true"></div>
-  <div class="gradient-orb-2 top-2/3 right-1/4 bg-primary/10 dark:bg-primary/5" aria-hidden="true"></div>
+  <!-- Canvas particle constellation -->
+  <canvas id="particle-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
 
   <div class="max-w-3xl mx-auto text-center relative z-10 animate-stagger-in">
-    <!-- Avatar -->
-    <div class="mb-8">
-      <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-border shadow-lg">
-        <Image
-          src={avatar}
-          alt="Frankie Ramirez"
-          class="w-full h-full object-cover"
-          width={80}
-          height={80}
-        />
-      </div>
-    </div>
-
-    <!-- Available badge -->
-    <div class="mb-8">
-      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card/50 text-muted-foreground">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        Available for work
-      </span>
-    </div>
-
     <!-- Name -->
     <h1 class="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-4">
       Frankie Ramirez
     </h1>
 
     <!-- Title -->
-    <p class="text-xl md:text-2xl text-muted-foreground mb-4">
+    <p class="text-xl md:text-2xl text-muted-foreground mb-4 font-pixel">
       Frontend Architect & Design Engineer
     </p>
 
@@ -45,33 +21,164 @@ import avatar from "../assets/avatar.jpg";
       Building system-aligned, scalable web applications with modern JavaScript frameworks and AI-augmented engineering.
     </p>
 
-    <!-- CTAs -->
-    <div class="flex flex-wrap items-center justify-center gap-4">
-      <a
-        href="#contact"
-        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-      >
-        Get in Touch
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-      <a
-        href="#about"
-        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg border border-border hover:bg-secondary transition-colors"
-      >
-        Learn More
-      </a>
-    </div>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in-late">
-    <a href="#about" class="flex flex-col items-center gap-2 text-muted-foreground/50 hover:text-muted-foreground transition-colors" aria-label="Scroll down">
-      <span class="text-[10px] uppercase tracking-widest">Scroll</span>
-      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7" />
+    <!-- CTA -->
+    <a
+      href="mailto:hello@frankieramirez.com"
+      class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+    >
+      Get in Touch
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
       </svg>
     </a>
   </div>
 </section>
+
+<script>
+  const canvas = document.getElementById("particle-canvas") as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    let width = 0;
+    let height = 0;
+    let mouseX = -1000;
+    let mouseY = -1000;
+    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+    let animId = 0;
+
+    function resize() {
+      const rect = canvas.parentElement!.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.scale(dpr, dpr);
+    }
+
+    function init() {
+      resize();
+      const count = isMobile ? 60 : 150;
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.5 + 0.2,
+        });
+      }
+    }
+
+    function getParticleColor() {
+      const isDark = document.documentElement.classList.contains("dark");
+      return isDark ? "oklch(0.78 0.145 65" : "oklch(0.55 0.16 55";
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      const color = getParticleColor();
+      const connectDist = 120;
+      const attractDist = 200;
+      const attractForce = 0.02;
+
+      // Scroll-based opacity fade
+      const heroH = canvas.parentElement!.offsetHeight;
+      const scrollFade = Math.max(0, 1 - window.scrollY / (heroH * 0.8));
+      if (scrollFade <= 0) {
+        animId = requestAnimationFrame(animate);
+        return;
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Cursor attraction (desktop only)
+        if (!isMobile) {
+          const dx = mouseX - p.x;
+          const dy = mouseY - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < attractDist && dist > 1) {
+            const force = attractForce * (1 - dist / attractDist);
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+        }
+
+        // Damping
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `${color} / ${p.opacity * scrollFade})`;
+        ctx.fill();
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const ddx = p.x - q.x;
+          const ddy = p.y - q.y;
+          const d = Math.sqrt(ddx * ddx + ddy * ddy);
+          if (d < connectDist) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            const lineOpacity = (1 - d / connectDist) * 0.15 * scrollFade;
+            ctx.strokeStyle = `${color} / ${lineOpacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(animate);
+    }
+
+    init();
+
+    if (prefersReduced) {
+      // Render one static frame
+      animate();
+      cancelAnimationFrame(animId);
+    } else {
+      animate();
+
+      if (!isMobile) {
+        canvas.parentElement!.addEventListener("mousemove", (e) => {
+          const rect = canvas.parentElement!.getBoundingClientRect();
+          mouseX = e.clientX - rect.left;
+          mouseY = e.clientY - rect.top;
+        });
+
+        canvas.parentElement!.addEventListener("mouseleave", () => {
+          mouseX = -1000;
+          mouseY = -1000;
+        });
+      }
+
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(animId);
+        resize();
+        animate();
+      });
+    }
+  }
+</script>

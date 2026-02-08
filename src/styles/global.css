@@ -3,9 +3,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Geist Sans — primary typeface (variable, 100–900) */
+@font-face {
+  font-family: "Geist Sans";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Geist Pixel Square — accent typeface */
+@font-face {
+  font-family: "Geist Pixel Square";
+  src: url("/fonts/GeistPixel-Square.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
-  --font-sans: var(--font-manrope), sans-serif;
-  --font-serif: var(--font-space), sans-serif;
+  --font-sans: "Geist Sans", system-ui, sans-serif;
+  --font-serif: "Geist Sans", system-ui, sans-serif;
+  --font-pixel: "Geist Pixel Square", ui-monospace, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -125,26 +144,40 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes gradientOrb {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.2);
-    opacity: 0.15;
-  }
+/* Scroll-driven animation keyframes */
+@keyframes clipRevealLTR {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
 }
 
-@keyframes gradientOrb2 {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0.35;
-  }
+@keyframes scaleRotateIn {
+  from { opacity: 0; transform: scale(0.85) rotate(2deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleSubtle {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes parallaxSlow {
+  from { transform: translateY(40px); }
+  to { transform: translateY(-40px); }
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 100%; }
+  to { stroke-dashoffset: 0%; }
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 @keyframes pulse-dot {
@@ -236,25 +269,146 @@
   background: oklch(0.93 0.005 80 / 5%);
 }
 
-/* Gradient orb for hero background */
-.gradient-orb {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  filter: blur(120px);
-  animation: gradientOrb 8s ease-in-out infinite;
-  pointer-events: none;
+/* Pixel font accent */
+.font-pixel {
+  font-family: var(--font-pixel);
 }
 
-.gradient-orb-2 {
+/* Scroll progress bar (header) */
+.scroll-progress-bar {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* Scroll spine (right edge) */
+.scroll-spine {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.scroll-spine-track {
+  width: 2px;
+  height: 120px;
+  background: var(--border);
+  border-radius: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-spine-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  transform-origin: top;
+  transform: scaleY(0);
+  border-radius: 1px;
+}
+
+.scroll-spine-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  filter: blur(100px);
-  animation: gradientOrb2 10s ease-in-out infinite;
+  background: var(--border);
+  transition: all 0.3s ease;
+  margin: 6px 0;
+}
+
+.scroll-spine-dot.active {
+  background: var(--primary);
+  box-shadow: 0 0 0 4px oklch(0.78 0.145 65 / 20%);
+}
+
+/* Theme wipe overlay */
+.theme-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
   pointer-events: none;
+  transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* CSS Scroll-driven animations (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  .scroll-progress-bar {
+    animation: progressFill linear forwards;
+    animation-timeline: scroll();
+  }
+
+  .scroll-spine-fill {
+    animation: progressFill linear forwards;
+    animation-timeline: scroll();
+    transform-origin: top;
+  }
+
+  /* Override transform for spine (scaleY not scaleX) */
+  @keyframes spineFill {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  .scroll-spine-fill {
+    animation-name: spineFill;
+  }
+
+  .clip-reveal {
+    animation: clipRevealLTR 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 60%;
+  }
+
+  .scale-rotate-in {
+    animation: scaleRotateIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 50%;
+  }
+
+  .slide-from-left {
+    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 50%;
+  }
+
+  .scale-subtle-in {
+    animation: scaleSubtle 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 40%;
+  }
+
+  .parallax-slow {
+    animation: parallaxSlow linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+
+  .line-draw {
+    animation: drawLine linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 80%;
+  }
+
+  /* Elements with scroll-driven animations don't need IO fallback */
+  .clip-reveal,
+  .scale-rotate-in,
+  .slide-from-left,
+  .scale-subtle-in {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Pulse animation for current timeline dot */
@@ -273,6 +427,11 @@
     padding-top: 8rem;
     padding-bottom: 8rem;
   }
+}
+
+/* Hide scroll spine on mobile */
+@media (max-width: 767px) {
+  .scroll-spine { display: none; }
 }
 
 /* Reduced motion */

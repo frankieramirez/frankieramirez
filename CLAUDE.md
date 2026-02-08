@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Frankie Ramirez built with Astro v5, Tailwind CSS v4, and TypeScript. Static single-page site with section-based layout, fixed navigation, dark/light theme toggle, and scroll-animated sections. No backend or API routes — purely static generation.
+Personal portfolio site for Frankie Ramirez built with Astro v5, Tailwind CSS v4, and TypeScript. Static single-page site with section-based layout, fixed navigation, dark/light theme toggle, and scroll-animated sections. Minimalist, leerob-inspired aesthetic with signature interactive touches. No backend or API routes — purely static generation.
 
 ## Commands
 
@@ -27,28 +27,38 @@ No test framework is configured. Use `pnpm build` + `pnpm preview` as the gating
 
 **Page structure** (`index.astro`):
 ```
-Layout → Header → main: Hero → About → Expertise → Timeline → Contact → Footer
+Layout → Header → main: Hero → About → Expertise → Contact → Footer
 ```
 
 **Key components**:
-- `Header.astro` — Fixed navigation with scroll-triggered backdrop blur, active section highlighting, theme toggle (sun/moon), mobile hamburger overlay with staggered animations.
+- `Header.astro` — Fixed navigation with scroll-triggered backdrop blur, active section highlighting, circular theme wipe toggle (sun/moon), mobile hamburger overlay with staggered animations. Nav links: About, Focus, Contact.
 - `Footer.astro` — Monogram, nav links, social icons, copyright.
-- `Hero.astro` — Full-viewport hero with avatar, "Available for work" badge, name, title, tagline, CTAs, gradient orb backgrounds.
-- `About.astro` — 5-column grid: bio paragraphs (col-span-3) + sidebar with photo, quick facts, resume download (col-span-2).
-- `Expertise.astro` — Three category cards (Frontend Architecture, Design Engineering, Platform & Tooling) with icons and skill badges.
-- `Timeline.astro` — Vertical timeline with professional entries only (Senior FE Engineer → Frontend Dev → Web Dev → Education). Pulsing dot on current role.
-- `Contact.astro` — Two-column: info/social links + mailto contact form.
-- `SectionHeading.astro` — Reusable section header with label (uppercase accent), title (serif h2), optional description. Props: `label`, `title`, `description?`, `align?`.
+- `Hero.astro` — Full-viewport hero with canvas particle constellation background, name, title, tagline, single mailto CTA. No avatar.
+- `About.astro` — Single-column (`max-w-3xl`) bio text with clip-reveal animation on paragraphs.
+- `Expertise.astro` — Prose-based "Focus" section with 3 paragraphs describing areas of expertise. Uses `.font-pixel` inline spans for key terms. No cards, no tilt.
+- `Contact.astro` — Heading, short sentence, email link, social icon row (GitHub, LinkedIn, X). No form.
+- `SectionHeading.astro` — Reusable section header with label (uppercase accent in Geist Pixel font), title (serif h2), optional description. Props: `label`, `title`, `description?`, `align?`.
 
-**Styling**: Tailwind v4 with inline theme configuration in `src/styles/global.css` (no `tailwind.config.js`). Design tokens use OKLCh color space with CSS variables for light/dark mode parity. Warm amber accent (`oklch 0.78 0.145 65` dark / `oklch 0.65 0.16 55` light). Custom animation keyframes (`fadeIn`, `slideUp`, `scaleIn`, `fadeInUp`, gradient orbs, pulse-dot) and utility classes (`.scroll-animate`, `.card-hover`, `.glass`, `.social-link`) defined in the same file. Respects `prefers-reduced-motion`.
+**Styling**: Tailwind v4 with inline theme configuration in `src/styles/global.css` (no `tailwind.config.js`). Design tokens use OKLCh color space with CSS variables for light/dark mode parity. Warm amber accent (`oklch 0.78 0.145 65` dark / `oklch 0.65 0.16 55` light). Custom animation keyframes and utility classes defined in the same file. Respects `prefers-reduced-motion`.
 
-**Scroll animations**: `.scroll-animate` class starts at `opacity: 0; translateY(40px)` and transitions to visible when `.in-view` is added. A single global IntersectionObserver in `Layout.astro` handles all `.scroll-animate` elements across all sections.
+**Animation architecture** (two-tier progressive enhancement):
 
-**Fonts**: Manrope (sans) and Space Grotesk (display/serif) loaded via Astro's experimental font API in `astro.config.mjs`, exposed as `--font-manrope` and `--font-space` CSS variables.
+1. **Baseline (all browsers)**: `.scroll-animate` class starts at `opacity: 0; translateY(40px)` and transitions to visible when `.in-view` is added by a single global IntersectionObserver in `Layout.astro`.
 
-**Theme toggle**: Inline `is:inline` script in `Layout.astro` `<head>` initializes theme before paint (prevents flash). Toggle button in Header toggles `.dark` class on `<html>` with localStorage persistence and `prefers-color-scheme` fallback.
+2. **Enhanced (CSS scroll-driven animations)**: Wrapped in `@supports (animation-timeline: view())`. Animation classes (`.clip-reveal`, `.scale-subtle-in`, `.parallax-slow`) use native scroll-driven animations. These classes override the IO-based opacity/transform so elements aren't invisible in supporting browsers. The global IO observer skips elements that have these enhanced classes.
 
-**Images**: Use `astro:assets` Image component (optimized by Sharp) for files in `src/assets/`. Static files in `public/` are served as-is. Resume PDF is in `public/resume.pdf`.
+**Signature interactions** (zero npm dependencies, ~5KB total JS):
+- **Hero canvas particles**: ~150 amber dots (60 on mobile) with brownian motion, cursor attraction, connection lines. Fades on scroll. Script in `Hero.astro`.
+- **Scroll progress bar**: 2px amber bar at bottom of header, fills left→right. Pure CSS `animation-timeline: scroll()` with JS fallback.
+- **Scroll spine**: Fixed vertical indicator on right viewport edge (desktop only) with 3 section dots (about, expertise, contact) that pulse when active. Markup in `Layout.astro`.
+- **Section choreography**: About and Expertise paragraphs clip-reveal left-to-right. Key terms highlighted with Geist Pixel Square accent font.
+- **Circular theme wipe**: Theme toggle triggers `clip-path: circle()` overlay that expands from button center, swaps `.dark` class at midpoint. Script in `Header.astro`.
+
+**Fonts**: Manrope (sans) and Space Grotesk (display/serif) loaded via Astro's experimental font API in `astro.config.mjs`, exposed as `--font-manrope` and `--font-space` CSS variables. **Geist Pixel Square** (accent) is self-hosted from `public/fonts/` via `@font-face` in `global.css`, exposed as `--font-pixel`. Applied via `.font-pixel` utility class to section labels and inline key terms.
+
+**Theme toggle**: Inline `is:inline` script in `Layout.astro` `<head>` initializes theme before paint (prevents flash). Toggle button in Header triggers circular wipe overlay (`clip-path: circle()` expanding from button center) and swaps `.dark` class on `<html>` at animation midpoint. Falls back to instant swap with `prefers-reduced-motion`. localStorage persistence + `prefers-color-scheme` fallback.
+
+**Images**: Use `astro:assets` Image component (optimized by Sharp) for files in `src/assets/`. Static files in `public/` are served as-is.
 
 **Path alias**: `@/*` maps to `./src/*`.
 
@@ -60,6 +70,9 @@ Layout → Header → main: Hero → About → Expertise → Timeline → Contac
 - Commits: short imperative subjects, scoped to one concern.
 - For visual changes, verify both light/dark modes and reduced-motion behavior.
 - Section components are self-contained `.astro` files with their own markup and styles. Scroll animation is handled globally — do not add per-component IntersectionObservers for `.scroll-animate`.
+- New scroll animations go in `global.css` inside the `@supports (animation-timeline: view())` block. The IO fallback in `Layout.astro` automatically skips elements with CSS scroll-driven animation classes.
+- Hero canvas has its own `<script>` block — this is the exception to the "no per-component scripts" rule since it's interactive canvas JS, not scroll reveal.
+- All animations must respect `prefers-reduced-motion`. Canvas renders one static frame; CSS animations disabled by the global reduced-motion rule; theme wipe falls back to instant swap.
 
 ## Key Dependencies
 
@@ -67,3 +80,4 @@ Layout → Header → main: Hero → About → Expertise → Timeline → Contac
 - **@astrojs/sitemap** — Auto-generated sitemap on build
 - **sharp** — Image optimization
 - **tw-animate-css** — Extended Tailwind animation utilities
+- **geist** — Vercel's Geist font family (Geist Pixel Square variant used as accent typeface)
