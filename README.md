@@ -1,92 +1,36 @@
-# Personal Portfolio Website
+# Hey, I'm Frankie 👋
 
-A modern personal portfolio website built with Astro, featuring a clean design and smooth CSS animations.
-
-## 🚀 Tech Stack
-
-- **Framework**: [Astro](https://astro.build) - Static site generator
-- **Styling**: Tailwind CSS v4 with custom animations
-- **Build Tool**: Vite (built into Astro)
-- **Package Manager**: pnpm
-
-## About Me
-
-```js
+```json
 {
-	age: 34,
-	married: true,
-	role: "software_engineer",
-	skills: ["typescript", "react", "nextjs", "tailwindcss"],
-	hobbies: ["gaming"]
+  "role": "Staff Software Engineer",
+  "location": "Washington Township, NJ",
+  "stack": ["TypeScript", "React", "Next.js", "Node.js", "Python", "Tailwind CSS"],
+  "interests": ["full-stack development", "AI/LLMs", "open source", "gaming"],
+  "currently": "Building cool things & exploring what's possible with AI"
 }
 ```
 
-## 🛠️ Development
+## About Me
 
-### Prerequisites
+I'm a Staff Software Engineer who loves building polished, performant web applications. My sweet spot is the full stack — from crafting pixel-perfect UIs with React and Tailwind to designing robust APIs with Node.js and Python. Lately I've been deep in the AI/LLM space, exploring how these tools can supercharge developer workflows.
 
-- Node.js (v18 or higher)
-- pnpm (recommended) or npm
+When I'm not coding, you'll probably find me gaming or tinkering with a side project.
 
-### Getting Started
+## Tech Stack
 
-1. **Clone the repository**
+**Frontend** &nbsp; ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white) ![Astro](https://img.shields.io/badge/Astro-BC52EE?style=flat&logo=astro&logoColor=white)
 
-   ```bash
-   git clone <repository-url>
-   cd fr-astro
-   ```
+**Backend** &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat&logo=nodedotjs&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 
-2. **Install dependencies**
+**AI & Tools** &nbsp; ![Claude](https://img.shields.io/badge/Claude-D97757?style=flat&logo=anthropic&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
 
-   ```bash
-   pnpm install
-   ```
+## What I'm Working On
 
-3. **Start the development server**
+- 🌐 **[frankieramirez.com](https://frankieramirez.com)** — My personal portfolio, built with Astro + Tailwind CSS
+- 📚 **[comicarr](https://github.com/frankieramirez/comicarr)** — Automated comic book & manga downloader with a modern React UI
+- 🤖 Experimenting with AI-powered developer tools and workflows
 
-   ```bash
-   pnpm dev
-   ```
+## Let's Connect
 
-4. **Open your browser**
-   Navigate to `http://localhost:4321`
-
-### Available Scripts
-
-| Command        | Description                      |
-| -------------- | -------------------------------- |
-| `pnpm dev`     | Start development server         |
-| `pnpm build`   | Build for production             |
-| `pnpm preview` | Preview production build locally |
-
-## 📁 Project Structure
-
-```
-/
-├── public/          # Static assets
-├── src/
-│   ├── assets/      # Project assets
-│   ├── components/  # React/Astro components
-│   ├── layouts/     # Layout components
-│   ├── pages/       # File-based routing
-│   ├── styles/      # Global styles
-│   └── lib/         # Utility functions
-├── astro.config.mjs # Astro configuration
-├── tailwind.config.js # Tailwind configuration
-└── tsconfig.json    # TypeScript configuration
-```
-
-## 🎨 Features
-
-- ⚡ Lightning-fast static site generation with Astro
-- 🎭 Smooth CSS animations and transitions
-- 📱 Fully responsive design
-- 🎯 TypeScript for type safety
-- 🎨 Modern UI with Tailwind CSS v4
-- 🔍 SEO optimized with sitemap generation
-- 📊 Third-party script optimization with Partytown
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
+[![Website](https://img.shields.io/badge/frankieramirez.com-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://frankieramirez.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/frankieramirez)
