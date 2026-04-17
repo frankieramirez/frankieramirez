@@ -1,26 +1,80 @@
 ---
-import SectionHeading from "./SectionHeading.astro";
+const cells = [
+  {
+    n: "/ 01",
+    title: "Design systems that hold their shape",
+    body: "Token-driven, accessible, documented. I build the primitives, the contribution model, and the governance that keeps a system from forking itself at 18 months.",
+    tags: ["tokens", "a11y", "theming", "docs"],
+  },
+  {
+    n: "/ 02",
+    title: "Product architecture at scale",
+    body: "Module boundaries, routing strategies, data layers, build pipelines. Turning a pile of features into an app that engineers can actually reason about.",
+    tags: ["react", "typescript", "rsc", "monorepo"],
+  },
+  {
+    n: "/ 03",
+    title: "AI-forward engineering practice",
+    body: "Wiring LLMs into the seams — agentic review loops, evals, generative UI patterns, and internal tools that compress the work around the work.",
+    tags: ["agents", "evals", "gen-ui", "tooling"],
+  },
+  {
+    n: "/ 04",
+    title: "Interfaces that feel deliberate",
+    body: "Motion that earns its place, type set with attention, interaction states that acknowledge the user. The unglamorous craft that separates a product from a demo.",
+    tags: ["motion", "type", "layout", "detail"],
+  },
+  {
+    n: "/ 05",
+    title: "The refactor as deliverable",
+    body: "Shipping the invisible work — migrations, decomposition, performance — without freezing the team. Believing that codebase health is a product feature.",
+    tags: ["migrations", "perf", "dx"],
+  },
+  {
+    n: "/ 06",
+    title: "Mentorship & code review",
+    body: "The multiplier role: making the people around me better engineers. Reviewing with care, writing prose that outlives the Slack thread, picking battles that teach.",
+    tags: ["review", "writing", "mentoring"],
+  },
+];
+
+const stack = [
+  "TypeScript", "React", "Next.js", "Remix", "Tailwind", "Radix", "tRPC",
+  "GraphQL", "Vite", "Turborepo", "Storybook", "Playwright", "Node", "Postgres",
+  "Redis", "OpenAI", "Anthropic", "Figma",
+];
 ---
 
-<section id="expertise" class="section">
-  <div class="max-w-3xl mx-auto px-4 md:px-8">
-    <div class="scroll-animate">
-      <SectionHeading
-        label="Focus"
-        title="What I Do"
-      />
+<section class="section" id="focus">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">
+          <span class="folio">ii.</span>
+          <span class="rule"></span>§ 02 — Focus
+        </div>
+      </div>
+      <h2 class="section-title">What I do <em>well.</em></h2>
     </div>
 
-    <div class="space-y-6 scroll-animate">
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal">
-        I build <span class="font-pixel text-foreground">design systems</span> from the ground up — semantic tokens, component governance, release pipelines, and the documentation that makes adoption effortless. I've researched systems like Material Design 3, GitHub Primer, and Shopify Polaris to develop naming taxonomies and architecture patterns that scale across organizations.
-      </p>
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 100ms">
-        I author <span class="font-pixel text-foreground">product architecture</span> proposals — information architecture, competitive analysis, database schema design, and phased implementation plans. I think at the system level: how objects relate, how navigation should work, and how to reduce complexity for users and engineers alike.
-      </p>
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 200ms">
-        I champion <span class="font-pixel text-foreground">AI-forward engineering</span> — integrating tools like Claude Code into daily workflows, building AI agent features, and designing validation skills that catch issues before they ship. Good tooling compounds over time, and AI is the biggest force multiplier I've seen in my career.
-      </p>
+    <div class="focus-grid">
+      {cells.map((c) => (
+        <div class="focus-cell">
+          <div class="focus-num">{c.n}</div>
+          <h3 class="focus-title">{c.title}</h3>
+          <p class="focus-body">{c.body}</p>
+          <div class="focus-tags">
+            {c.tags.map((t) => <span class="tag-chip">{t}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="ticker-wrap">
+      <div class="ticker">
+        {stack.map((s) => <span>{s}</span>)}
+        {stack.map((s) => <span>{s}</span>)}
+      </div>
     </div>
   </div>
 </section>
