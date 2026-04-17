@@ -1,12 +1,12 @@
 ---
-const deployDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
+const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
 ---
 
 <footer>
   <div class="wrap foot">
     <div class="live">
       <span class="status-dot" style="width:6px;height:6px;"></span>
-      Deployed from <code style="color:var(--ink-2)">main</code> — {deployDate}
+      Built on <code style="color:var(--ink-2)">main</code> — {buildDate}
     </div>
     <div>© Frankie Ramirez · v3.0</div>
   </div>

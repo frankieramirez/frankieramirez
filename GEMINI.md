@@ -44,7 +44,7 @@ This project is a personal portfolio website built with **Astro**. It focuses on
 ### Styling
 - **Global Styles:** Located in `src/styles/global.css`.
 - **Tailwind:** Uses Tailwind v4. The configuration is largely handled in `src/styles/global.css` via CSS variables and the `@theme` directive (no `tailwind.config.js` required for basic v4 setup, though one might exist if legacy config is needed).
-- **Fonts:** Uses **Manrope** from Google Fonts, configured via Astro's experimental `fonts` API in `astro.config.mjs`.
+- **Fonts:** **Instrument Serif**, **Inter**, and **JetBrains Mono** loaded from Google Fonts via `<link>` in `src/layouts/Layout.astro`.
 
 ### Routing
 - **File-based Routing:** Pages in `src/pages/` automatically become routes.

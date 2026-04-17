@@ -1,7 +1,7 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import "@/styles/global.css";
 
 export interface Props {
   title?: string;
@@ -150,7 +150,6 @@ const personSchema = {
           b.setAttribute("aria-pressed", b.dataset.mode === v ? "true" : "false");
         });
       }
-      // Initial sync of button state
       setVariant(document.documentElement.dataset.variant || "a");
       document.querySelectorAll(".mode-toggle button").forEach((b) => {
         b.addEventListener("click", () => setVariant(b.dataset.mode));
@@ -164,15 +163,17 @@ const personSchema = {
         { ico: "→", label: "Go to Contact", hint: "nav", run: () => (location.hash = "#contact") },
         { ico: "✉", label: "Send email", hint: "mail", run: () => (location.href = "mailto:hello@frankieramirez.com") },
         { ico: "⎘", label: "Copy email address", hint: "copy", run: () => navigator.clipboard?.writeText("hello@frankieramirez.com") },
-        { ico: "↗", label: "Open GitHub", hint: "link", run: () => window.open("https://github.com/frankieramirez", "_blank") },
-        { ico: "↗", label: "Open LinkedIn", hint: "link", run: () => window.open("https://www.linkedin.com/in/frankieramirez", "_blank") },
+        { ico: "↗", label: "Open GitHub", hint: "link", run: () => window.open("https://github.com/frankieramirez", "_blank", "noopener,noreferrer") },
+        { ico: "↗", label: "Open LinkedIn", hint: "link", run: () => window.open("https://www.linkedin.com/in/frankieramirez", "_blank", "noopener,noreferrer") },
         { ico: "◐", label: "Toggle Paper / Console", hint: "theme", run: () => setVariant(document.documentElement.dataset.variant === "a" ? "b" : "a") },
       ];
 
       const backdrop = document.getElementById("cmdk");
       const input = document.getElementById("cmdk-input");
       const list = document.getElementById("cmdk-list");
+      const trigger = document.getElementById("cmdk-btn");
       let activeIdx = 0;
+      let lastFocus = null;
 
       function renderCmdk(q = "") {
         const filtered = CMDS.filter((c) => c.label.toLowerCase().includes(q.toLowerCase()));
@@ -187,51 +188,72 @@ const personSchema = {
         return filtered;
       }
       function openCmdk() {
+        lastFocus = document.activeElement;
         backdrop.classList.add("open");
         input.value = "";
         activeIdx = 0;
         renderCmdk();
         setTimeout(() => input.focus(), 10);
       }
-      function closeCmdk() { backdrop.classList.remove("open"); }
+      function closeCmdk() {
+        if (!backdrop.classList.contains("open")) return;
+        backdrop.classList.remove("open");
+        (lastFocus instanceof HTMLElement ? lastFocus : trigger)?.focus();
+      }
 
-      const cmdkBtn = document.getElementById("cmdk-btn");
-      if (cmdkBtn) cmdkBtn.onclick = openCmdk;
+      trigger.onclick = openCmdk;
 
       document.addEventListener("keydown", (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
           e.preventDefault();
           openCmdk();
+          return;
         }
-        if (e.key === "Escape") closeCmdk();
-        if (backdrop.classList.contains("open")) {
+        if (!backdrop.classList.contains("open")) return;
+        if (e.key === "Escape") { e.preventDefault(); closeCmdk(); return; }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
           const items = document.querySelectorAll(".cmdk-item");
-          if (e.key === "ArrowDown") { e.preventDefault(); activeIdx = Math.min(items.length - 1, activeIdx + 1); renderCmdk(input.value); }
-          if (e.key === "ArrowUp")   { e.preventDefault(); activeIdx = Math.max(0, activeIdx - 1); renderCmdk(input.value); }
-          if (e.key === "Enter")     { e.preventDefault(); const f = renderCmdk(input.value); f[activeIdx]?.run(); closeCmdk(); }
+          activeIdx = Math.min(items.length - 1, activeIdx + 1);
+          renderCmdk(input.value);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          activeIdx = Math.max(0, activeIdx - 1);
+          renderCmdk(input.value);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          const f = renderCmdk(input.value);
+          f[activeIdx]?.run();
+          closeCmdk();
+        } else if (e.key === "Tab") {
+          // Focus trap — input is the only focusable element inside the palette
+          e.preventDefault();
+          input.focus();
         }
       });
       backdrop.onclick = (e) => { if (e.target === backdrop) closeCmdk(); };
       input.oninput = () => { activeIdx = 0; renderCmdk(input.value); };
 
       /* ============== SCROLL REVEAL ============== */
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.style.transition = "opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)";
-            e.target.style.opacity = "1";
-            e.target.style.transform = "none";
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.transition = "opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)";
+              e.target.style.opacity = "1";
+              e.target.style.transform = "none";
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
 
-      document.querySelectorAll(".section, .work-item, .metric, .focus-cell").forEach((el, i) => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(24px)";
-        el.style.transitionDelay = (i % 6) * 40 + "ms";
-        io.observe(el);
-      });
+        document.querySelectorAll(".section, .work-item, .metric, .focus-cell").forEach((el, i) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(24px)";
+          el.style.transitionDelay = (i % 6) * 40 + "ms";
+          io.observe(el);
+        });
+      }
     </script>
   </body>
 </html>

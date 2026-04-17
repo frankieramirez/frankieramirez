@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Expose core tokens to Tailwind v4 so utilities (bg-bg, text-ink, font-serif…) resolve from the same source of truth */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-serif: var(--serif);
+  --font-sans: var(--sans);
+  --font-mono: var(--mono);
+}
+
 /* ============ tokens ============ */
 :root {
   --bg: #f3efe7;
@@ -739,7 +754,7 @@ html[data-variant="b"] .cmdk-input { font-family: var(--mono); font-size: 14px; 
   body::before { display: none !important; }
   .nav, .cmdk-backdrop, .ticker-wrap, .foot { display: none !important; }
   .hero { padding: 0 0 24pt; }
-  .section, .pullquote, .contact { page-break-inside: avoid; padding: 24pt 0; border-top: 1px solid #0002; }
+  .section, .pullquote, .contact { break-inside: avoid; padding: 24pt 0; border-top: 1px solid #0002; }
   .display { font-size: 56pt; line-height: 1; }
   .section-title, .contact-display { font-size: 28pt; line-height: 1.05; }
   .focus-grid { grid-template-columns: repeat(2, 1fr); border: 1px solid #0002; }
@@ -797,6 +812,7 @@ html[data-variant="b"] .cmdk-input { font-family: var(--mono); font-size: 14px; 
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0 !important;
   }
   .ticker { animation: none; }
   html { scroll-behavior: auto; }
