@@ -646,9 +646,9 @@ html[data-variant="b"] .work-title {
 }
 .contact-display {
   font-family: var(--serif);
-  font-size: clamp(36px, 9vw, 160px);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
+  font-size: clamp(36px, 6.2vw, 104px);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
   margin: 0;
   font-weight: 400;
   text-wrap: balance;
