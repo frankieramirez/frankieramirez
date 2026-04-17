@@ -4,9 +4,9 @@
 This project is a personal portfolio website built with **Astro**. It focuses on high performance, clean design, and smooth animations. The site is statically generated for optimal speed and SEO.
 
 ## Tech Stack
-- **Framework:** [Astro](https://astro.build) (v5.8.1)
-- **Styling:** Tailwind CSS v4 (via `@tailwindcss/vite`)
-- **Animations:** Custom CSS animations & `tw-animate-css`
+- **Framework:** [Astro](https://astro.build) (v6)
+- **Styling:** Tailwind CSS v4 (via `@tailwindcss/vite`) + vanilla CSS in `src/styles/global.css`
+- **Animations:** Custom CSS animations (no animation libraries)
 - **Package Manager:** `pnpm`
 - **Build Tool:** Vite (internal to Astro)
 

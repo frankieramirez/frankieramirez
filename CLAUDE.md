@@ -101,4 +101,3 @@ Display-type clamps use low minimums (44/36/30 px) + `overflow-wrap: break-word`
 - **@astrojs/sitemap** — Auto-generated sitemap on build
 - **sharp** — Image optimization for `astro:assets`
 - **tailwindcss** + **@tailwindcss/vite** — Utilities + reset (design uses vanilla CSS)
-- **tw-animate-css** — Listed in `package.json` but not required by the current design; safe to remove if unused in future work
