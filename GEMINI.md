@@ -4,9 +4,9 @@
 This project is a personal portfolio website built with **Astro**. It focuses on high performance, clean design, and smooth animations. The site is statically generated for optimal speed and SEO.
 
 ## Tech Stack
-- **Framework:** [Astro](https://astro.build) (v5.8.1)
-- **Styling:** Tailwind CSS v4 (via `@tailwindcss/vite`)
-- **Animations:** Custom CSS animations & `tw-animate-css`
+- **Framework:** [Astro](https://astro.build) (v6)
+- **Styling:** Tailwind CSS v4 (via `@tailwindcss/vite`) + vanilla CSS in `src/styles/global.css`
+- **Animations:** Custom CSS animations (no animation libraries)
 - **Package Manager:** `pnpm`
 - **Build Tool:** Vite (internal to Astro)
 
@@ -44,7 +44,7 @@ This project is a personal portfolio website built with **Astro**. It focuses on
 ### Styling
 - **Global Styles:** Located in `src/styles/global.css`.
 - **Tailwind:** Uses Tailwind v4. The configuration is largely handled in `src/styles/global.css` via CSS variables and the `@theme` directive (no `tailwind.config.js` required for basic v4 setup, though one might exist if legacy config is needed).
-- **Fonts:** Uses **Manrope** from Google Fonts, configured via Astro's experimental `fonts` API in `astro.config.mjs`.
+- **Fonts:** **Instrument Serif**, **Inter**, and **JetBrains Mono** loaded from Google Fonts via `<link>` in `src/layouts/Layout.astro`.
 
 ### Routing
 - **File-based Routing:** Pages in `src/pages/` automatically become routes.

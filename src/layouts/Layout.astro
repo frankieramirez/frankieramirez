@@ -1,7 +1,7 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import "@/styles/global.css";
 
 export interface Props {
   title?: string;
@@ -10,10 +10,10 @@ export interface Props {
   canonical?: string;
 }
 
-const defaultTitle = "Frankie Ramirez | Staff Software Engineer & Frontend Architect";
+const defaultTitle = "Frankie Ramirez — Staff Engineer / Frontend Architect";
 const defaultDescription =
-  "Staff Software Engineer and frontend architect building design systems, product architecture, and AI-forward engineering. Based in New Jersey.";
-const defaultImage = "/apple-touch-icon.png";
+  "Frankie Ramirez — Staff Software Engineer and Frontend Architect. 14 years of design systems, product architecture, and AI-forward engineering across CRM, proptech, and SaaS.";
+const defaultImage = "/og.png";
 const {
   title = defaultTitle,
   description = defaultDescription,
@@ -34,14 +34,12 @@ const personSchema = {
     "Staff Software Engineer and frontend architect building design systems, product architecture, and AI-forward engineering",
   url: siteHref,
   image: ogImage,
-  logo: {
-    "@type": "ImageObject",
-    url: new URL("/favicon.svg", siteHref).href,
-  },
   sameAs: [
     "https://linkedin.com/in/frankieramirez",
     "https://x.com/frankiedevs",
     "https://github.com/frankieramirez",
+    "https://bsky.app/profile/frankieramirez.bsky.social",
+    "https://mastodon.social/@frankieramirez",
   ],
   address: {
     "@type": "PostalAddress",
@@ -57,137 +55,204 @@ const personSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-
     <meta name="author" content="Frankie Ramirez" />
+    <meta name="theme-color" content="#f3efe7" />
 
-    <!-- Favicon & Manifest -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Favicon (inline FR monogram on paper) -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23f3efe7'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%2314130f'%3EFr%3C/text%3E%3C/svg%3E"
+    />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#1f1d2b" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fbfaf5" media="(prefers-color-scheme: light)" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- OG / Twitter -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Frankie Ramirez" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
-    <meta property="twitter:creator" content="@frankiedevs" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@frankiedevs" />
 
-    <!-- Font preloads -->
-    <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="https://linkedin.com" />
     <link rel="dns-prefetch" href="https://x.com" />
     <link rel="dns-prefetch" href="https://github.com" />
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-    <!-- Theme initialization (runs before paint to prevent flash) -->
+    <!-- Variant initialization (runs before paint to prevent flash) -->
     <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
+      (function () {
+        var v = null;
+        try { v = localStorage.getItem("variant"); } catch (e) {}
+        if (v !== "a" && v !== "b") v = "a";
+        document.documentElement.dataset.variant = v;
       })();
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
-      window.localStorage.setItem('theme', theme || 'light');
     </script>
   </head>
-  <body class="bg-background text-foreground min-h-screen">
+  <body>
     <a href="#main" class="skip-link">Skip to main content</a>
     <Header />
     <slot />
     <Footer />
 
-    <!-- Scroll spine (desktop only) -->
-    <div class="scroll-spine" aria-hidden="true">
-      <div class="scroll-spine-dot" data-spine-section="about"></div>
-      <div class="scroll-spine-track">
-        <div class="scroll-spine-fill"></div>
+    <!-- Command palette -->
+    <div class="cmdk-backdrop" id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="cmdk">
+        <input class="cmdk-input" id="cmdk-input" aria-label="Command palette search" placeholder="Jump to, send email, copy link…" />
+        <div class="cmdk-list" id="cmdk-list"></div>
       </div>
-      <div class="scroll-spine-dot" data-spine-section="expertise"></div>
-      <div class="scroll-spine-track">
-        <div class="scroll-spine-fill"></div>
-      </div>
-      <div class="scroll-spine-dot" data-spine-section="contact"></div>
     </div>
 
-    <!-- Global scroll-reveal observer + scroll spine activation -->
     <script>
-      const hasScrollTimeline = CSS.supports("animation-timeline", "view()");
+      /* ============== CURSOR GRID (variant B) ============== */
+      const grid = document.getElementById("cursor-grid");
+      if (grid) {
+        document.addEventListener("mousemove", (e) => {
+          if (document.documentElement.dataset.variant !== "b") return;
+          const r = grid.getBoundingClientRect();
+          const x = ((e.clientX - r.left) / r.width) * 100;
+          const y = ((e.clientY - r.top) / r.height) * 100;
+          grid.style.setProperty("--mx", x + "%");
+          grid.style.setProperty("--my", y + "%");
+        });
+      }
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in-view");
-            }
-          });
-        },
-        { rootMargin: "-10% 0px -10% 0px", threshold: 0.1 }
-      );
-
-      document.querySelectorAll(".scroll-animate").forEach((el) => {
-        // Skip elements that have CSS scroll-driven animation classes
-        if (hasScrollTimeline && (
-          el.classList.contains("clip-reveal") ||
-          el.classList.contains("scale-subtle-in")
-        )) return;
-        observer.observe(el);
+      /* ============== VARIANT TOGGLE ============== */
+      function setVariant(v) {
+        document.documentElement.dataset.variant = v;
+        try { localStorage.setItem("variant", v); } catch (e) {}
+        document.querySelectorAll(".mode-toggle button").forEach((b) => {
+          b.classList.toggle("on", b.dataset.mode === v);
+          b.setAttribute("aria-pressed", b.dataset.mode === v ? "true" : "false");
+        });
+      }
+      setVariant(document.documentElement.dataset.variant || "a");
+      document.querySelectorAll(".mode-toggle button").forEach((b) => {
+        b.addEventListener("click", () => setVariant(b.dataset.mode));
       });
 
-      // Scroll spine dot activation
-      const spineObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            const dot = document.querySelector(
-              `.scroll-spine-dot[data-spine-section="${entry.target.id}"]`
-            );
-            if (dot) dot.classList.toggle("active", entry.isIntersecting);
-          });
-        },
-        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
-      );
-      document.querySelectorAll("section[id]").forEach((s) => spineObserver.observe(s));
+      /* ============== COMMAND PALETTE ============== */
+      const CMDS = [
+        { ico: "→", label: "Go to About", hint: "nav", run: () => (location.hash = "#about") },
+        { ico: "→", label: "Go to Focus", hint: "nav", run: () => (location.hash = "#focus") },
+        { ico: "→", label: "Go to Work", hint: "nav", run: () => (location.hash = "#work") },
+        { ico: "→", label: "Go to Contact", hint: "nav", run: () => (location.hash = "#contact") },
+        { ico: "✉", label: "Send email", hint: "mail", run: () => (location.href = "mailto:hello@frankieramirez.com") },
+        { ico: "⎘", label: "Copy email address", hint: "copy", run: () => navigator.clipboard?.writeText("hello@frankieramirez.com") },
+        { ico: "↗", label: "Open GitHub", hint: "link", run: () => window.open("https://github.com/frankieramirez", "_blank", "noopener,noreferrer") },
+        { ico: "↗", label: "Open LinkedIn", hint: "link", run: () => window.open("https://www.linkedin.com/in/frankieramirez", "_blank", "noopener,noreferrer") },
+        { ico: "◐", label: "Toggle Paper / Console", hint: "theme", run: () => setVariant(document.documentElement.dataset.variant === "a" ? "b" : "a") },
+      ];
 
-      // JS fallback for scroll progress bar (if no CSS scroll-timeline support)
-      if (!hasScrollTimeline) {
-        const bar = document.querySelector(".scroll-progress-bar");
-        const spineFills = document.querySelectorAll(".scroll-spine-fill");
-        if (bar || spineFills.length) {
-          window.addEventListener("scroll", () => {
-            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            if (bar) bar.style.transform = `scaleX(${pct})`;
-            spineFills.forEach((f) => (f.style.transform = `scaleY(${pct})`));
-          }, { passive: true });
+      const backdrop = document.getElementById("cmdk");
+      const input = document.getElementById("cmdk-input");
+      const list = document.getElementById("cmdk-list");
+      const trigger = document.getElementById("cmdk-btn");
+      let activeIdx = 0;
+      let lastFocus = null;
+
+      function renderCmdk(q = "") {
+        const filtered = CMDS.filter((c) => c.label.toLowerCase().includes(q.toLowerCase()));
+        list.innerHTML = "";
+        filtered.forEach((c, i) => {
+          const el = document.createElement("div");
+          el.className = "cmdk-item" + (i === activeIdx ? " active" : "");
+          el.innerHTML = `<span class="ico">${c.ico}</span><span>${c.label}</span><span class="hint">${c.hint}</span>`;
+          el.onclick = () => { c.run(); closeCmdk(); };
+          list.appendChild(el);
+        });
+        return filtered;
+      }
+      function openCmdk() {
+        lastFocus = document.activeElement;
+        backdrop.classList.add("open");
+        input.value = "";
+        activeIdx = 0;
+        renderCmdk();
+        setTimeout(() => input.focus(), 10);
+      }
+      function closeCmdk() {
+        if (!backdrop.classList.contains("open")) return;
+        backdrop.classList.remove("open");
+        (lastFocus instanceof HTMLElement ? lastFocus : trigger)?.focus();
+      }
+
+      trigger.onclick = openCmdk;
+
+      document.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          openCmdk();
+          return;
         }
+        if (!backdrop.classList.contains("open")) return;
+        if (e.key === "Escape") { e.preventDefault(); closeCmdk(); return; }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          const items = document.querySelectorAll(".cmdk-item");
+          activeIdx = Math.min(items.length - 1, activeIdx + 1);
+          renderCmdk(input.value);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          activeIdx = Math.max(0, activeIdx - 1);
+          renderCmdk(input.value);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          const f = renderCmdk(input.value);
+          f[activeIdx]?.run();
+          closeCmdk();
+        } else if (e.key === "Tab") {
+          // Focus trap — input is the only focusable element inside the palette
+          e.preventDefault();
+          input.focus();
+        }
+      });
+      backdrop.onclick = (e) => { if (e.target === backdrop) closeCmdk(); };
+      input.oninput = () => { activeIdx = 0; renderCmdk(input.value); };
+
+      /* ============== SCROLL REVEAL ============== */
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.transition = "opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)";
+              e.target.style.opacity = "1";
+              e.target.style.transform = "none";
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".section, .work-item, .metric, .focus-cell").forEach((el, i) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(24px)";
+          el.style.transitionDelay = (i % 6) * 40 + "ms";
+          io.observe(el);
+        });
       }
     </script>
   </body>

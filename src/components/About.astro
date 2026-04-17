@@ -1,26 +1,52 @@
 ---
-import SectionHeading from "./SectionHeading.astro";
+import { Image } from "astro:assets";
+import portrait from "@/assets/portrait.png";
 ---
 
-<section id="about" class="section">
-  <div class="max-w-3xl mx-auto px-4 md:px-8">
-    <div class="scroll-animate">
-      <SectionHeading
-        label="About"
-        title="A bit about me"
-      />
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">
+          <span class="folio">i.</span>
+          <span class="rule"></span>§ 01 — About
+        </div>
+      </div>
+      <h2 class="section-title">A practitioner <em>first.</em> Architect when the system demands it.</h2>
     </div>
 
-    <div class="space-y-6 scroll-animate">
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal">
-        I'm a Staff Software Engineer and frontend architect with 14+ years building scalable web applications, design systems, and component libraries across CRM, fintech, and SaaS platforms. I specialize in owning complex product surfaces end-to-end — from authoring architecture proposals to shipping production code at velocity.
-      </p>
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 100ms">
-        My approach centers on system-level thinking: building the right abstractions, establishing governance patterns, and creating tools that empower teams to ship faster without accumulating debt. I care deeply about the space between design and engineering — tokens, motion, layout, and the craft of translating design intent into production UI that feels exactly right.
-      </p>
-      <p class="text-lg leading-relaxed text-muted-foreground scroll-animate clip-reveal" style="animation-delay: 200ms">
-        Currently championing AI-forward engineering practices and building design systems at scale. I believe the best work happens when engineering rigor meets design precision — and when teams have the right tools to move fast without breaking things.
-      </p>
+    <div class="about-grid">
+      <figure class="portrait">
+        <Image
+          src={portrait}
+          alt="Frankie Ramirez"
+          widths={[300, 480, 640]}
+          sizes="(max-width: 820px) 100vw, 240px"
+          loading="lazy"
+        />
+        <figcaption class="portrait-label">// frankie, 2026</figcaption>
+      </figure>
+
+      <div class="about-body">
+        <p>I've spent the last fourteen years writing frontend code in the kind of places where an interface is a liability as much as an asset — CRM platforms, proptech dashboards, SaaS consoles. The kind of products where a thousand users notice when a button moves.</p>
+        <p>What I've found is that <b>the interesting problems live one layer down</b> from the visual surface. How components compose. How state flows. How a design system stays legible when forty engineers are contributing to it simultaneously. How you onboard the forty-first.</p>
+        <p>I'm most useful on teams that care about <b>craft and velocity</b> — where the refactor is a valid deliverable, where design and engineering argue well, and where "how does this feel in the hand" is a sentence people say out loud in code review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pull quote -->
+<section class="pullquote">
+  <div class="wrap">
+    <div class="pullquote-inner">
+      <div class="pullquote-mark">“</div>
+      <div>
+        <blockquote>
+          The interesting problems live <em>one layer down</em> from the visual surface — in how components compose, how state flows, how a system stays legible when forty engineers are contributing to it.
+        </blockquote>
+        <cite>— Frankie, on the job</cite>
+      </div>
     </div>
   </div>
 </section>
