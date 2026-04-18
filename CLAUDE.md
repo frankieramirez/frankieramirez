@@ -30,7 +30,7 @@ Layout → Header → main: Hero → About (+ PullQuote) → Expertise (Focus) �
 ```
 
 **Key components**:
-- `Header.astro` — Sticky nav with `frankie/ramirez` serif mark, nav links (About/Focus/Work/Contact), "Open to Staff / Architect roles" status pill, **Paper/Console mode toggle**, ⌘K command palette button.
+- `Header.astro` — Sticky nav with `frankie/ramirez` serif mark, nav links (About/Focus/Work/Contact), **Paper/Console mode toggle**, ⌘K command palette button.
 - `Footer.astro` — Monospace foot with `Deployed from main — <date>` + version.
 - `Hero.astro` — Contains **both variant A (Editorial)** and **variant B (Terminal)**. Only one is visible based on `html[data-variant]`. A has big Instrument Serif display, eyebrow row, hero lede, 4-column meta bar. B has terminal prompt row, sans bold name with blinking cursor caret, `<role>` tags, metrics grid, cursor-reactive grid background.
 - `About.astro` — Drop-cap prose in `max-w-3xl`-ish column + 3:4 portrait (`astro:assets` Image, grayscale filter). Also contains the pull-quote section immediately after.
@@ -69,7 +69,7 @@ No self-hosted fonts. `public/fonts/` is not used.
 ## Responsive strategy
 
 Breakpoints live in `global.css`:
-- `≤ 900px` — hide `.nav-links` and `.status-pill`; multi-column layouts (`.section-head`, `.about-grid`, `.pullquote-inner`, `.focus-grid`, `.work-item`) collapse to 1 col at `≤ 820px`.
+- `≤ 900px` — hide `.nav-links`; multi-column layouts (`.section-head`, `.about-grid`, `.pullquote-inner`, `.focus-grid`, `.work-item`) collapse to 1 col at `≤ 820px`.
 - `≤ 820px` — tighter hero/section padding, reduced folio/focus-cell sizes, portrait capped height instead of 3:4.
 - `≤ 720px` — `.mode-toggle` button labels hide (glyph only).
 - `≤ 640px` — `.metrics` becomes 2×2.
