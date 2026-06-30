@@ -1,0 +1,104 @@
+---
+const rows = [
+  {
+    status: "Public",
+    title: "frankieramirez.com",
+    summary:
+      "The page you are reading: a static Astro surface built to make shipped work visible without making a social profile the source of truth.",
+    evidence: "Astro static output, OKLCH token system, modular CSS, cursor-driven CSS spotlight, accessible landmarks.",
+    links: [
+      { label: "Live Site", href: "https://frankieramirez.com" },
+      { label: "Source", href: "https://github.com/frankieramirez/frankieramirez" },
+    ],
+  },
+  {
+    status: "Public",
+    title: "Comicarr",
+    summary:
+      "A self-hosted companion for comic collectors with a modern React UI and product flows shaped for repeated use.",
+    evidence: "Public repository, self-hosted product surface, state clarity, type-safe interface work.",
+    links: [{ label: "Source", href: "https://github.com/frankieramirez/comicarr" }],
+  },
+  {
+    status: "Confidential",
+    title: "Enterprise Design System Leadership",
+    summary:
+      "Led a design system from beta toward general availability across semantic tokens, package architecture, release infrastructure, documentation, and contribution governance.",
+    evidence: "639+ token taxonomy proposal, UI package restructuring, Radix-to-Base UI migration, snapshot releases, OIDC publishing, documentation, approval paths.",
+    links: [],
+  },
+  {
+    status: "Confidential",
+    title: "CRM Frontend Architecture",
+    summary:
+      "Owned frontend direction for CRM and Contacts work across navigation, saved-search flows, contact lists, responsive layouts, analytics, and production bug fixes.",
+    evidence: "Cross-team CRM frontend oversight, 28 of 32 CRM issues completed, 5 critical bugs resolved, event tracking corrections, architecture reviews.",
+    links: [],
+  },
+  {
+    status: "Confidential",
+    title: "AI Workforce Product Architecture",
+    summary:
+      "Authored product architecture for an AI workforce platform, reducing the visible object model and turning research, stories, and schema design into an implementation plan.",
+    evidence: "12-part IA proposal, 17 competitive analyses, 37 user stories across 9 epics, 5-concept object model, 8-week phased roadmap.",
+    links: [],
+  },
+  {
+    status: "Coming soon",
+    title: "FEval",
+    summary:
+      "A frontend evaluation project for testing model behavior against real interface tasks, started after digging into why high-quality, domain-specific evals matter.",
+    evidence: "Private repo for now, frontend task design, model benchmarking, stricter evaluation flows, AI quality checks for product interfaces.",
+    links: [],
+  },
+  {
+    status: "Confidential",
+    title: "AI-Assisted Engineering Practice",
+    summary:
+      "Introduced AI coding workflows and used them in practical engineering loops: repository guidance, validation skills, product demos, and review acceleration.",
+    evidence: "Claude Code adoption, design-system repo instructions, migration validation skills, AI platform features, demos shared with product and engineering leadership.",
+    links: [],
+  },
+];
+---
+
+<section class="section ledger-section" id="work" aria-labelledby="work-title">
+  <div class="wrap section-grid">
+    <div class="section-label">Work</div>
+    <div class="section-body">
+      <div class="section-heading">
+        <h2 id="work-title">A Ledger of Shipped and Redacted Work.</h2>
+        <p>
+          Public links first. Confidential work stays specific enough to judge the thinking without inventing numbers or naming companies.
+        </p>
+      </div>
+
+      <div class="ledger" role="list">
+        {rows.map((row) => (
+          <article class="ledger-row spotlight-panel" role="listitem" data-spotlight>
+            <div class="ledger-status">{row.status}</div>
+            <div class="ledger-main">
+              <h3>{row.title}</h3>
+              <p>{row.summary}</p>
+            </div>
+            <div class="ledger-evidence">
+              <span>Evidence</span>
+              <p>{row.evidence}</p>
+            </div>
+            <div class="ledger-links" aria-label={`${row.title} links`}>
+              {row.links.length > 0 ? (
+                row.links.map((link) => (
+                  <a href={link.href} target="_blank" rel="noopener">
+                    {link.label}
+                  </a>
+                ))
+              ) : (
+                <span>Redacted</span>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

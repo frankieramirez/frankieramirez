@@ -1,0 +1,102 @@
+@property --atmosphere-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 72%;
+}
+
+@property --atmosphere-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 18%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--bg);
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Slow calibration wash — reads as depth, not decoration */
+body::before {
+  z-index: -2;
+  background:
+    radial-gradient(
+      ellipse 42vmax 32vmax at var(--atmosphere-x) var(--atmosphere-y),
+      color-mix(in oklab, var(--calibration) 14%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse 36vmax 28vmax at 12% 82%,
+      color-mix(in oklab, var(--calibration) 7%, transparent),
+      transparent 72%
+    );
+  opacity: 0.9;
+  animation: atmosphere-drift 28s var(--ease) infinite alternate;
+}
+
+/* Film grain — tactile, not noisy */
+body::after {
+  z-index: -1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    opacity: 0.75;
+    background:
+      radial-gradient(
+        ellipse 42vmax 32vmax at var(--atmosphere-x) var(--atmosphere-y),
+        color-mix(in oklab, var(--calibration) 18%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        ellipse 36vmax 28vmax at 12% 82%,
+        color-mix(in oklab, var(--calibration) 9%, transparent),
+        transparent 72%
+      );
+  }
+
+  body::after {
+    opacity: 0.055;
+  }
+}
+
+@keyframes atmosphere-drift {
+  from {
+    --atmosphere-x: 68%;
+    --atmosphere-y: 14%;
+    transform: scale(1);
+  }
+
+  to {
+    --atmosphere-x: 78%;
+    --atmosphere-y: 24%;
+    transform: scale(1.04);
+  }
+}
+
+@supports not (background: paint(id)) {
+  body::before {
+    animation: atmosphere-drift-fallback 28s var(--ease) infinite alternate;
+  }
+
+  @keyframes atmosphere-drift-fallback {
+    from {
+      transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+    }
+
+    to {
+      transform: translate3d(1.5%, 1%, 0) scale(1.05);
+    }
+  }
+}

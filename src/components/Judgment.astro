@@ -1,0 +1,36 @@
+---
+const principles = [
+  {
+    title: "Component APIs Shape Teams",
+    body: "The best primitive is not the one with the most props. It is the one that makes correct composition the path of least resistance.",
+  },
+  {
+    title: "Accessibility Is a Product Contract",
+    body: "Keyboard flow, focus, contrast, labels, and state language are part of the interface spec, not a cleanup pass after visual approval.",
+  },
+  {
+    title: "AI Belongs in the Workflow",
+    body: "The useful edge is faster critique, stronger verification, clearer migration plans, and less human time spent on mechanical inspection.",
+  },
+];
+---
+
+<section class="section judgment-section" id="judgment" aria-labelledby="judgment-title">
+  <div class="wrap section-grid">
+    <div class="section-label">Judgment</div>
+    <div class="section-body">
+      <div class="section-heading">
+        <h2 id="judgment-title">The Operating Model Behind the Work.</h2>
+      </div>
+
+      <div class="judgment-list">
+        {principles.map((principle) => (
+          <article class="judgment-item spotlight-panel" data-spotlight>
+            <h3>{principle.title}</h3>
+            <p>{principle.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

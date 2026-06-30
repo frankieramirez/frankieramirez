@@ -5,14 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/vite": "^4.1.8",
-    "astro": "^6.1.7",
-    "sharp": "^0.34.2",
-    "tailwindcss": "^4.1.8"
+    "@fontsource/geist": "^5.2.8",
+    "@fontsource/geist-mono": "^5.2.7",
+    "astro": "^6.1.7"
   }
 }

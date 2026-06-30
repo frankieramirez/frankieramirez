@@ -1,93 +1,60 @@
 ---
+const operatingModel = [
+  {
+    label: "Primitive Layer",
+    detail: "Tokens, states, semantics, accessibility, type",
+  },
+  {
+    label: "Workflow Layer",
+    detail: "Routes, data contracts, review flows, eval tasks",
+  },
+  {
+    label: "Adoption Layer",
+    detail: "Docs, contribution paths, PR review, release guardrails",
+  },
+];
+
+const meta = [
+  { label: "Experience", value: "14+ years" },
+  { label: "Focus", value: "Frontend architecture" },
+  { label: "Edge", value: "AI-assisted engineering" },
+];
 ---
 
-<!-- Hero A — Editorial -->
 <section class="hero">
-  <div class="hero-a wrap">
-    <div class="eyebrow">
-      <span class="bar"></span>
-      <span>Portfolio · 2026</span>
-      <span>—</span>
-      <span>Philadelphia Metro</span>
-    </div>
-
-    <h1 class="display">
-      Frontend <em>architect</em><br />
-      building <span class="accent-ink">deliberate</span><br />
-      interfaces.
-    </h1>
-
-    <p class="hero-lede">
-      I'm <b>Frankie Ramirez</b> — a staff-level frontend engineer with <b>14 years</b> of shipping scalable web applications across CRM, proptech and SaaS. I design systems that survive contact with real teams, and interfaces that feel considered at every pixel.
-    </p>
-
-    <div class="hero-meta">
-      <div class="meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value">Staff Software Engineer</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Specialty</div>
-        <div class="meta-value">Design systems · architecture</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Experience</div>
-        <div class="meta-value">14+ years</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Availability</div>
-        <div class="meta-value">Selective · Q3 2026</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Hero B — Terminal -->
-<section class="hero hero-b">
-  <div class="cursor-grid" id="cursor-grid"></div>
-  <div class="wrap">
-    <div class="terminal-frame">
-      <div class="prompt-row">
-        <span class="arrow">→</span>
-        <span>~/frankieramirez</span>
-        <span style="color: var(--accent)">·</span>
-        <span>main</span>
-        <span style="opacity:.4">—</span>
-        <span>whoami</span>
-      </div>
-
-      <h1 class="name-b">
-        Frankie<br />Ramirez<span class="cursor"></span>
-      </h1>
-
-      <div class="role-b">
-        <span class="tag">&lt;role&gt;</span>
-        Staff Software Engineer &amp; Frontend Architect
-        <span class="tag">&lt;/role&gt;</span>
-      </div>
-
-      <p class="lede-b">
-        I architect design systems and ship production frontends at scale. 14 years between CRM, proptech and SaaS — currently exploring AI-forward patterns in product engineering.
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="hero-kicker">Staff Software Engineer · Frontend Architecture · Design Systems</p>
+      <h1>I make complex product interfaces coherent at team scale.</h1>
+      <p class="hero-lede">
+        I lead frontend architecture, design-system, and product workflow work for teams that need complex interfaces to stay fast, accessible, and consistent as the organization grows.
       </p>
+    </div>
 
-      <div class="metrics">
-        <div class="metric">
-          <div class="metric-val">14<sub>yrs</sub></div>
-          <div class="metric-label">Shipping</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">6</div>
-          <div class="metric-label">Design systems</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">3</div>
-          <div class="metric-label">Verticals</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">∞</div>
-          <div class="metric-label">Pull requests</div>
+    <aside class="hero-aside" aria-label="Working model">
+      <div class="operating-model" data-spotlight>
+        <div class="operating-model-inner">
+          <div class="operating-model-head">
+            <span>Working Model</span>
+            <span class="operating-model-version">v1</span>
+          </div>
+          {operatingModel.map((row) => (
+            <div class="operating-model-row">
+              <h3>{row.label}</h3>
+              <p>{row.detail}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+
+      <div class="hero-meta">
+        {meta.map((item) => (
+          <div class="hero-meta-item">
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
+        ))}
+      </div>
+    </aside>
   </div>
 </section>

@@ -1,0 +1,35 @@
+@property --calibration {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.52 0.22 264);
+}
+
+:root {
+  color-scheme: light;
+
+  /* Semantic color tokens */
+  --bg: var(--color-canvas-50);
+  --surface: var(--color-canvas-100);
+  --ink: var(--color-ink-900);
+  --secondary: var(--color-neutral-500);
+  --rule: var(--color-neutral-300);
+  --calibration: var(--color-calibration-500);
+  --focus: color-mix(in oklab, var(--calibration) 38%, white);
+  --selection-bg: color-mix(in oklab, var(--calibration) 20%, white);
+  --selection-ink: var(--ink);
+
+  /* Semantic layout tokens */
+  --maxw: var(--layout-max);
+  --pad: var(--space-fluid-pad);
+  --section-space: var(--space-fluid-section);
+  --ease: var(--ease-standard);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --focus: color-mix(in oklab, var(--calibration) 44%, black);
+    --selection-bg: color-mix(in oklab, var(--calibration) 42%, black);
+    --selection-ink: var(--ink);
+  }
+}

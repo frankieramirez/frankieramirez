@@ -1,0 +1,143 @@
+@property --pointer-x {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 12%;
+}
+
+@property --pointer-y {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --pointer-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --sweep-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.spotlight-panel {
+  --spotlight-opacity: 0;
+  position: relative;
+  isolation: isolate;
+  margin-block: 4px;
+  border-radius: 10px;
+  transition:
+    margin-block 340ms var(--ease),
+    --pointer-x 140ms var(--ease),
+    --pointer-y 140ms var(--ease),
+    --pointer-angle 220ms var(--ease);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--spotlight-opacity);
+    transition: opacity 260ms var(--ease);
+  }
+
+  &::before {
+    inset: 0;
+    z-index: 0;
+    padding: 1px;
+    background: conic-gradient(
+      from calc(var(--pointer-angle) + var(--sweep-angle)) at var(--pointer-x) var(--pointer-y),
+      transparent 0deg,
+      var(--calibration) 16deg,
+      color-mix(in oklab, var(--calibration) 72%, white) 34deg,
+      transparent 68deg
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  &::after {
+    inset: 1px;
+    z-index: -1;
+    background:
+      radial-gradient(
+        560px ellipse at var(--pointer-x) var(--pointer-y),
+        color-mix(in oklab, var(--calibration) 20%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(
+        120deg,
+        color-mix(in oklab, var(--calibration) 8%, var(--surface)) 0%,
+        transparent 48%
+      );
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--calibration) 18%, transparent);
+  }
+
+  &[data-lit="true"]::before {
+    animation: spotlight-beam-sweep 5.5s linear infinite;
+  }
+
+  &[data-lit="true"]::after {
+    animation: spotlight-glow-breathe 2.6s ease-in-out infinite;
+  }
+
+  &:hover,
+  &:focus-within {
+    margin-block: 12px;
+  }
+}
+
+@keyframes spotlight-beam-sweep {
+  to {
+    --sweep-angle: 360deg;
+  }
+}
+
+@keyframes spotlight-glow-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+@media (hover: none) {
+  .spotlight-panel {
+    --spotlight-opacity: 0.42;
+    --pointer-x: 12%;
+    --pointer-angle: 180deg;
+  }
+
+  .spotlight-panel::before {
+    animation: spotlight-beam-sweep 7s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-panel::before,
+  .spotlight-panel::after {
+    animation: none !important;
+  }
+
+  .spotlight-panel:hover,
+  .spotlight-panel:focus-within {
+    margin-block: 8px;
+  }
+
+  .spotlight-panel:hover::after,
+  .spotlight-panel:focus-within::after {
+    opacity: 0.35;
+  }
+}

@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#222" />
-  <text x="50" y="70" font-family="serif" font-size="60" fill="#fff" text-anchor="middle">F</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FR">
+  <rect width="64" height="64" rx="12" fill="#fafaf8" />
+  <path d="M16 12h1v40h-1z" fill="#0057ff" />
+  <text x="24" y="38" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="600" fill="#11110e">FR</text>
 </svg>

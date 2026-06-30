@@ -1,0 +1,106 @@
+/* Tapered lens dividers — thin at the ends, fuller at center */
+
+@keyframes folio-rule-shimmer {
+  0% {
+    background-position: 140% 0, center;
+  }
+
+  100% {
+    background-position: -40% 0, center;
+  }
+}
+
+@keyframes folio-rule-breathe {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.section,
+.ledger,
+.judgment-list,
+.contact-links,
+.site-footer {
+  position: relative;
+  border-top: none;
+}
+
+.section::before,
+.ledger::before,
+.judgment-list::before,
+.contact-links::before,
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  animation:
+    folio-rule-shimmer 14s ease-in-out infinite,
+    folio-rule-breathe 6s ease-in-out infinite;
+}
+
+/* Soft section + footer rules */
+.section::before,
+.site-footer::before {
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 44%,
+      color-mix(in oklab, var(--calibration) 18%, var(--rule)) 50%,
+      transparent 56%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 44% 2px at 50% 50%,
+      var(--rule) 0%,
+      color-mix(in oklab, var(--rule) 42%, transparent) 52%,
+      transparent 100%
+    );
+  background-size: 240% 100%, 100% 100%;
+  background-position: 120% 0, center;
+}
+
+/* Emphasis rules for content tables */
+.ledger::before,
+.judgment-list::before,
+.contact-links::before {
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 42%,
+      color-mix(in oklab, var(--calibration) 32%, var(--ink)) 50%,
+      transparent 58%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 40% 2.5px at 50% 50%,
+      var(--ink) 0%,
+      color-mix(in oklab, var(--ink) 48%, transparent) 54%,
+      transparent 100%
+    );
+  background-size: 260% 100%, 100% 100%;
+  background-position: 130% 0, center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section::before,
+  .ledger::before,
+  .judgment-list::before,
+  .contact-links::before,
+  .site-footer::before {
+    animation: none;
+    opacity: 0.85;
+    background-position: center, center;
+  }
+}
