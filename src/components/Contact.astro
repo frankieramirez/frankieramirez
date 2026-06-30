@@ -1,46 +1,34 @@
 ---
-const cols = [
-  { label: "Email", val: "hello@frankieramirez.com", href: "mailto:hello@frankieramirez.com" },
-  { label: "GitHub", val: "@frankieramirez", href: "https://github.com/frankieramirez" },
-  { label: "LinkedIn", val: "in/frankieramirez", href: "https://www.linkedin.com/in/frankieramirez" },
-  { label: "X", val: "@frankiedevs", href: "https://x.com/frankiedevs" },
-  { label: "Bluesky", val: "@frankieramirez.bsky.social", href: "https://bsky.app/profile/frankieramirez.bsky.social" },
-  { label: "Mastodon", val: "@frankieramirez@mastodon.social", href: "https://mastodon.social/@frankieramirez" },
+const primaryLinks = [
+  { label: "Email", value: "hello@frankieramirez.com", href: "mailto:hello@frankieramirez.com" },
+  { label: "GitHub", value: "@frankieramirez", href: "https://github.com/frankieramirez" },
+  { label: "Resume", value: "PDF", href: "/resume.pdf" },
 ];
 ---
 
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="section-num">
-          <span class="folio">iv.</span>
-          <span class="rule"></span>§ 04 — Contact
-        </div>
+<section class="section contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap section-grid">
+    <div class="section-label">Contact</div>
+    <div class="section-body">
+      <div class="section-heading">
+        <h2 id="contact-title">Best Fit: Staff Software Engineer, Frontend Architecture, Design Systems.</h2>
+        <p>
+          I am most useful where product teams need interface quality, system governance, product architecture, and AI-assisted engineering practice to move together.
+        </p>
       </div>
-      <div>
-        <h2 class="contact-display" style="margin:0;">
-          Got a team that cares<br />
-          about <em>craft?</em> <a href="mailto:hello@frankieramirez.com">Let's talk.</a>
-        </h2>
-      </div>
-    </div>
-    <div class="contact-tz">Eastern Time · Replies within 24h</div>
 
-    <div class="contact-row">
-      {cols.map((c) => (
-        <div class="contact-col">
-          <div class="label">{c.label}</div>
+      <div class="contact-links" aria-label="Primary contact links">
+        {primaryLinks.map((link) => (
           <a
-            class="val"
-            href={c.href}
-            target={c.href.startsWith("http") ? "_blank" : undefined}
-            rel={c.href.startsWith("http") ? (c.label === "Mastodon" ? "me noopener" : "noopener") : undefined}
+            href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") ? "noopener" : undefined}
           >
-            {c.val} <span class="arrow-ico">↗</span>
+            <span>{link.label}</span>
+            <strong>{link.value}</strong>
           </a>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>

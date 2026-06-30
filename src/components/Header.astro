@@ -1,41 +1,21 @@
 ---
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#focus", label: "Focus" },
   { href: "#work", label: "Work" },
+  { href: "#judgment", label: "Judgment" },
   { href: "#contact", label: "Contact" },
 ];
 ---
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="mark" href="/">
-      <span>frankie</span><span class="slash">/</span><span>ramirez</span>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Frankie Ramirez home">
+      frankie<span class="brand-sep">/</span>ramirez
     </a>
 
-    <div class="nav-links">
-      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
-    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
 
-    <div class="nav-right">
-      <div class="mode-toggle" role="group" aria-label="Site style">
-        <button data-mode="a" aria-label="Paper edition" aria-pressed="true">
-          <span class="glyph">
-            <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <rect x="2" y="1.5" width="7" height="9" rx="0.5"></rect>
-              <line x1="3.5" y1="4" x2="7.5" y2="4"></line>
-              <line x1="3.5" y1="6" x2="7.5" y2="6"></line>
-              <line x1="3.5" y1="8" x2="6" y2="8"></line>
-            </svg>
-          </span>
-          <span class="label-text">Paper</span>
-        </button>
-        <button data-mode="b" aria-label="Console edition" aria-pressed="false">
-          <span class="glyph" style="font-family: var(--mono); font-size: 10px; font-weight: 700;">&gt;_</span>
-          <span class="label-text">Console</span>
-        </button>
-      </div>
-      <button class="kbd" id="cmdk-btn" aria-label="Open command palette">⌘K</button>
-    </div>
+    <a class="header-contact" href="mailto:hello@frankieramirez.com">Email</a>
   </div>
-</nav>
+</header>

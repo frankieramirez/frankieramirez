@@ -1,13 +1,21 @@
 ---
-const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
+const links = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/frankieramirez" },
+  { label: "X", href: "https://x.com/frankiedevs" },
+  { label: "Bluesky", href: "https://bsky.app/profile/frankieramirez.bsky.social" },
+  { label: "Mastodon", href: "https://mastodon.social/@frankieramirez", rel: "me noopener" },
+];
 ---
 
-<footer>
-  <div class="wrap foot">
-    <div class="live">
-      <span class="status-dot" style="width:6px;height:6px;"></span>
-      Built on <code style="color:var(--ink-2)">main</code> — {buildDate}
-    </div>
-    <div>© Frankie Ramirez · v3.0</div>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>Frankie Ramirez / Staff Software Engineer & Frontend Architect</p>
+    <nav aria-label="Secondary links">
+      {links.map((link) => (
+        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </footer>
