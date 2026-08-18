@@ -38,6 +38,7 @@
   line-height: 1.04;
   letter-spacing: -0.02em;
   text-wrap: balance;
+  text-box: trim-both cap alphabetic;
 }
 
 .hero-lede {

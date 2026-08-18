@@ -34,6 +34,16 @@
   }
 }
 
+/* Spotlight: when one row is engaged, recede the rest */
+.ledger:has(.ledger-row:is(:hover, :focus-within))
+  .ledger-row:not(:hover, :focus-within) {
+  opacity: 0.55;
+}
+
+.ledger-row {
+  transition: opacity 280ms var(--ease);
+}
+
 .ledger-status,
 .ledger-main,
 .ledger-evidence,
@@ -63,6 +73,7 @@
     line-height: 1.08;
     letter-spacing: 0;
     text-wrap: balance;
+    text-box: trim-both cap alphabetic;
     transition: color 300ms var(--ease);
   }
 

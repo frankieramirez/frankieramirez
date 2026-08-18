@@ -1,15 +1,3 @@
-@property --atmosphere-x {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 72%;
-}
-
-@property --atmosphere-y {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 18%;
-}
-
 body {
   position: relative;
   isolation: isolate;
@@ -30,12 +18,18 @@ body::before {
   background:
     radial-gradient(
       ellipse 42vmax 32vmax at var(--atmosphere-x) var(--atmosphere-y),
-      color-mix(in oklab, var(--calibration) 14%, transparent),
+      light-dark(
+        color-mix(in oklab, var(--calibration) 14%, transparent),
+        color-mix(in oklab, var(--calibration) 18%, transparent)
+      ),
       transparent 68%
     ),
     radial-gradient(
       ellipse 36vmax 28vmax at 12% 82%,
-      color-mix(in oklab, var(--calibration) 7%, transparent),
+      light-dark(
+        color-mix(in oklab, var(--calibration) 7%, transparent),
+        color-mix(in oklab, var(--calibration) 9%, transparent)
+      ),
       transparent 72%
     );
   opacity: 0.9;
@@ -50,20 +44,10 @@ body::after {
   background-size: 180px 180px;
 }
 
+/* Opacity is not a color, so these two stay behind a media query */
 @media (prefers-color-scheme: dark) {
   body::before {
     opacity: 0.75;
-    background:
-      radial-gradient(
-        ellipse 42vmax 32vmax at var(--atmosphere-x) var(--atmosphere-y),
-        color-mix(in oklab, var(--calibration) 18%, transparent),
-        transparent 68%
-      ),
-      radial-gradient(
-        ellipse 36vmax 28vmax at 12% 82%,
-        color-mix(in oklab, var(--calibration) 9%, transparent),
-        transparent 72%
-      );
   }
 
   body::after {

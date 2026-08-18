@@ -1,16 +1,16 @@
 :root {
-  /* Color primitives — OKLCH */
-  --color-ink-900: oklch(0.18 0.005 106);
-  --color-ink-50: oklch(0.96 0.006 106);
-  --color-neutral-500: oklch(0.48 0.008 106);
+  /* Color primitives — OKLCH, one light-dark() pair per token */
+  --color-ink-900: light-dark(oklch(0.18 0.005 106), oklch(0.96 0.006 106));
+  --color-ink-50: light-dark(oklch(0.96 0.006 106), oklch(0.18 0.005 106));
+  --color-neutral-500: light-dark(oklch(0.48 0.008 106), oklch(0.68 0.012 96));
   --color-neutral-400: oklch(0.68 0.012 96);
-  --color-neutral-300: oklch(0.87 0.004 106);
+  --color-neutral-300: light-dark(oklch(0.87 0.004 106), oklch(0.28 0.006 96));
   --color-neutral-200: oklch(0.28 0.006 96);
-  --color-canvas-50: oklch(0.985 0.002 106);
-  --color-canvas-100: oklch(1 0 0);
+  --color-canvas-50: light-dark(oklch(0.985 0.002 106), oklch(0.12 0.003 106));
+  --color-canvas-100: light-dark(oklch(1 0 0), oklch(0.18 0.005 106));
   --color-canvas-900: oklch(0.12 0.003 106);
   --color-canvas-800: oklch(0.18 0.005 106);
-  --color-calibration-500: oklch(0.52 0.22 264);
+  --color-calibration-500: light-dark(oklch(0.52 0.22 264), oklch(0.78 0.12 264));
   --color-calibration-300: oklch(0.78 0.12 264);
 
   /* Spacing primitives */
@@ -27,16 +27,4 @@
   /* Shape primitives */
   --radius-sm: 6px;
   --radius-md: 12px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-ink-900: oklch(0.96 0.006 106);
-    --color-ink-50: oklch(0.18 0.005 106);
-    --color-neutral-500: oklch(0.68 0.012 96);
-    --color-neutral-300: oklch(0.28 0.006 96);
-    --color-canvas-50: oklch(0.12 0.003 106);
-    --color-canvas-100: oklch(0.18 0.005 106);
-    --color-calibration-500: oklch(0.78 0.12 264);
-  }
 }

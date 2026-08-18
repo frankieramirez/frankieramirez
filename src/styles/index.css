@@ -1,16 +1,21 @@
-@import "./tokens/primitives.css";
-@import "./tokens/semantic.css";
-@import "./tokens/typography.css";
-@import "./reset.css";
-@import "./atmosphere.css";
-@import "./base.css";
-@import "./layout/wrap.css";
-@import "./components/folio-rule.css";
-@import "./components/spotlight-panel.css";
-@import "./components/header.css";
-@import "./components/hero.css";
-@import "./components/ledger.css";
-@import "./components/judgment.css";
-@import "./components/contact.css";
-@import "./components/footer.css";
-@import "./motion.css";
+/* Cascade order is declared once here; specificity inside a lower layer
+   can never beat a higher one, so component styles stay flat. */
+@layer tokens, reset, base, layout, components, motion;
+
+@import "./properties.css";
+@import "./tokens/primitives.css" layer(tokens);
+@import "./tokens/semantic.css" layer(tokens);
+@import "./tokens/typography.css" layer(tokens);
+@import "./reset.css" layer(reset);
+@import "./atmosphere.css" layer(base);
+@import "./base.css" layer(base);
+@import "./layout/wrap.css" layer(layout);
+@import "./components/folio-rule.css" layer(components);
+@import "./components/spotlight-panel.css" layer(components);
+@import "./components/header.css" layer(components);
+@import "./components/hero.css" layer(components);
+@import "./components/ledger.css" layer(components);
+@import "./components/judgment.css" layer(components);
+@import "./components/contact.css" layer(components);
+@import "./components/footer.css" layer(components);
+@import "./motion.css" layer(motion);
