@@ -1,4 +1,7 @@
 .ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: minmax(76px, 0.42fr) minmax(280px, 1.52fr) minmax(240px, 1fr) minmax(96px, 0.48fr);
   column-gap: clamp(24px, 3vw, 48px);

@@ -76,9 +76,9 @@ const rows = [
         </p>
       </div>
 
-      <div class="ledger" role="list">
+      <ul class="ledger" role="list">
         {rows.map((row) => (
-          <article class="ledger-row spotlight-panel" role="listitem" data-spotlight>
+          <li class="ledger-row spotlight-panel" data-spotlight>
             <div class="ledger-status">{row.status}</div>
             <div class="ledger-main">
               <h3>{row.title}</h3>
@@ -99,9 +99,9 @@ const rows = [
                 <span>Redacted</span>
               )}
             </div>
-          </article>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </div>
 </section>
