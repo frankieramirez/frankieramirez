@@ -1,8 +1,8 @@
 # Frankie Ramirez
 
-**Staff Frontend Engineer** — design systems, frontend architecture, and product surfaces that stay coherent as teams scale.
+**Staff Frontend Engineer.** I build design systems and the frontend architecture that keeps product surfaces coherent as teams scale.
 
-I lead the kind of work that shows up in tokens, component APIs, contribution paths, and the habits that keep large orgs shipping without local one-offs becoming permanent. Based in New Jersey. 15 years across CRM, proptech, and SaaS.
+The work shows up in tokens, component APIs, contribution paths, and the habits that keep large orgs shipping without local one-offs becoming permanent. Based in New Jersey, with 15 years across CRM, proptech, SaaS, and the design-system work that ties them together.
 
 <p>
   <a href="https://frankieramirez.com"><strong>frankieramirez.com</strong></a> ·
@@ -21,23 +21,23 @@ I lead the kind of work that shows up in tokens, component APIs, contribution pa
 
 ### Where I am most useful
 
-Staff frontend and design-system roles where interface quality, system governance, and AI-assisted engineering practice need to move together — not as separate workstreams.
+Staff frontend and design-system roles that treat interface quality, system governance, adoption, and AI-assisted engineering practice as one job.
 
 ---
 
 ## This repository
 
-The live site and its source live here. One static page, one deliberate stack, no filler dependencies.
+The live site and its source live here. It's a single static page on a stack chosen piece by piece, with four production dependencies.
 
 ```
 Astro 6 (static) · OKLCH token CSS · self-hosted Geist · @astrojs/sitemap
 4 production dependencies · ~5 KB CSS gzip · pointer spotlight for panel lighting
 ```
 
-**Homepage:** Hero → Work ledger → Judgment → Contact
+**Homepage sections, in order:** Hero, Work ledger, Judgment, Contact
 
 <details>
-<summary><strong>Stylesheet layout</strong> — for reviewers who read <code>src/styles/</code></summary>
+<summary><strong>Stylesheet layout</strong>, for reviewers who read <code>src/styles/</code></summary>
 
 ```
 src/styles/
@@ -67,7 +67,3 @@ pnpm preview
 ```
 
 </details>
-
----
-
-*The site is the proof. The repo is the receipt.*
