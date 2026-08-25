@@ -8,6 +8,8 @@ The work shows up in tokens, component APIs, contribution paths, and the habits 
   <a href="https://frankieramirez.com"><strong>frankieramirez.com</strong></a> ·
   <a href="https://www.linkedin.com/in/frankieramirez">LinkedIn</a> ·
   <a href="mailto:hello@frankieramirez.com">hello@frankieramirez.com</a> ·
+  <a href="https://bushel.sh">bushel</a> ·
+  <a href="https://ripen.dev">Ripen</a> ·
   <a href="https://github.com/frankieramirez/comicarr">Comicarr</a>
 </p>
 
