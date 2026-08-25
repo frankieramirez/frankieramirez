@@ -13,6 +13,30 @@ const rows = [
   },
   {
     status: "Public",
+    title: "bushel",
+    summary:
+      "A terminal UI for Apple Containers. It manages the containers, images, and volumes already on the Mac, and shows the exact command before anything destructive runs.",
+    evidence:
+      "Public repository, product site, Rust/Ratatui TUI wrapping Apple's container CLI, live telemetry, confirmed destructive actions, Homebrew and shell installers.",
+    links: [
+      { label: "Site", href: "https://bushel.sh" },
+      { label: "Source", href: "https://github.com/frankieramirez/bushel" },
+    ],
+  },
+  {
+    status: "Public",
+    title: "Ripen",
+    summary:
+      "Fail-closed image updates for Portainer and Compose. A digest has to mature before it can be applied, and a failed health check rolls the service back and opens the breaker.",
+    evidence:
+      "Public repository, product site, Go CLI and daemon, digest pinning, no Docker socket, circuit breaker, Git proposals that never self-merge, signed releases.",
+    links: [
+      { label: "Site", href: "https://ripen.dev" },
+      { label: "Source", href: "https://github.com/frankieramirez/ripen" },
+    ],
+  },
+  {
+    status: "Public",
     title: "Comicarr",
     summary:
       "A self-hosted app for comic collectors. React UI, with flows designed for people who come back to it every week.",
@@ -44,14 +68,6 @@ const rows = [
     summary:
       "Wrote the product architecture for an AI workforce platform. Cut the visible object model to five concepts and turned the research and user stories into a phased implementation plan.",
     evidence: "12-part IA proposal, 17 competitive analyses, 37 user stories across 9 epics, 5-concept object model, 8-week phased roadmap.",
-    links: [],
-  },
-  {
-    status: "Coming soon",
-    title: "FEval",
-    summary:
-      "An evaluation project that tests model behavior on real frontend tasks. Started after generic evals kept missing the failures that show up in actual interface work.",
-    evidence: "Private repo for now, frontend task design, model benchmarking, stricter evaluation flows, AI quality checks for product interfaces.",
     links: [],
   },
   {
