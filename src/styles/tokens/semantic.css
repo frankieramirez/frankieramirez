@@ -1,7 +1,6 @@
 :root {
   color-scheme: light dark;
 
-  /* Semantic color tokens */
   --bg: var(--color-canvas-50);
   --surface: var(--color-canvas-100);
   --ink: var(--color-ink-900);
@@ -18,7 +17,6 @@
   );
   --selection-ink: var(--ink);
 
-  /* Semantic layout tokens */
   --maxw: var(--layout-max);
   --pad: var(--space-fluid-pad);
   --section-space: var(--space-fluid-section);

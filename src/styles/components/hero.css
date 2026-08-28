@@ -77,7 +77,6 @@
     opacity: var(--spotlight-opacity);
   }
 
-  /* Rim light — cursor-driven border beam */
   &::before {
     z-index: 0;
     padding: 1px;
@@ -103,7 +102,6 @@
     mask-composite: exclude;
   }
 
-  /* Surface wash — inner glow pool */
   &::after {
     z-index: 1;
     inset: 1px;
