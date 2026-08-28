@@ -1,5 +1,3 @@
-/* Tapered lens dividers — thin at the ends, fuller at center */
-
 @keyframes folio-rule-shimmer {
   0% {
     background-position: 140% 0, center;
@@ -48,7 +46,6 @@
     folio-rule-breathe 6s ease-in-out infinite;
 }
 
-/* Soft section + footer rules */
 .section::before,
 .site-footer::before {
   background-image:
@@ -70,7 +67,6 @@
   background-position: 120% 0, center;
 }
 
-/* Emphasis rules for content tables */
 .ledger::before,
 .judgment-list::before,
 .contact-links::before {

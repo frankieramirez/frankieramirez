@@ -1,7 +1,3 @@
-/* Typed custom property registrations. These live outside the cascade
-   layers: @property registers a property globally rather than declaring
-   a value, so layer order has no meaning for it. */
-
 @property --calibration {
   syntax: "<color>";
   inherits: true;

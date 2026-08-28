@@ -10,9 +10,6 @@
   }
 }
 
-/* Hero entrance — @starting-style transitions rather than keyframes.
-   `translate` is used for the entry offset so it composes with the
-   hover `transform` on .operating-model instead of fighting it. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-kicker,
   .hero h1,
@@ -43,7 +40,6 @@
       transform 320ms var(--ease);
   }
 
-  /* Derive the copy column's stagger from DOM order where supported */
   @supports (transition-delay: calc(sibling-index() * 1ms)) {
     .hero-copy > :is(.hero-kicker, h1, .hero-lede) {
       transition-delay: calc((sibling-index() - 1) * 70ms);

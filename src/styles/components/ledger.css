@@ -34,7 +34,6 @@
   }
 }
 
-/* Spotlight: when one row is engaged, recede the rest */
 .ledger:has(.ledger-row:is(:hover, :focus-within))
   .ledger-row:not(:hover, :focus-within) {
   opacity: 0.55;
