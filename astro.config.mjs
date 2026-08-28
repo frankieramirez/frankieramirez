@@ -1,3 +1,4 @@
+// @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
