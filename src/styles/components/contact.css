@@ -19,13 +19,14 @@
   color: var(--secondary);
   font-family: var(--mono);
   font-size: 12px;
+  font-weight: 500;
 }
 
 .contact-links strong {
   min-width: 0;
   overflow-wrap: anywhere;
   font-size: clamp(16px, 1.45vw, 20px);
-  font-weight: 560;
+  font-weight: 600;
   line-height: 1.12;
 }
 

@@ -22,7 +22,7 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Geist Mono",
       cssVariable: "--font-geist-mono",
-      weights: [400, 500],
+      weights: [500],
       styles: ["normal"],
       subsets: ["latin"],
       fallbacks: ["ui-monospace", "Menlo", "Consolas", "monospace"],

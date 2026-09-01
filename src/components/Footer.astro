@@ -1,7 +1,7 @@
 ---
 const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/frankieramirez" },
-  { label: "X", href: "https://x.com/frankieramirez" },
+  { label: "X", href: "https://x.com/frankieramirez", ariaLabel: "X (formerly Twitter)" },
   { label: "Bluesky", href: "https://bsky.app/profile/frankieramirez.bsky.social" },
   { label: "Mastodon", href: "https://mastodon.social/@frankieramirez", rel: "me noopener" },
 ];
@@ -12,7 +12,7 @@ const links = [
     <p>Frankie Ramirez / Staff Software Engineer & Frontend Architect</p>
     <nav aria-label="Secondary links">
       {links.map((link) => (
-        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"}>
+        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"} aria-label={link.ariaLabel}>
           {link.label}
         </a>
       ))}

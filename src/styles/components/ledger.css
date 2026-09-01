@@ -34,9 +34,8 @@
   }
 }
 
-.ledger:has(.ledger-row:is(:hover, :focus-within))
-  .ledger-row:not(:hover, :focus-within) {
-  opacity: 0.55;
+.ledger:has(.ledger-row:hover) .ledger-row:not(:hover) {
+  opacity: 0.9;
 }
 
 .ledger-row {
@@ -102,19 +101,23 @@
 
 .ledger-links {
   display: grid;
-  gap: 10px;
+  gap: 4px;
   justify-items: start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   a {
     position: relative;
-    padding-bottom: 3px;
+    display: inline-block;
+    padding-block: 4px 6px;
     transition: color var(--duration-fast) var(--ease);
 
     &::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: 3px;
       width: 100%;
       height: 1px;
       background: currentColor;
@@ -159,6 +162,6 @@
   .ledger-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 4px 16px;
   }
 }

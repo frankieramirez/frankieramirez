@@ -29,7 +29,7 @@
   margin-block: 4px;
   border-radius: 10px;
   transition:
-    margin-block 340ms var(--ease),
+    transform 340ms var(--ease),
     --pointer-x 140ms var(--ease),
     --pointer-y 140ms var(--ease),
     --pointer-angle 220ms var(--ease);
@@ -92,7 +92,7 @@
 
   &:hover,
   &:focus-within {
-    margin-block: 12px;
+    transform: translateY(-2px);
   }
 }
 
@@ -133,7 +133,7 @@
 
   .spotlight-panel:hover,
   .spotlight-panel:focus-within {
-    margin-block: 8px;
+    transform: none;
   }
 
   .spotlight-panel:hover::after,

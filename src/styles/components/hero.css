@@ -180,7 +180,7 @@
 .operating-model-head span {
   color: var(--secondary);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -192,7 +192,6 @@
   border-radius: 999px;
   color: var(--secondary);
   font-family: var(--mono);
-  font-size: 10px;
   font-weight: 500;
 }
 
@@ -209,7 +208,7 @@
   .operating-model-label {
     margin: 0;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.3;
     letter-spacing: 0.06em;
@@ -239,7 +238,7 @@
   span {
     color: var(--secondary);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
