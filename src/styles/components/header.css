@@ -30,7 +30,8 @@
 .ledger-links a,
 .ledger-links span,
 .contact-links a,
-.site-footer a {
+.site-footer a,
+.not-found-links a {
   position: relative;
   font-size: 14px;
   font-weight: 500;
@@ -42,7 +43,8 @@
 
 .site-nav a,
 .header-contact,
-.site-footer a {
+.site-footer a,
+.not-found-links a {
   &::after {
     content: "";
     position: absolute;
