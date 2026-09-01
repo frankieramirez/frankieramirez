@@ -134,10 +134,6 @@
       }
     }
   }
-
-  span {
-    color: var(--secondary);
-  }
 }
 
 @supports not (grid-template-columns: subgrid) {

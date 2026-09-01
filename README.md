@@ -1,6 +1,6 @@
 # Frankie Ramirez
 
-**Staff Frontend Engineer.** I build design systems and the frontend architecture that keeps product surfaces coherent as teams scale.
+**Staff Software Engineer, Frontend Architecture and Design Systems.** I build design systems and the frontend architecture that keeps product surfaces coherent as teams scale.
 
 The work shows up in tokens, component APIs, contribution paths, and the habits that keep large orgs shipping without local one-offs becoming permanent. Based in New Jersey, with 14+ years across CRM, proptech, SaaS, and the design-system work that ties them together.
 
@@ -15,11 +15,11 @@ The work shows up in tokens, component APIs, contribution paths, and the habits 
 
 ---
 
-### Operating model
+### Working model
 
-| Primitives | Composition | Governance |
+| Primitive layer | Workflow layer | Adoption layer |
 | --- | --- | --- |
-| Tokens, states, accessibility, type | Component APIs and product patterns | Contribution model, reviews, adoption |
+| Tokens, states, semantics, accessibility, type | Routes, data contracts, review flows, eval tasks | Docs, contribution paths, PR review, release guardrails |
 
 ### Where I am most useful
 

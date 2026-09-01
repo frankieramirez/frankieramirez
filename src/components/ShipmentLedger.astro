@@ -47,35 +47,39 @@ const rows = [
     ],
   },
   {
-    status: "Confidential",
+    status: "Luxury Presence",
     title: "Enterprise Design System Leadership",
     summary:
       "Led a design system from beta toward general availability: semantic tokens, package architecture, release infrastructure, documentation, and contribution governance.",
-    evidence: "639+ token taxonomy proposal, UI package restructuring, Radix-to-Base UI migration, snapshot releases, OIDC publishing, documentation, approval paths.",
+    evidence:
+      "639+ token semantic taxonomy, UI package restructure for bundle size, Radix-to-Base UI migration, snapshot releases with OIDC publishing, org-wide training, documented approval paths.",
     links: [],
   },
   {
-    status: "Confidential",
+    status: "Luxury Presence",
     title: "CRM Frontend Architecture",
     summary:
       "Owned frontend direction for CRM and Contacts: navigation, saved-search flows, contact lists, responsive layouts, and the production bugs that came with them.",
-    evidence: "Cross-team CRM frontend oversight, 28 of 32 CRM issues completed, 5 critical bugs resolved, event tracking corrections, architecture reviews.",
+    evidence:
+      "Primary frontend contributor on the company's top product, used by 87,000+ agents: navigation redesign, saved search, contact tagging, Jest-to-Vitest RFC, analytics library design, back-end mutations.",
     links: [],
   },
   {
-    status: "Confidential",
+    status: "Luxury Presence",
     title: "AI Workforce Product Architecture",
     summary:
       "Wrote the product architecture for an AI workforce platform. Cut the visible object model to five concepts and turned the research and user stories into a phased implementation plan.",
-    evidence: "12-part IA proposal, 17 competitive analyses, 37 user stories across 9 epics, 5-concept object model, 8-week phased roadmap.",
+    evidence:
+      "12-part IA proposal built on 17 competitive analyses and 37 user stories across 9 epics. Object model cut from 10 concepts to 5, navigation from 14 entry points to 2, delivered as an 8-week phased roadmap.",
     links: [],
   },
   {
-    status: "Confidential",
+    status: "Luxury Presence",
     title: "AI-Assisted Engineering Practice",
     summary:
       "Brought AI coding workflows into daily engineering: repository guidance files, validation skills, product demos, and faster review loops.",
-    evidence: "Claude Code adoption, design-system repo instructions, migration validation skills, AI platform features, demos shared with product and engineering leadership.",
+    evidence:
+      "First Claude Code adopter on the team. Wrote the design-system repo instructions and two migration validation skills; the page-level migration they guarded shipped 6 PRs with 0 fix-ups against the prior 20 with 5. Built AI platform features and demoed them to product and engineering leadership.",
     links: [],
   },
 ];
@@ -88,7 +92,7 @@ const rows = [
       <div class="section-heading">
         <h2 id="work-title">What I Have Shipped.</h2>
         <p>
-          Public links where they exist. The confidential rows keep enough detail to judge the thinking. Company names stay out, and every number is real.
+          Public links where they exist. The employer rows have no links, but they keep enough detail to judge the thinking, and every number is real.
         </p>
       </div>
 
@@ -104,7 +108,7 @@ const rows = [
               <span>Evidence</span>
               <p>{row.evidence}</p>
             </div>
-            {row.links.length > 0 ? (
+            {row.links.length > 0 && (
               <ul class="ledger-links" role="list">
                 {row.links.map((link) => (
                   <li>
@@ -114,10 +118,6 @@ const rows = [
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p class="ledger-links">
-                <span>Redacted</span>
-              </p>
             )}
           </li>
         ))}
