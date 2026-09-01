@@ -3,15 +3,3 @@
   inherits: true;
   initial-value: oklch(0.52 0.22 264);
 }
-
-@property --atmosphere-x {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 72%;
-}
-
-@property --atmosphere-y {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 18%;
-}

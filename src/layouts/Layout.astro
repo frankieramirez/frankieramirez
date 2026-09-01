@@ -22,8 +22,7 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = "https://frankieramirez.com";
-const siteHref = Astro.site?.href ?? siteUrl;
+const siteHref = Astro.site?.href ?? "https://frankieramirez.com/";
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
 const ogImage = new URL(image, siteHref).href;
 const personSchema = {
@@ -35,7 +34,7 @@ const personSchema = {
     "Staff Software Engineer and frontend architect who leads design systems and builds with AI-assisted engineering workflows",
   url: siteHref,
   sameAs: [
-    "https://linkedin.com/in/frankieramirez",
+    "https://www.linkedin.com/in/frankieramirez",
     "https://x.com/frankieramirez",
     "https://github.com/frankieramirez",
     "https://bsky.app/profile/frankieramirez.bsky.social",
@@ -59,7 +58,6 @@ const personSchema = {
     <Font cssVariable="--font-geist-mono" />
 
     <title>{title}</title>
-    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="author" content="Frankie Ramirez" />
@@ -87,10 +85,6 @@ const personSchema = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@frankieramirez" />
 
-    <link rel="dns-prefetch" href="https://linkedin.com" />
-    <link rel="dns-prefetch" href="https://x.com" />
-    <link rel="dns-prefetch" href="https://github.com" />
-
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   </head>
@@ -104,7 +98,6 @@ const personSchema = {
       import { initPointerSpotlights } from "@/scripts/pointer-spotlight";
 
       initPointerSpotlights();
-      document.addEventListener("astro:page-load", initPointerSpotlights);
     </script>
   </body>
 </html>

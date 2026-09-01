@@ -16,7 +16,7 @@ body::before {
   z-index: -2;
   background:
     radial-gradient(
-      ellipse 42vmax 32vmax at var(--atmosphere-x) var(--atmosphere-y),
+      ellipse 42vmax 32vmax at 72% 18%,
       light-dark(
         color-mix(in oklab, var(--calibration) 14%, transparent),
         color-mix(in oklab, var(--calibration) 18%, transparent)
@@ -54,30 +54,10 @@ body::after {
 
 @keyframes atmosphere-drift {
   from {
-    --atmosphere-x: 68%;
-    --atmosphere-y: 14%;
-    transform: scale(1);
+    transform: translate3d(-1.5%, -1%, 0) scale(1.05);
   }
 
   to {
-    --atmosphere-x: 78%;
-    --atmosphere-y: 24%;
-    transform: scale(1.04);
-  }
-}
-
-@supports not (background: paint(id)) {
-  body::before {
-    animation: atmosphere-drift-fallback 28s var(--ease) infinite alternate;
-  }
-
-  @keyframes atmosphere-drift-fallback {
-    from {
-      transform: translate3d(-1.5%, -1%, 0) scale(1.02);
-    }
-
-    to {
-      transform: translate3d(1.5%, 1%, 0) scale(1.05);
-    }
+    transform: translate3d(1.5%, 1%, 0) scale(1.08);
   }
 }

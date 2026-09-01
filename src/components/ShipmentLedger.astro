@@ -104,17 +104,21 @@ const rows = [
               <span>Evidence</span>
               <p>{row.evidence}</p>
             </div>
-            <div class="ledger-links" aria-label={`${row.title} links`}>
-              {row.links.length > 0 ? (
-                row.links.map((link) => (
-                  <a href={link.href} target="_blank" rel="noopener">
-                    {link.label}
-                  </a>
-                ))
-              ) : (
+            {row.links.length > 0 ? (
+              <ul class="ledger-links" role="list">
+                {row.links.map((link) => (
+                  <li>
+                    <a href={link.href} target="_blank" rel="noopener">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="ledger-links">
                 <span>Redacted</span>
-              )}
-            </div>
+              </p>
+            )}
           </li>
         ))}
       </ul>
