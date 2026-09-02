@@ -30,3 +30,6 @@ next-env.d.ts
 
 # temp files
 _tmp_*
+
+# lighthouse ci
+.lighthouseci/

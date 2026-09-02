@@ -2,10 +2,12 @@
   "name": "fr-astro",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "dev": "astro dev",
     "dev:background": "astro dev --background",
     "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -17,5 +19,9 @@
       "esbuild",
       "sharp"
     ]
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }
