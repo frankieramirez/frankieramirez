@@ -86,7 +86,7 @@ const personSchema = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@frankieramirez" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   </head>
   <body>

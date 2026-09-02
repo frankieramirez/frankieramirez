@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "dev:background": "astro dev --background",
     "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -17,5 +18,9 @@
       "esbuild",
       "sharp"
     ]
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }
