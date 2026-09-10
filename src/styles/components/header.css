@@ -7,21 +7,15 @@
 }
 
 .brand {
+  --mark-size: 0.875lh;
   display: inline-flex;
   align-items: center;
-  gap: 0.55em;
+  gap: 0.6em;
   width: fit-content;
   font-size: clamp(16px, 2vw, 19px);
   font-weight: 600;
   letter-spacing: -0.03em;
-}
-
-.brand-sep {
-  color: var(--secondary);
-  font-weight: 400;
-  /* Plex Sans gives the slash wide sidebearings; pull it in so the name reads
-     as one word rather than three pieces. */
-  margin-inline: -0.04em;
+  white-space: nowrap;
 }
 
 /* Placed explicitly, because the DOM order is Email then nav (see Header.astro)
