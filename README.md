@@ -2,7 +2,7 @@
 
 **Staff Software Engineer focused on frontend architecture and design systems.** Based in New Jersey, with 14+ years building software across CRM, proptech, and SaaS.
 
-At Luxury Presence, I led the design system from beta toward general availability and owned frontend direction for CRM and Contacts. That work included component APIs, navigation, saved-search flows, and a migration from Radix to Base UI.
+I build component APIs and guide library migrations, with a focus on helping teams ship accessible, consistent interfaces. I've led a design system from beta toward general availability and owned frontend architecture for complex product workflows.
 
 I also build open-source tools and write about the way I use AI agents to develop and review software.
 
