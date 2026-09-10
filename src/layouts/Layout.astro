@@ -4,7 +4,6 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 
-/** A share image travels with its own dimensions, so the three cannot disagree. */
 export interface ShareImage {
   src: string;
   width: number;
@@ -18,7 +17,6 @@ export interface Props {
   type?: "website" | "article";
   canonical?: string;
   reading?: boolean;
-  /** Class for the <main> this layout renders. The reading shell renders its own. */
   mainClass?: string;
   article?: { headline: string; published: Date; updated?: Date };
 }
@@ -124,8 +122,6 @@ const articleSchema = article && {
   <body class:list={{ reading }}>
     <a href="#main" class="skip-link">Skip to main content</a>
     {reading ? (
-      /* The reading shell puts <main> inside its own grid, beside the section
-         nav, so pages/blog/[...id].astro declares that one itself. */
       <slot />
     ) : (
       <>

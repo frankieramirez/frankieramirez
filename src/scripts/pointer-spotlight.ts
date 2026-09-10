@@ -32,9 +32,6 @@ export function bindPointerSpotlight(
       }
     };
 
-    // Only the pointer position is written inline. The lit state is data-lit,
-    // so the stylesheet can also light the panel on :focus-within; an inline
-    // --spotlight-opacity would outrank that rule and leave keyboard users dark.
     element.addEventListener("pointerenter", () => {
       element.dataset.lit = "true";
     });
@@ -50,7 +47,6 @@ export function bindPointerSpotlight(
   });
 }
 
-/** Binds the three spotlight surfaces, each with its own rest position. */
 export function initPointerSpotlights() {
   bindPointerSpotlight(".operating-model[data-spotlight]", {
     restX: "72%",

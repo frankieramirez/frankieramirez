@@ -18,8 +18,6 @@
   white-space: nowrap;
 }
 
-/* Placed explicitly, because the DOM order is Email then nav (see Header.astro)
-   while the wide layout reads brand, nav, Email. */
 .site-nav {
   grid-column: 2;
   grid-row: 1;
@@ -29,8 +27,6 @@
   gap: clamp(16px, 3vw, 34px);
 }
 
-/* The link recipe these share with the footer, contact and 404 links lives in
-   components/link.css. */
 
 .header-contact {
   grid-column: 3;

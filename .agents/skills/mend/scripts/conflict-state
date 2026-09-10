@@ -19,8 +19,6 @@ gpath() {
   git rev-parse --git-path "$1"
 }
 
-# Classify an unmerged path from index stages.
-# stage 1 = base, 2 = ours, 3 = theirs. A missing stage is a delete.
 file_kind() {
   local path=$1
   local has2=0 has3=0 meta stage

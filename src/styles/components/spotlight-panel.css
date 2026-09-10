@@ -22,9 +22,6 @@
   initial-value: 0deg;
 }
 
-/* The scaffolding every pointer-lit surface shares, keyed on the attribute both
-   the ledger rows and the hero card already carry. Each panel still draws its
-   own gradients; only the two lighting layers and their fade live here. */
 [data-spotlight],
 .spotlight-panel {
   --spotlight-opacity: 0;
@@ -44,8 +41,6 @@
   transition: opacity var(--duration-mid) var(--ease);
 }
 
-/* Lit by the pointer (data-lit, set in scripts/pointer-spotlight.ts) or by a
-   keyboard reaching something inside, which fires no pointer event at all. */
 [data-spotlight][data-lit="true"],
 [data-spotlight]:focus-within,
 .spotlight-panel:focus-within {

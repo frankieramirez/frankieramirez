@@ -43,8 +43,6 @@ main:focus-visible {
   box-shadow: none;
 }
 
-/* Text for screen readers only, e.g. the "opens in a new tab" warning that has
-   no visual equivalent. */
 .visually-hidden {
   position: absolute;
   width: 1px;

@@ -11,8 +11,6 @@
   --color-calibration-500: light-dark(var(--brand-deep-blue), #79BAFF);
 
   --space-fluid-pad: clamp(20px, 4vw, 48px);
-  /* Three steps of section rhythm: the hero and contact breathe more than a
-     standard section, the blog index less. */
   --space-fluid-section-sm: clamp(64px, 10vw, 128px);
   --space-fluid-section: clamp(84px, 11vw, 148px);
   --space-fluid-section-lg: clamp(88px, 13vw, 176px);

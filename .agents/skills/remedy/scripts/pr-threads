@@ -44,11 +44,9 @@ die() {
   exit 1
 }
 
-# Sets OWNER and REPO from an explicit owner/repo argument or the current checkout.
 locate_repo() {
   local spec="${1:-}"
   if [ -z "$spec" ]; then
-    # `|| true` keeps set -e from killing the script before the message below.
     spec=$(gh repo view --json owner,name -q '"\(.owner.login)/\(.name)"' 2>/dev/null || true)
   fi
   case "$spec" in
@@ -58,9 +56,6 @@ locate_repo() {
   [ -n "$OWNER" ] && [ -n "$REPO" ] || die "malformed owner/repo: '$spec'"
 }
 
-# One query serves both read subcommands. Threads are paged through $endCursor;
-# the conversation comments and review submissions ride along on every page and
-# are taken from the first page only.
 QUERY='
 query($owner: String!, $repo: String!, $pr: Int!, $endCursor: String) {
   viewer { login }
@@ -82,12 +77,9 @@ query($owner: String!, $repo: String!, $pr: Int!, $endCursor: String) {
   }
 }'
 
-# Each page filter prints the next cursor (or an empty line) first, then one
-# compact JSON value per line via tojson. Callers split on line position.
 NEXT_CURSOR='(.data.repository.pullRequest.reviewThreads.pageInfo
   | if .hasNextPage then .endCursor else "" end)'
 
-# $1 pr, $2 cursor ("" for the first page), $3 jq filter
 query_page() {
   local -a cursor=()
   [ -n "$2" ] && cursor=(-f endCursor="$2")
