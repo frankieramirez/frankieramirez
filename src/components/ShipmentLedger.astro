@@ -2,13 +2,14 @@
 const rows = [
   {
     status: "Public",
-    title: "frankieramirez.com",
+    title: "mana",
     summary:
-      "This site. A static Astro build that collects shipped work in one place, with the source public so you can check the craft directly.",
-    evidence: "Astro static output, OKLCH token system, modular CSS, cursor-driven CSS spotlight, accessible landmarks.",
+      "Reusable agent skills for the way I build software. Turns ideas into scoped tickets and carries work through implementation and review, with a fantasy theme that makes the tooling fun to maintain.",
+    evidence:
+      "Public repository, Claude Code plugin, portable SKILL.md workflows, specialist code reviews, GitHub and Linear tracker support, PR validation and visual proof.",
     links: [
-      { label: "Live Site", href: "https://frankieramirez.com" },
-      { label: "Source", href: "https://github.com/frankieramirez/frankieramirez" },
+      { label: "Source", href: "https://github.com/frankieramirez/mana" },
+      { label: "The Story", href: "/blog/building-my-own-agent-skills/" },
     ],
   },
   {
@@ -48,40 +49,27 @@ const rows = [
   },
   {
     status: "Luxury Presence",
-    title: "Enterprise Design System Leadership",
+    title: "Design systems & frontend architecture",
     summary:
-      "Led a design system from beta toward general availability: semantic tokens, package architecture, release infrastructure, documentation, and contribution governance.",
+      "Led the design system from beta toward general availability and owned frontend direction for CRM and Contacts, from component APIs to navigation and saved-search flows.",
     evidence:
-      "639+ token semantic taxonomy, UI package restructure for bundle size, Radix-to-Base UI migration, snapshot releases with OIDC publishing, org-wide training, documented approval paths.",
+      "639+ semantic tokens, a Radix-to-Base UI migration, and snapshot releases with OIDC publishing. Primary frontend contributor on the company’s top product, used by 87,000+ agents.",
     links: [],
   },
   {
     status: "Luxury Presence",
-    title: "CRM Frontend Architecture",
+    title: "AI-assisted engineering",
     summary:
-      "Owned frontend direction for CRM and Contacts: navigation, saved-search flows, contact lists, responsive layouts, and the production bugs that came with them.",
+      "Introduced Claude Code to the team and built validation skills for design-system migrations. Defined the product architecture for an AI workforce platform and demonstrated AI features to leadership.",
     evidence:
-      "Primary frontend contributor on the company's top product, used by 87,000+ agents: navigation redesign, saved search, contact tagging, Jest-to-Vitest RFC, analytics library design, back-end mutations.",
+      "The migration skills guarded 6 PRs with 0 fix-ups, compared with 5 fix-ups across the previous 20. An architecture proposal drew on 17 competitive analyses and reduced the platform’s object model from 10 concepts to 5.",
     links: [],
   },
-  {
-    status: "Luxury Presence",
-    title: "AI Workforce Product Architecture",
-    summary:
-      "Wrote the product architecture for an AI workforce platform. Cut the visible object model to five concepts and turned the research and user stories into a phased implementation plan.",
-    evidence:
-      "12-part IA proposal built on 17 competitive analyses and 37 user stories across 9 epics. Object model cut from 10 concepts to 5, navigation from 14 entry points to 2, delivered as an 8-week phased roadmap.",
-    links: [],
-  },
-  {
-    status: "Luxury Presence",
-    title: "AI-Assisted Engineering Practice",
-    summary:
-      "Brought AI coding workflows into daily engineering: repository guidance files, validation skills, product demos, and faster review loops.",
-    evidence:
-      "First Claude Code adopter on the team. Wrote the design-system repo instructions and two migration validation skills; the page-level migration they guarded shipped 6 PRs with 0 fix-ups against the prior 20 with 5. Built AI platform features and demoed them to product and engineering leadership.",
-    links: [],
-  },
+];
+
+const groups = [
+  { id: "personal-projects", title: "Personal projects", rows: rows.filter((row) => row.status === "Public") },
+  { id: "professional-experience", title: "Professional experience", rows: rows.filter((row) => row.status !== "Public") },
 ];
 ---
 
@@ -92,16 +80,22 @@ const rows = [
       <div class="section-heading">
         <h2 id="work-title">What I Have Shipped.</h2>
         <p>
-          Public links where they exist. The employer rows have no links, but they keep enough detail to judge the thinking, and every number is real.
+          Independent projects and the systems I’ve built with product teams.
         </p>
       </div>
 
+      <nav class="work-group-links" aria-label="Work categories">
+        {groups.map((group) => <a href={`#${group.id}`}>{group.title} ↓</a>)}
+      </nav>
+      {groups.map((group) => (
+      <section class="work-group" id={group.id} aria-labelledby={`${group.id}-title`}>
+      <h3 class="work-group-title" id={`${group.id}-title`}>{group.title}</h3>
       <ul class="ledger" role="list">
-        {rows.map((row) => (
+        {group.rows.map((row) => (
           <li class="ledger-row spotlight-panel" data-spotlight>
             <div class="ledger-status">{row.status}</div>
             <div class="ledger-main">
-              <h3>{row.title}</h3>
+              <h4>{row.title}</h4>
               <p>{row.summary}</p>
             </div>
             <div class="ledger-evidence">
@@ -122,6 +116,8 @@ const rows = [
           </li>
         ))}
       </ul>
+      </section>
+      ))}
     </div>
   </div>
 </section>

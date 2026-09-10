@@ -1,4 +1,19 @@
 ---
+const operatingModel = [
+  {
+    label: "Primitive Layer",
+    detail: "Tokens, states, semantics, accessibility, type",
+  },
+  {
+    label: "Workflow Layer",
+    detail: "Routes, data contracts, review flows, eval tasks",
+  },
+  {
+    label: "Adoption Layer",
+    detail: "Docs, contribution paths, PR review, release guardrails",
+  },
+];
+
 const principles = [
   {
     title: "Component APIs Shape Teams",
@@ -31,6 +46,17 @@ const principles = [
           </article>
         ))}
       </div>
+      <section class="judgment-working-model" aria-labelledby="working-model-title">
+        <h3 id="working-model-title">Working model</h3>
+        <dl>
+          {operatingModel.map((row) => (
+            <div>
+              <dt>{row.label}</dt>
+              <dd>{row.detail}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
     </div>
   </div>
 </section>

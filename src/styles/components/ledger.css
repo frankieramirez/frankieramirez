@@ -20,7 +20,7 @@
 
   &:hover,
   &:focus-within {
-    .ledger-main h3 {
+    .ledger-main h4 {
       color: color-mix(in oklab, var(--calibration) 42%, var(--ink));
     }
 
@@ -63,7 +63,7 @@
 }
 
 .ledger-main {
-  h3 {
+  h4 {
     margin: 0;
     overflow-wrap: normal;
     font-size: clamp(22px, 1.75vw, 30px);
@@ -161,3 +161,10 @@
     gap: 4px 16px;
   }
 }
+
+.work-group-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-block: 24px 36px; }
+.work-group-links a { font-size: 13px; color: var(--secondary); text-decoration: underline; text-decoration-color: var(--rule); }
+.work-group-links a:hover { color: var(--calibration); }
+.work-group { scroll-margin-top: 32px; }
+.work-group + .work-group { margin-top: 48px; }
+.work-group-title { padding-block: 16px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }

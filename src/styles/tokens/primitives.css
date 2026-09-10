@@ -1,10 +1,17 @@
 :root {
+  --brand-blue: #1476DE;
+  --brand-navy: #0D315B;
+  --brand-deep-blue: #124982;
+  --brand-off-white: #F5F7FA;
+  --brand-fold-gray: #CBD3DE;
+  --brand-dark: #151E29;
+
   --color-ink-900: light-dark(oklch(0.18 0.005 106), oklch(0.96 0.006 106));
   --color-neutral-500: light-dark(oklch(0.48 0.008 106), oklch(0.68 0.012 96));
   --color-neutral-300: light-dark(oklch(0.87 0.004 106), oklch(0.28 0.006 96));
   --color-canvas-50: light-dark(oklch(0.985 0.002 106), oklch(0.12 0.003 106));
   --color-canvas-100: light-dark(oklch(1 0 0), oklch(0.18 0.005 106));
-  --color-calibration-500: light-dark(oklch(0.52 0.22 264), oklch(0.78 0.12 264));
+  --color-calibration-500: light-dark(var(--brand-deep-blue), #79BAFF);
 
   --space-fluid-pad: clamp(20px, 4vw, 48px);
   --space-fluid-section: clamp(84px, 11vw, 148px);

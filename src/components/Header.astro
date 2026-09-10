@@ -1,15 +1,18 @@
 ---
+import BrandMark from "@/components/BrandMark.astro";
 const navLinks = [
   { href: "/#work", label: "Work" },
   { href: "/#judgment", label: "Judgment" },
+  { href: "/blog/", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
 ---
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/">
-      frankie<span class="brand-sep">/</span>ramirez
+    <a class="brand" href="/" aria-label="Frankie Ramirez home">
+      <BrandMark />
+      <span>frankie<span class="brand-sep">/</span>ramirez</span>
     </a>
 
     <nav class="site-nav" aria-label="Primary">

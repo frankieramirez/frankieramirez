@@ -9,6 +9,7 @@ export interface Props {
   description?: string;
   image?: string;
   canonical?: string;
+  reading?: boolean;
 }
 
 const defaultTitle = "Frankie Ramirez - Staff Software Engineer, Frontend Architecture and Design Systems";
@@ -20,6 +21,7 @@ const {
   description = defaultDescription,
   image = defaultImage,
   canonical,
+  reading = false,
 } = Astro.props;
 
 const siteHref = Astro.site?.href ?? "https://frankieramirez.com/";
@@ -65,6 +67,7 @@ const personSchema = {
     <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#080807" media="(prefers-color-scheme: dark)" />
 
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -89,11 +92,11 @@ const personSchema = {
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   </head>
-  <body>
+  <body class:list={{ reading }}>
     <a href="#main" class="skip-link">Skip to main content</a>
-    <Header />
+    {!reading && <Header />}
     <slot />
-    <Footer />
+    {!reading && <Footer />}
 
     <script>
       import { initPointerSpotlights } from "@/scripts/pointer-spotlight";

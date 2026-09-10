@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import BrandMark from '@/components/BrandMark.astro';
+import '@/styles/components/blog.css';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const sections = headings.filter(({ depth }) => depth === 2 || depth === 3);
+const minutes = Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220));
+---
+<Layout reading title={`${post.data.title} | Frankie Ramirez`} description={post.data.description} image={post.data.image}>
+  <div class="reader">
+    <aside class="reader-sidebar">
+      <a href="/" class="reader-monogram" aria-label="Frankie Ramirez home"><BrandMark /></a>
+      <a class="reader-back" href="/blog/"><span aria-hidden="true">←</span> Back to blog</a>
+      {sections.length > 0 && <nav aria-label="Article sections" class="reader-toc">
+        <p class="blog-eyebrow">On this page</p>
+        <ol>{sections.map((section) => <li class:list={{ nested: section.depth === 3 }}><a href={`#${section.slug}`} data-section-link>{section.text}</a></li>)}</ol>
+      </nav>}
+    </aside>
+    <main id="main" class="reader-main" tabindex="-1">
+      <article>
+        <header class="article-header">
+          <p class="blog-eyebrow">{post.data.draft ? 'Sample article · unpublished draft' : post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })} <span aria-hidden="true">/</span> {minutes} min read</p>
+          <h1>{post.data.title}</h1>
+          <p class="article-deck">{post.data.description}</p>
+          {post.data.source && <a class="article-source" href={post.data.source}>Originally published on X ↗</a>}
+        </header>
+        {post.data.image && <img class="article-cover" src={post.data.image} alt={post.data.imageAlt ?? ''} width="1200" height="480" decoding="async" />}
+        <div class="article-body"><Content /></div>
+        <footer class="article-end"><a href="/blog/">← All articles</a></footer>
+      </article>
+    </main>
+  </div>
+</Layout>
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-section-link]'));
+  const sections = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let queued = false;
+  function updateSection() {
+    let active = -1;
+    sections.forEach((section, index) => {
+      if (section && section.getBoundingClientRect().top <= 160) active = index;
+    });
+    links.forEach((link, index) => {
+      if (index === active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    queued = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(updateSection); }
+  }, { passive: true });
+  updateSection();
+</script>

@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FR">
-  <rect width="64" height="64" rx="12" fill="#fafaf8" />
-  <path d="M16 12h1v40h-1z" fill="#0057ff" />
-  <text x="24" y="38" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="600" fill="#11110e">FR</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><style>@media(prefers-color-scheme:dark){.a{fill:#F5F7FA}.b{fill:#CBD3DE}}</style><g transform="translate(256 256) scale(1.18) translate(-200 -220)"><path class="a" fill="#1476DE" d="M46 169 238 33V125L46 250Z"/><path class="b" fill="#0D315B" d="M46 250 138 190.1041667V310Z"/><path class="b" fill="#0D315B" d="M252 132 354 204 252 260.5492228Z"/><path class="a" fill="#124982" d="M161 311 354 204V279L161 405Z"/></g></svg>
