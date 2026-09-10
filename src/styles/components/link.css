@@ -1,7 +1,3 @@
-/* The shared inline-link recipe. Lived in header.css, but the nav, the contact
-   list, the footer and the 404 links all use it, so it owns its own sheet.
-   The ledger keeps its own ::after: that underline rests at scaleX(0.35)
-   rather than 0, which is a deliberate difference, not a copy. */
 .site-nav a,
 .header-contact,
 .ledger-links a,
@@ -43,7 +39,6 @@
   }
 }
 
-/* The pressed state the opacity transition above was already declared for. */
 .site-nav a:active,
 .header-contact:active,
 .ledger-links a:active,

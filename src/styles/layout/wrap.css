@@ -1,6 +1,3 @@
-/* Layout breakpoints, for every component sheet: 860px is where the page
-   goes to one column, 520px is the narrow-phone adjustment. Use these two,
-   and min-width: 861px when a rule needs the wide side. */
 
 .wrap {
   width: min(100%, var(--maxw));

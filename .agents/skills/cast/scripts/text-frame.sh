@@ -17,7 +17,6 @@ die() {
 }
 
 xml_escape() {
-  # sed, so a literal & in the replacement is \&. Bash ${var/a/&b} treats & as the match.
   printf '%s' "$1" | sed \
     -e 's/&/\&amp;/g' \
     -e 's/</\&lt;/g' \
@@ -35,7 +34,6 @@ out=$1
 tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
 
-# Strip CR and CSI color sequences, expand tabs, wrap at 120.
 tr -d '\r' | sed -e $'s/\x1b\\[[0-9;?]*[a-zA-Z]//g' -e $'s/\x1b\\][^\x07]*\x07//g' \
   | expand -t 4 | fold -w 120 >"$tmp" || die "failed to read stdin"
 

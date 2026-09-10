@@ -54,9 +54,6 @@
   min-width: 0;
 }
 
-/* The lighting layers and their fade come from components/spotlight-panel.css,
-   via [data-spotlight] on the element. Only this card's own gradients, radius
-   and rest position live here. */
 .operating-model {
   --pointer-x: 72%;
   --pointer-y: 18%;
