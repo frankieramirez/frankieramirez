@@ -1,11 +1,12 @@
 ---
-title: "The NAS is the easy part. Trust is the work."
+title: "My self-hosted NAS: Docker, VPN failures, and safe updates"
 description: "A tour of my home infrastructure, from Docker stacks and VPN failures to digest-pinned updates and AI-assisted operations."
 date: "2026-08-27"
 draft: false
+related: [how-im-building-with-ai-agents-right-now]
 source: "https://x.com/frankieramirez/status/2092972986970071236"
 image: "/images/blog/nas.webp"
-imageAlt: "Cover illustration for The NAS is the easy part. Trust is the work."
+imageAlt: "Cover illustration for My self-hosted NAS: Docker, VPN failures, and safe updates"
 ---
 
 I've spent a few years building this setup up, one stack at a time. It started as a box that held files. These days it's a small infrastructure project with its own Git repo, drift detection, monitoring, and a purpose-built update daemon. The rule underneath all of it: **Git is evidence, and Portainer stays the deployment control plane. Nothing does bulk unattended deploys.**
