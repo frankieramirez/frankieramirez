@@ -2,7 +2,8 @@
 import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import BrandMark from '@/components/BrandMark.astro';
-import { getPublishedPosts, type BlogPost } from '@/lib/blog';
+import { formatPostDate, getPublishedPosts, readingMinutes, type BlogPost } from '@/lib/blog';
+import { externalAttrs } from '@/lib/links';
 import '@/styles/components/blog.css';
 
 export async function getStaticPaths() {
@@ -13,16 +14,14 @@ interface Props { post: BlogPost }
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const sections = headings.filter(({ depth }) => depth === 2 || depth === 3);
-const minutes = Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220));
+const minutes = readingMinutes(post.body);
 ---
 <Layout
   reading
   type="article"
   title={`${post.data.title} | Frankie Ramirez`}
   description={post.data.description}
-  image={post.data.image}
-  imageWidth={post.data.image ? 1200 : undefined}
-  imageHeight={post.data.image ? 480 : undefined}
+  image={post.data.image ? { src: post.data.image, width: 1200, height: 480 } : undefined}
 >
   <div class="reader">
     <aside class="reader-sidebar">
@@ -30,16 +29,16 @@ const minutes = Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 22
       <a class="reader-back" href="/blog/"><span aria-hidden="true">←</span> Back to blog</a>
       {sections.length > 0 && <nav aria-label="Article sections" class="reader-toc">
         <p class="blog-eyebrow">On this page</p>
-        <ol>{sections.map((section) => <li class:list={{ nested: section.depth === 3 }}><a href={`#${section.slug}`} data-section-link>{section.text}</a></li>)}</ol>
+        <ol role="list">{sections.map((section) => <li class:list={{ nested: section.depth === 3 }}><a href={`#${section.slug}`} data-section-link>{section.text}</a></li>)}</ol>
       </nav>}
     </aside>
     <main id="main" class="reader-main" tabindex="-1">
       <article>
         <header class="article-header">
-          <p class="blog-eyebrow">{post.data.draft ? 'Sample article · unpublished draft' : post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })} <span aria-hidden="true">/</span> {minutes} min read</p>
+          <p class="blog-eyebrow">{post.data.draft ? 'Sample article · unpublished draft' : formatPostDate(post.data.date)} <span aria-hidden="true">/</span> {minutes} min read</p>
           <h1>{post.data.title}</h1>
           <p class="article-deck">{post.data.description}</p>
-          {post.data.source && <a class="article-source" href={post.data.source}>Originally published on X ↗</a>}
+          {post.data.source && <a class="article-source" href={post.data.source} {...externalAttrs(post.data.source)}>Originally published on X <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>}
         </header>
         {post.data.image && <img class="article-cover" src={post.data.image} alt={post.data.imageAlt ?? ''} width="1200" height="480" decoding="async" />}
         <div class="article-body"><Content /></div>

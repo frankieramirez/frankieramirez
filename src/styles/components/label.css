@@ -1,0 +1,34 @@
+/* The mono micro-label recipe, declared once.
+   Size, tracking, casing and line-height stay with each component, because those
+   genuinely differ per label; only the family and weight were being retyped. */
+.section-label,
+.hero-kicker,
+.operating-model-head span,
+.operating-model-label,
+.hero-meta-item span,
+.ledger-status,
+.ledger-evidence span,
+.work-group-title,
+.judgment-working-model h3,
+.judgment-working-model dt,
+.contact-links span,
+.site-footer p,
+.blog-eyebrow {
+  font-family: var(--mono);
+}
+
+/* .blog-eyebrow is the one label that sits at the inherited weight. */
+.section-label,
+.hero-kicker,
+.operating-model-head span,
+.operating-model-label,
+.hero-meta-item span,
+.ledger-status,
+.ledger-evidence span,
+.work-group-title,
+.judgment-working-model h3,
+.judgment-working-model dt,
+.contact-links span,
+.site-footer p {
+  font-weight: 500;
+}

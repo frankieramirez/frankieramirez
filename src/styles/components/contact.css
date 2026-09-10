@@ -1,5 +1,5 @@
 .contact-section {
-  padding-bottom: clamp(92px, 12vw, 172px);
+  padding-bottom: var(--section-space-lg);
 }
 
 .contact-links {
@@ -15,11 +15,13 @@
   border-bottom: 1px solid var(--rule);
 }
 
+.contact-links a:is(:hover, :focus-visible) {
+  border-bottom-color: var(--calibration);
+}
+
 .contact-links span {
   color: var(--secondary);
-  font-family: var(--mono);
   font-size: 12px;
-  font-weight: 500;
 }
 
 .contact-links strong {

@@ -1,0 +1,36 @@
+---
+/**
+ * The section shell every page section shares: the sticky label column, the
+ * body column, and the heading block above the content. It was hand-copied into
+ * four files; the class names and the sheets it uses are unchanged.
+ */
+export interface Props {
+  /** The sticky label in the left column. */
+  label: string;
+  /** Fragment id, when the section is a link target. */
+  id?: string;
+  /** Id of the heading inside the `heading` slot, for aria-labelledby. */
+  titleId?: string;
+  /** Extra class on the <section>, e.g. "ledger-section". */
+  class?: string;
+}
+
+const { label, id, titleId, class: className } = Astro.props;
+---
+
+<section
+  class:list={["section", className]}
+  id={id}
+  tabindex={id ? "-1" : undefined}
+  aria-labelledby={titleId}
+>
+  <div class="wrap section-grid">
+    <div class="section-label">{label}</div>
+    <div class="section-body">
+      <div class="section-heading">
+        <slot name="heading" />
+      </div>
+      <slot />
+    </div>
+  </div>
+</section>

@@ -1,4 +1,7 @@
 ---
+import Section from "@/components/Section.astro";
+import { externalAttrs, isExternal } from "@/lib/links";
+
 const primaryLinks = [
   { label: "Email", value: "hello@frankieramirez.com", href: "mailto:hello@frankieramirez.com" },
   { label: "GitHub", value: "@frankieramirez", href: "https://github.com/frankieramirez" },
@@ -6,29 +9,23 @@ const primaryLinks = [
 ];
 ---
 
-<section class="section contact-section" id="contact" aria-labelledby="contact-title">
-  <div class="wrap section-grid">
-    <div class="section-label">Contact</div>
-    <div class="section-body">
-      <div class="section-heading">
-        <h2 id="contact-title">Where I Fit.</h2>
-        <p>
-          Staff Software Engineer for frontend architecture and design systems, on a product team that needs someone to own interface quality end to end and put AI to work inside the engineering loop.
-        </p>
-      </div>
+<Section label="Contact" id="contact" titleId="contact-title" class="contact-section">
+  <Fragment slot="heading">
+    <h2 id="contact-title">Where I Fit.</h2>
+    <p>
+      Staff Software Engineer for frontend architecture and design systems, on a product team that needs someone to own interface quality end to end and put AI to work inside the engineering loop.
+    </p>
+  </Fragment>
 
-      <nav class="contact-links" aria-label="Contact">
-        {primaryLinks.map((link) => (
-          <a
-            href={link.href}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noopener" : undefined}
-          >
-            <span>{link.label}</span>
-            <strong>{link.value}</strong>
-          </a>
-        ))}
-      </nav>
-    </div>
-  </div>
-</section>
+  <nav class="contact-links" aria-label="Contact">
+    {primaryLinks.map((link) => (
+      <a href={link.href} {...externalAttrs(link.href)}>
+        <span>{link.label}</span>
+        <strong>{link.value}</strong>
+        {isExternal(link.href) && (
+          <span class="visually-hidden">(opens in a new tab)</span>
+        )}
+      </a>
+    ))}
+  </nav>
+</Section>

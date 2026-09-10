@@ -56,13 +56,20 @@
   }
 }
 
-@supports (animation-timeline: view()) {
-  .section {
-    animation-name: section-reveal;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 28%;
+/* Guarded the same way as components/folio-rule.css. The reduce block below
+   cannot clamp this one: a view() timeline is driven by scroll progress, so
+   animation-duration is ignored and there is nothing for the clamp to shorten.
+   Keep the animation longhands beside animation-timeline; the shorthand
+   compiles away under Lightning CSS. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .section {
+      animation-name: section-reveal;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
   }
 }
 

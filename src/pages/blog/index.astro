@@ -1,26 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getPublishedPosts } from '@/lib/blog';
+import { formatPostDate, getPublishedPosts } from '@/lib/blog';
 import '@/styles/components/blog.css';
 
 const posts = await getPublishedPosts({ includeDrafts: true });
 ---
-<Layout title="Blog | Frankie Ramirez" description="Notes on frontend architecture, design systems, and building software.">
-  <main id="main" class="blog-index wrap" tabindex="-1">
-    <header class="blog-intro">
-      <p class="blog-eyebrow">Notes & observations</p>
-      <h1>Blog</h1>
-      <p>On frontend architecture, design systems, and the work of building software.</p>
-    </header>
-    <div class="blog-posts">
-      {posts.map((post) => (
-        <a class="blog-post" href={`/blog/${post.id}/`}>
-          <span class="blog-eyebrow">{post.data.draft ? 'Sample · draft preview' : post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span>
-          <div><h2>{post.data.title}</h2><p>{post.data.description}</p></div>
-          <span aria-hidden="true">↗</span>
-        </a>
-      ))}
-      {posts.length === 0 && <p class="blog-empty">The first article is on its way. Check back soon.</p>}
-    </div>
-  </main>
+<Layout
+  title="Blog | Frankie Ramirez"
+  description="Notes on frontend architecture, design systems, and building software."
+  mainClass="blog-index wrap"
+>
+  <header class="blog-intro">
+    <p class="blog-eyebrow">Notes & observations</p>
+    <h1>Blog</h1>
+    <p>On frontend architecture, design systems, and the work of building software.</p>
+  </header>
+  <div class="blog-posts">
+    {posts.map((post) => (
+      <a class="blog-post" href={`/blog/${post.id}/`}>
+        <span class="blog-eyebrow">{post.data.draft ? 'Sample · draft preview' : formatPostDate(post.data.date)}</span>
+        <div><h2>{post.data.title}</h2><p>{post.data.description}</p></div>
+        <span aria-hidden="true">↗</span>
+      </a>
+    ))}
+    {posts.length === 0 && <p class="blog-empty">The first article is on its way. Check back soon.</p>}
+  </div>
 </Layout>

@@ -23,7 +23,7 @@ a {
   transition: color var(--duration-fast) var(--ease);
 }
 
-a:hover {
+a:is(:hover, :focus-visible) {
   color: var(--calibration);
 }
 
@@ -41,6 +41,19 @@ a:hover {
 main:focus-visible {
   outline: none;
   box-shadow: none;
+}
+
+/* Text for screen readers only, e.g. the "opens in a new tab" warning that has
+   no visual equivalent. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .skip-link {

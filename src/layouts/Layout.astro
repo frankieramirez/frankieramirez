@@ -4,35 +4,41 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import "@/styles/global.css";
 
+/** A share image travels with its own dimensions, so the three cannot disagree. */
+export interface ShareImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
 export interface Props {
   title?: string;
   description?: string;
-  image?: string;
-  imageWidth?: number;
-  imageHeight?: number;
+  image?: ShareImage;
   type?: "website" | "article";
   canonical?: string;
   reading?: boolean;
+  /** Class for the <main> this layout renders. The reading shell renders its own. */
+  mainClass?: string;
 }
 
 const defaultTitle = "Frankie Ramirez - Staff Software Engineer, Frontend Architecture and Design Systems";
 const defaultDescription =
   "Frankie Ramirez is a Staff Software Engineer who leads frontend architecture and design systems, with an engineering practice built around AI-assisted workflows.";
-const defaultImage = "/og.png";
+const defaultImage: ShareImage = { src: "/og.png", width: 1200, height: 630 };
 const {
   title = defaultTitle,
   description = defaultDescription,
   image = defaultImage,
-  imageWidth = 1200,
-  imageHeight = 630,
   type = "website",
   canonical,
   reading = false,
+  mainClass,
 } = Astro.props;
 
 const siteHref = Astro.site?.href ?? "https://frankieramirez.com/";
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
-const ogImage = new URL(image, siteHref).href;
+const ogImage = new URL(image.src, siteHref).href;
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -70,8 +76,10 @@ const personSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="author" content="Frankie Ramirez" />
-    <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#080807" media="(prefers-color-scheme: dark)" />
+    {/* Kept in step with --color-canvas-50 in styles/tokens/primitives.css by
+        hand: a meta tag cannot read a custom property. */}
+    <meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#060605" media="(prefers-color-scheme: dark)" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,8 +91,8 @@ const personSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content={String(imageWidth)} />
-    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
     <meta property="og:site_name" content="Frankie Ramirez" />
     <meta property="og:locale" content="en_US" />
 
@@ -100,9 +108,19 @@ const personSchema = {
   </head>
   <body class:list={{ reading }}>
     <a href="#main" class="skip-link">Skip to main content</a>
-    {!reading && <Header />}
-    <slot />
-    {!reading && <Footer />}
+    {reading ? (
+      /* The reading shell puts <main> inside its own grid, beside the section
+         nav, so pages/blog/[...id].astro declares that one itself. */
+      <slot />
+    ) : (
+      <>
+        <Header />
+        <main id="main" class={mainClass} tabindex="-1">
+          <slot />
+        </main>
+        <Footer />
+      </>
+    )}
 
     <script>
       import { initPointerSpotlights } from "@/scripts/pointer-spotlight";

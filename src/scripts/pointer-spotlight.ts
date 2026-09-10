@@ -26,13 +26,14 @@ export function bindPointerSpotlight(
       }
     };
 
+    // Only the pointer position is written inline. The lit state is data-lit,
+    // so the stylesheet can also light the panel on :focus-within; an inline
+    // --spotlight-opacity would outrank that rule and leave keyboard users dark.
     element.addEventListener("pointerenter", () => {
-      element.style.setProperty("--spotlight-opacity", "1");
       element.dataset.lit = "true";
     });
     element.addEventListener("pointermove", setPointer);
     element.addEventListener("pointerleave", () => {
-      element.style.setProperty("--spotlight-opacity", "0");
       element.style.setProperty("--pointer-x", restX);
       element.style.setProperty("--pointer-y", restY);
       if (trackAngle) {

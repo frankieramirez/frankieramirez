@@ -1,7 +1,9 @@
 ---
+// `note` is read out after the visible label, so the accessible name still
+// starts with the text on screen (WCAG 2.5.3).
 const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/frankieramirez" },
-  { label: "X", href: "https://x.com/frankieramirez", ariaLabel: "X (formerly Twitter)" },
+  { label: "X", href: "https://x.com/frankieramirez", note: "formerly Twitter" },
   { label: "Bluesky", href: "https://bsky.app/profile/frankieramirez.bsky.social" },
   { label: "Mastodon", href: "https://mastodon.social/@frankieramirez", rel: "me noopener" },
 ];
@@ -12,8 +14,11 @@ const links = [
     <p>Frankie Ramirez / Staff Software Engineer, Frontend Architecture and Design Systems</p>
     <nav aria-label="Secondary links">
       {links.map((link) => (
-        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"} aria-label={link.ariaLabel}>
+        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"}>
           {link.label}
+          <span class="visually-hidden">
+            {link.note ? ` (${link.note})` : ""} (opens in a new tab)
+          </span>
         </a>
       ))}
     </nav>

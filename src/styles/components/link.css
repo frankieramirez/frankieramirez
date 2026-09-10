@@ -1,0 +1,60 @@
+/* The shared inline-link recipe. Lived in header.css, but the nav, the contact
+   list, the footer and the 404 links all use it, so it owns its own sheet.
+   The ledger keeps its own ::after: that underline rests at scaleX(0.35)
+   rather than 0, which is a deliberate difference, not a copy. */
+.site-nav a,
+.header-contact,
+.ledger-links a,
+.contact-links a,
+.site-footer a,
+.not-found-links a {
+  position: relative;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition:
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    opacity var(--duration-fast) var(--ease);
+}
+
+.site-nav a,
+.header-contact,
+.site-footer a,
+.not-found-links a {
+  display: inline-block;
+  padding-block: 6px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-fast) var(--ease);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* The pressed state the opacity transition above was already declared for. */
+.site-nav a:active,
+.header-contact:active,
+.ledger-links a:active,
+.contact-links a:active,
+.site-footer a:active,
+.not-found-links a:active {
+  opacity: 0.7;
+}
+
+.not-found-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+}

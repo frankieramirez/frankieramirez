@@ -1,4 +1,5 @@
 ---
+import Section from "@/components/Section.astro";
 const operatingModel = [
   {
     label: "Primitive Layer",
@@ -30,33 +31,28 @@ const principles = [
 ];
 ---
 
-<section class="section judgment-section" id="judgment" aria-labelledby="judgment-title">
-  <div class="wrap section-grid">
-    <div class="section-label">Judgment</div>
-    <div class="section-body">
-      <div class="section-heading">
-        <h2 id="judgment-title">How I Decide.</h2>
-      </div>
+<Section label="Judgment" id="judgment" titleId="judgment-title" class="judgment-section">
+  <Fragment slot="heading">
+    <h2 id="judgment-title">How I Decide.</h2>
+  </Fragment>
 
-      <div class="judgment-list">
-        {principles.map((principle) => (
-          <article class="judgment-item spotlight-panel" data-spotlight>
-            <h3>{principle.title}</h3>
-            <p>{principle.body}</p>
-          </article>
-        ))}
-      </div>
-      <section class="judgment-working-model" aria-labelledby="working-model-title">
-        <h3 id="working-model-title">Working model</h3>
-        <dl>
-          {operatingModel.map((row) => (
-            <div>
-              <dt>{row.label}</dt>
-              <dd>{row.detail}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-    </div>
+  <div class="judgment-list">
+    {principles.map((principle) => (
+      <article class="judgment-item spotlight-panel" data-spotlight>
+        <h3>{principle.title}</h3>
+        <p>{principle.body}</p>
+      </article>
+    ))}
   </div>
-</section>
+  <section class="judgment-working-model" aria-labelledby="working-model-title">
+    <h3 id="working-model-title">Working model</h3>
+    <dl>
+      {operatingModel.map((row) => (
+        <div>
+          <dt>{row.label}</dt>
+          <dd>{row.detail}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+</Section>
