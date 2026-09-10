@@ -33,3 +33,7 @@ _tmp_*
 
 # lighthouse ci
 .lighthouseci/
+
+# local scratch: generated brand packs and working assets
+outputs/
+work/
