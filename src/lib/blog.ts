@@ -32,5 +32,5 @@ export function formatPostDate(date: Date, style: "short" | "long" = "long") {
 
 /** Reading time at 220 words a minute, never less than a minute. */
 export function readingMinutes(body: string | undefined) {
-  return Math.max(1, Math.ceil((body ?? "").split(/\s+/).length / 220));
+  return Math.max(1, Math.ceil(((body ?? "").match(/\S+/g)?.length ?? 0) / 220));
 }

@@ -1,5 +1,11 @@
 const bound = new WeakSet<HTMLElement>();
 
+/**
+ * Writes the pointer position onto every element matching `selector`, returning
+ * to `restX`/`restY` on pointerleave and also writing `--pointer-angle` when
+ * `trackAngle` is set. It does nothing under `prefers-reduced-motion: reduce`,
+ * and each element is bound only once.
+ */
 export function bindPointerSpotlight(
   selector: string,
   options?: { restX?: string; restY?: string; trackAngle?: boolean },
@@ -44,6 +50,7 @@ export function bindPointerSpotlight(
   });
 }
 
+/** Binds the three spotlight surfaces, each with its own rest position. */
 export function initPointerSpotlights() {
   bindPointerSpotlight(".operating-model[data-spotlight]", {
     restX: "72%",
