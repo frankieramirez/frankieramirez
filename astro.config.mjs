@@ -11,8 +11,8 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "Geist",
-      cssVariable: "--font-geist",
+      name: "IBM Plex Sans",
+      cssVariable: "--font-plex-sans",
       weights: [400, 500, 600],
       styles: ["normal"],
       subsets: ["latin"],
@@ -20,8 +20,8 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Geist Mono",
-      cssVariable: "--font-geist-mono",
+      name: "IBM Plex Mono",
+      cssVariable: "--font-plex-mono",
       weights: [500],
       styles: ["normal"],
       subsets: ["latin"],

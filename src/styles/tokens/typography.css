@@ -1,6 +1,6 @@
 :root {
-  --sans: var(--font-geist);
-  --mono: var(--font-geist-mono);
+  --sans: var(--font-plex-sans);
+  --mono: var(--font-plex-mono);
 
   /* Body copy scale. Each step is a size that repeats across sheets; the
      figures are unchanged, they just have names now. Sizes used exactly once

@@ -3,6 +3,8 @@ title: "How I’m building with AI agents right now"
 description: "The models and bots I’m using, how I turn ideas into tickets, and how much freedom I give my agents."
 date: 2026-09-10
 draft: false
+image: "/images/blog/agents.webp"
+imageAlt: "Pixel-art night workshop: a developer at a lit desk with code and a landscape on screen, surrounded by small robots in wizard hats reading books and tending boards, a sleeping dog on the rug, forest and castle through the window"
 related: [building-my-own-agent-skills, the-nas-is-the-easy-part]
 ---
 
