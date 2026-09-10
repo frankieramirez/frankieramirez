@@ -1,10 +1,5 @@
 :root {
-  --brand-blue: #1476DE;
-  --brand-navy: #0D315B;
   --brand-deep-blue: #124982;
-  --brand-off-white: #F5F7FA;
-  --brand-fold-gray: #CBD3DE;
-  --brand-dark: #151E29;
 
   --color-ink-900: light-dark(oklch(0.18 0.005 106), oklch(0.96 0.006 106));
   --color-neutral-500: light-dark(oklch(0.48 0.008 106), oklch(0.68 0.012 96));

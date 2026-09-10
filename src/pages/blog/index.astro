@@ -1,10 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
+import { getPublishedPosts } from '@/lib/blog';
 import '@/styles/components/blog.css';
 
-const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = await getPublishedPosts({ includeDrafts: true });
 ---
 <Layout title="Blog | Frankie Ramirez" description="Notes on frontend architecture, design systems, and building software.">
   <main id="main" class="blog-index wrap" tabindex="-1">

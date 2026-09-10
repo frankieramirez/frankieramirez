@@ -1,21 +1,29 @@
 ---
-import { getCollection, render } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import BrandMark from '@/components/BrandMark.astro';
+import { getPublishedPosts, type BlogPost } from '@/lib/blog';
 import '@/styles/components/blog.css';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+  const posts = await getPublishedPosts({ includeDrafts: true });
   return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
 }
-interface Props { post: CollectionEntry<'blog'> }
+interface Props { post: BlogPost }
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const sections = headings.filter(({ depth }) => depth === 2 || depth === 3);
 const minutes = Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220));
 ---
-<Layout reading title={`${post.data.title} | Frankie Ramirez`} description={post.data.description} image={post.data.image}>
+<Layout
+  reading
+  type="article"
+  title={`${post.data.title} | Frankie Ramirez`}
+  description={post.data.description}
+  image={post.data.image}
+  imageWidth={post.data.image ? 1200 : undefined}
+  imageHeight={post.data.image ? 480 : undefined}
+>
   <div class="reader">
     <aside class="reader-sidebar">
       <a href="/" class="reader-monogram" aria-label="Frankie Ramirez home"><BrandMark /></a>
