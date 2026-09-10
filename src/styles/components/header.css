@@ -7,6 +7,9 @@
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   width: fit-content;
   font-size: clamp(16px, 2vw, 19px);
   font-weight: 600;

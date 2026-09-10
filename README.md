@@ -29,7 +29,7 @@ Staff frontend and design-system roles that treat interface quality, system gove
 
 ## This repository
 
-The live site and its source live here. It's a single static page on a stack chosen piece by piece, with two production dependencies.
+The live site and its source live here. It includes a homepage and a Markdown blog, with two production dependencies.
 
 ```
 Astro 7 (static) · OKLCH token CSS · self-hosted Geist · @astrojs/sitemap
@@ -37,6 +37,12 @@ Astro 7 (static) · OKLCH token CSS · self-hosted Geist · @astrojs/sitemap
 ```
 
 **Homepage sections, in order:** Hero, Work ledger, Judgment, Contact
+
+### Blog
+
+Add posts as Markdown files in `src/content/blog/` with `title`, `description`, and `date` frontmatter. Set `draft: true` to preview a post locally while excluding it from production. Set `draft: false` to publish it on the next build.
+
+The blog index lives at `/blog/`. Article pages use a separate reading layout with automatic section links from `##` and `###` headings, an active section indicator, and a back link. The section navigation moves above the article on small screens. Optional `source`, `image`, and `imageAlt` fields preserve original publication links and cover images for cross-posted articles.
 
 <details>
 <summary><strong>Stylesheet layout</strong>, for reviewers who read <code>src/styles/</code></summary>

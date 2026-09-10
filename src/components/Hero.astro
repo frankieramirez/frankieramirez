@@ -1,18 +1,7 @@
 ---
-const operatingModel = [
-  {
-    label: "Primitive Layer",
-    detail: "Tokens, states, semantics, accessibility, type",
-  },
-  {
-    label: "Workflow Layer",
-    detail: "Routes, data contracts, review flows, eval tasks",
-  },
-  {
-    label: "Adoption Layer",
-    detail: "Docs, contribution paths, PR review, release guardrails",
-  },
-];
+import { getPublishedPosts } from "@/lib/blog";
+
+const latestPosts = (await getPublishedPosts()).slice(0, 3);
 
 const meta = [
   { label: "Experience", value: "14+ years" },
@@ -31,19 +20,22 @@ const meta = [
       </p>
     </div>
 
-    <aside class="hero-aside" aria-label="Working model">
+    <aside class="hero-aside" aria-label="Latest writing and experience">
       <div class="operating-model" data-spotlight>
         <div class="operating-model-inner">
           <div class="operating-model-head">
-            <span>Working Model</span>
-            <span class="operating-model-version">v1</span>
+            <span>Latest writing</span>
+            <a class="latest-writing-all" href="/blog/">All posts <span aria-hidden="true">↗</span></a>
           </div>
-          {operatingModel.map((row) => (
-            <div class="operating-model-row">
-              <p class="operating-model-label">{row.label}</p>
-              <p>{row.detail}</p>
-            </div>
+          {latestPosts.map((post) => (
+            <a class="operating-model-row latest-writing-post" href={`/blog/${post.id}/`}>
+              <time class="operating-model-label" datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}
+              </time>
+              <p>{post.data.title}</p>
+            </a>
           ))}
+          {latestPosts.length === 0 && <p class="operating-model-row">New writing is on its way.</p>}
         </div>
       </div>
 
