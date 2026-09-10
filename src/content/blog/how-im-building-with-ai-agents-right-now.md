@@ -3,6 +3,7 @@ title: "How I’m building with AI agents right now"
 description: "The models and bots I’m using, how I turn ideas into tickets, and how much freedom I give my agents."
 date: 2026-09-10
 draft: false
+related: [building-my-own-agent-skills, the-nas-is-the-easy-part]
 ---
 
 I’m using several AI subscriptions, with different models handling different parts of my projects. I keep trying new tools and changing how I work, so I wanted to write down what I’m doing today. I’ll probably revisit this in a few months to see how much has changed.
@@ -18,6 +19,8 @@ Having multiple subscriptions lets me try new capabilities on actual projects. O
 ## Turning ideas into tickets
 
 I use [mana](https://github.com/frankieramirez/mana), my collection of agent skills, to turn ideas into GitHub issues that my agents can work through.
+
+I wrote about [how I built mana and gave the skills a fantasy theme](/blog/building-my-own-agent-skills/) in an earlier post.
 
 An idea usually starts with Fable 5.1 or GPT-6 Astra and my scry skill. That gives me an initial map of the work and the decisions we need to make. From there, Opus 5 handles most of the “grilling” tickets, where we work through questions and challenge assumptions before building anything. When something carries more weight, I use Fable 5.1 for the extra confidence.
 
