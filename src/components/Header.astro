@@ -15,10 +15,13 @@ const navLinks = [
       <span>frankie<span class="brand-sep">/</span>ramirez</span>
     </a>
 
+    {/* Email precedes the nav in the DOM because that is its visual order under
+        860px, where the nav wraps to a second row. The grid columns below put
+        it back on the right on wide screens. */}
+    <a class="header-contact" href="mailto:hello@frankieramirez.com">Email</a>
+
     <nav class="site-nav" aria-label="Primary">
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
-
-    <a class="header-contact" href="mailto:hello@frankieramirez.com">Email</a>
   </div>
 </header>

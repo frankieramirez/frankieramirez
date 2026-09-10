@@ -19,6 +19,8 @@
 
   --maxw: var(--layout-max);
   --pad: var(--space-fluid-pad);
+  --section-space-sm: var(--space-fluid-section-sm);
   --section-space: var(--space-fluid-section);
+  --section-space-lg: var(--space-fluid-section-lg);
   --ease: var(--ease-standard);
 }

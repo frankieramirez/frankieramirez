@@ -1,4 +1,7 @@
 ---
+import Section from "@/components/Section.astro";
+import { externalAttrs, isExternal } from "@/lib/links";
+
 const rows = [
   {
     status: "Public",
@@ -73,55 +76,50 @@ const groups = [
 ];
 ---
 
-<section class="section ledger-section" id="work" aria-labelledby="work-title">
-  <div class="wrap section-grid">
-    <div class="section-label">Work</div>
-    <div class="section-body">
-      <div class="section-heading">
-        <h2 id="work-title">What I Have Shipped.</h2>
-        <p>
-          Independent projects and the systems I’ve built with product teams.
-        </p>
-      </div>
+<Section label="Work" id="work" titleId="work-title" class="ledger-section">
+  <Fragment slot="heading">
+    <h2 id="work-title">What I Have Shipped.</h2>
+    <p>
+      Independent projects and the systems I’ve built with product teams.
+    </p>
+  </Fragment>
 
-      <nav class="work-group-links" aria-label="Work categories">
-        {groups.map((group) => <a href={`#${group.id}`}>{group.title} ↓</a>)}
-      </nav>
-      {groups.map((group) => (
-      <section class="work-group" id={group.id} aria-labelledby={`${group.id}-title`}>
-      <h3 class="work-group-title" id={`${group.id}-title`}>{group.title}</h3>
-      <ul class="ledger" role="list">
-        {group.rows.map((row) => (
-          <li class="ledger-row spotlight-panel" data-spotlight>
-            <div class="ledger-status">{row.status}</div>
-            <div class="ledger-main">
-              <h4>{row.title}</h4>
-              <p>{row.summary}</p>
-            </div>
-            <div class="ledger-evidence">
-              <span>Evidence</span>
-              <p>{row.evidence}</p>
-            </div>
-            {row.links.length > 0 && (
-              <ul class="ledger-links" role="list">
-                {row.links.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener" : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
-      </section>
-      ))}
-    </div>
-  </div>
-</section>
+  <nav class="work-group-links" aria-label="Work categories">
+    {groups.map((group) => <a href={`#${group.id}`}>{group.title} ↓</a>)}
+  </nav>
+  {groups.map((group) => (
+  <section class="work-group" id={group.id} tabindex="-1" aria-labelledby={`${group.id}-title`}>
+  <h3 class="work-group-title" id={`${group.id}-title`}>{group.title}</h3>
+  <ul class="ledger" role="list">
+    {group.rows.map((row) => (
+      <li class="ledger-row spotlight-panel" data-spotlight>
+        <div class="ledger-status">{row.status}</div>
+        <div class="ledger-main">
+          <h4>{row.title}</h4>
+          <p>{row.summary}</p>
+        </div>
+        <div class="ledger-evidence">
+          <span>Evidence</span>
+          <p>{row.evidence}</p>
+        </div>
+        {row.links.length > 0 && (
+          <ul class="ledger-links" role="list">
+            {row.links.map((link) => (
+              <li>
+                <a href={link.href} {...externalAttrs(link.href)}>
+                  {link.label}
+                  <span class="visually-hidden">
+                    {` — ${row.title}`}
+                    {isExternal(link.href) && " (opens in a new tab)"}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+  </section>
+  ))}
+</Section>

@@ -22,30 +22,47 @@
   initial-value: 0deg;
 }
 
+/* The scaffolding every pointer-lit surface shares, keyed on the attribute both
+   the ledger rows and the hero card already carry. Each panel still draws its
+   own gradients; only the two lighting layers and their fade live here. */
+[data-spotlight],
 .spotlight-panel {
   --spotlight-opacity: 0;
   position: relative;
+}
+
+[data-spotlight]::before,
+[data-spotlight]::after,
+.spotlight-panel::before,
+.spotlight-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--spotlight-opacity);
+  transition: opacity var(--duration-mid) var(--ease);
+}
+
+/* Lit by the pointer (data-lit, set in scripts/pointer-spotlight.ts) or by a
+   keyboard reaching something inside, which fires no pointer event at all. */
+[data-spotlight][data-lit="true"],
+[data-spotlight]:focus-within,
+.spotlight-panel:focus-within {
+  --spotlight-opacity: 1;
+}
+
+.spotlight-panel {
   isolation: isolate;
   margin-block: 4px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   transition:
-    transform 340ms var(--ease),
+    transform var(--duration-slow) var(--ease),
     --pointer-x 140ms var(--ease),
     --pointer-y 140ms var(--ease),
     --pointer-angle 220ms var(--ease);
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: var(--spotlight-opacity);
-    transition: opacity 260ms var(--ease);
-  }
-
   &::before {
-    inset: 0;
     z-index: 0;
     padding: 1px;
     background: conic-gradient(

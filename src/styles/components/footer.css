@@ -12,9 +12,7 @@
 .site-footer p {
   margin: 0;
   color: var(--secondary);
-  font-family: var(--mono);
   font-size: 12px;
-  font-weight: 500;
   line-height: 1.4;
 }
 

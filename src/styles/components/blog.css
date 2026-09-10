@@ -1,57 +1,65 @@
-.blog-index { min-height: 70vh; padding-block: clamp(64px, 10vw, 128px); }
-.blog-eyebrow { font-family: var(--mono); font-size: 11px; line-height: 1.8; color: var(--secondary); letter-spacing: .06em; }
-.blog-intro { max-width: 620px; margin-bottom: 72px; }
-.blog-intro h1 { font-size: clamp(48px, 8vw, 88px); font-weight: 500; letter-spacing: -.06em; margin: 12px 0 24px; }
-.blog-intro > p:last-child { color: var(--secondary); font-size: 19px; line-height: 1.6; }
-.blog-post { display: grid; grid-template-columns: 200px 1fr auto; gap: 32px; border-top: 1px solid var(--rule); padding-block: 32px; align-items: baseline; }
-.blog-post h2 { font-size: 26px; font-weight: 500; letter-spacing: -.03em; }
-.blog-post p { color: var(--secondary); margin-top: 12px; line-height: 1.6; }
-.blog-empty { padding-block: 32px; border-top: 1px solid var(--rule); color: var(--secondary); }
-body.reading::before, body.reading::after { display: none; }
-.reader { max-width: 1280px; margin-inline: auto; padding: 72px var(--pad) 0; display: grid; grid-template-columns: 220px minmax(0, 660px); gap: clamp(48px, 8vw, 128px); align-items: start; }
-.reader-sidebar { position: sticky; top: 48px; max-height: calc(100dvh - 96px); overflow-y: auto; padding: 6px; margin: -6px; }
-.reader-monogram { display: block; width: fit-content; font-weight: 600; font-size: 28px; letter-spacing: -.08em; margin-bottom: 36px; }
-.reader-monogram span { color: var(--secondary); }
-.reader-back { display: inline-flex; gap: 10px; align-items: center; font-size: 13px; color: var(--secondary); padding-block: 8px; }
-.reader-toc { margin-top: 36px; }
-.reader-toc ol { list-style: none; padding: 0; margin-top: 12px; }
-.reader-toc a { display: block; color: var(--secondary); font-size: 13px; line-height: 1.5; padding: 7px 0 7px 14px; border-left: 1px solid var(--rule); }
-.reader-toc a:hover, .reader-toc a[aria-current] { color: var(--ink); border-color: var(--ink); }
-.reader-toc .nested a { padding-left: 26px; font-size: 12px; }
-.reader-main { min-width: 0; padding-top: 8px; }
-.article-header { margin-bottom: 56px; }
-.article-header h1 { font-size: clamp(36px, 4.4vw, 58px); line-height: 1.08; font-weight: 500; letter-spacing: -.055em; margin: 24px 0; }
-.article-header .blog-eyebrow span { margin-inline: 10px; }
-.article-deck { font-size: 20px; line-height: 1.6; color: var(--secondary); }
-.article-byline { margin-top: 12px; font-size: 13px; color: var(--secondary); line-height: 1.8; }
-.article-byline a, .article-related a { text-decoration: underline; }
-.article-related { margin-bottom: 32px; }
-.article-related h2 { color: var(--ink); font-size: 18px; font-weight: 500; }
-.article-related ul { padding-left: 20px; margin-top: 12px; }
-.article-related li { margin-block: 12px; line-height: 1.6; }
-.article-source { display: inline-block; margin-top: 20px; font-size: 12px; color: var(--secondary); text-decoration: underline; }
-.article-cover { width: 100%; height: auto; margin-bottom: 40px; border-radius: 8px; }
-.article-body { font-size: 17px; line-height: 1.85; overflow-wrap: anywhere; }
-.article-body p, .article-body ul, .article-body ol { margin-block: 24px; }
-.article-body h2 { margin: 64px 0 20px; font-size: 25px; line-height: 1.3; font-weight: 500; letter-spacing: -.025em; scroll-margin-top: 64px; }
-.article-body h3 { margin: 36px 0 16px; font-size: 20px; font-weight: 500; scroll-margin-top: 64px; }
-.article-body a { text-decoration: underline; }
-.article-body blockquote { border-left: 2px solid var(--rule); padding-left: 24px; color: var(--secondary); margin-block: 32px; }
-.article-body pre { padding: 24px; overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; font-size: 13px; line-height: 1.8; margin-block: 32px; }
-.article-body :not(pre) > code { font-size: .85em; background: var(--surface); padding: 2px 5px; }
-.article-body img { height: auto; border-radius: 8px; margin-block: 32px; }
-.article-body table { display: block; overflow-x: auto; border-collapse: collapse; }
-.article-body td, .article-body th { padding: 8px 16px; border: 1px solid var(--rule); }
-.article-end { margin-top: 72px; border-top: 1px solid var(--rule); padding-block: 28px 64px; font-size: 13px; color: var(--secondary); }
-@media (max-width: 760px) {
-  .reader { display: block; padding-top: 28px; max-width: 700px; }
-  .reader-sidebar { position: static; max-height: none; margin-bottom: 44px; }
-  .reader-monogram { display: none; }
-  .reader-toc { margin-top: 24px; }
-  .reader-toc ol { display: flex; flex-wrap: wrap; gap: 4px 18px; }
-  .reader-toc a, .reader-toc .nested a { border-left: 0; padding: 5px 0; font-size: 12px; text-decoration: underline; text-decoration-color: var(--rule); }
-  .reader-toc a[aria-current] { text-decoration-color: var(--ink); }
-  .article-body { font-size: 16px; }
-  .blog-post { grid-template-columns: 1fr auto; gap: 12px; }
-  .blog-post > .blog-eyebrow { grid-column: 1 / -1; }
+/* Imported per page (blog index and article), not from styles/index.css, so the
+   homepage does not carry reading styles. The layer keeps it inside the same
+   cascade order as every other component sheet instead of winning by being
+   unlayered. */
+@layer components {
+  .blog-index { min-height: 70vh; padding-block: var(--section-space-sm); }
+  .blog-eyebrow { font-size: 11px; line-height: 1.8; color: var(--secondary); letter-spacing: .06em; }
+  .blog-intro { max-width: 620px; margin-bottom: 72px; }
+  .blog-intro h1 { font-size: clamp(48px, 8vw, 88px); font-weight: 600; margin: 12px 0 24px; }
+  .blog-intro > p:last-child { color: var(--secondary); font-size: 19px; line-height: 1.6; }
+  .blog-post { display: grid; grid-template-columns: 200px 1fr auto; gap: 32px; border-top: 1px solid var(--rule); padding-block: 32px; align-items: baseline; transition: background var(--duration-fast) var(--ease); }
+  .blog-post h2 { font-size: 26px; font-weight: 600; }
+  .blog-post p { color: var(--secondary); margin-top: 12px; line-height: 1.6; }
+  .blog-post:is(:hover, :focus-visible) { background: color-mix(in oklab, var(--calibration) 7%, transparent); }
+  .blog-empty { padding-block: 32px; border-top: 1px solid var(--rule); color: var(--secondary); }
+  body.reading::before, body.reading::after { display: none; }
+  .reader { max-width: 1280px; margin-inline: auto; padding: 72px var(--pad) 0; display: grid; grid-template-columns: 220px minmax(0, 660px); gap: clamp(48px, 8vw, 128px); align-items: start; }
+  .reader-sidebar { position: sticky; top: 48px; max-height: calc(100dvh - 96px); overflow-y: auto; padding: 6px; margin: -6px; }
+  .reader-monogram { display: block; width: fit-content; font-weight: 600; font-size: 28px; letter-spacing: -.08em; margin-bottom: 36px; transition: color var(--duration-fast) var(--ease); }
+  .reader-monogram:is(:hover, :focus-visible) { color: var(--calibration); }
+  .reader-monogram span { color: var(--secondary); }
+  .reader-back { display: inline-flex; gap: 10px; align-items: center; font-size: var(--text-xs); color: var(--secondary); padding-block: 8px; }
+  .reader-toc { margin-top: 36px; }
+  .reader-toc ol { list-style: none; padding: 0; margin-top: 12px; }
+  .reader-toc a { display: block; color: var(--secondary); font-size: var(--text-xs); line-height: 1.5; padding: 7px 0 7px 14px; border-left: 1px solid var(--rule); transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
+  .reader-toc a:is(:hover, :focus-visible), .reader-toc a[aria-current] { color: var(--ink); border-color: var(--ink); }
+  .reader-toc .nested a { padding-left: 26px; font-size: 12px; }
+  .reader-main { min-width: 0; padding-top: 8px; }
+  .article-header { margin-bottom: 56px; }
+  .article-header h1 { font-size: clamp(36px, 4.4vw, 58px); line-height: 1.08; font-weight: 600; margin: 24px 0; }
+  .article-header .blog-eyebrow span { margin-inline: 10px; }
+  .article-deck { font-size: 20px; line-height: 1.6; color: var(--secondary); }
+  .article-byline { margin-top: 12px; font-size: 13px; color: var(--secondary); line-height: 1.8; }
+  .article-byline a, .article-related a { text-decoration: underline; }
+  .article-related { margin-bottom: 32px; }
+  .article-related h2 { color: var(--ink); font-size: 18px; font-weight: 500; }
+  .article-related ul { padding-left: 20px; margin-top: 12px; }
+  .article-related li { margin-block: 12px; line-height: 1.6; }
+  .article-source { display: inline-block; margin-top: 20px; font-size: 12px; color: var(--secondary); text-decoration: underline; }
+  .article-cover { width: 100%; height: auto; margin-bottom: 40px; border-radius: var(--radius-sm); }
+  .article-body { font-size: 17px; line-height: 1.85; overflow-wrap: anywhere; }
+  .article-body p, .article-body ul, .article-body ol { margin-block: 24px; }
+  .article-body h2 { margin: 64px 0 20px; font-size: 25px; line-height: 1.3; font-weight: 600; scroll-margin-top: 64px; }
+  .article-body h3 { margin: 36px 0 16px; font-size: 20px; font-weight: 600; scroll-margin-top: 64px; }
+  .article-body a { text-decoration: underline; }
+  .article-body blockquote { border-left: 2px solid var(--rule); padding-left: 24px; color: var(--secondary); margin-block: 32px; }
+  .article-body pre { padding: 24px; overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--radius-sm); font-size: var(--text-xs); line-height: 1.8; margin-block: 32px; }
+  .article-body :not(pre) > code { font-size: .85em; background: var(--surface); padding: 2px 5px; }
+  .article-body img { height: auto; border-radius: var(--radius-sm); margin-block: 32px; }
+  .article-body table { display: block; overflow-x: auto; border-collapse: collapse; }
+  .article-body td, .article-body th { padding: 8px 16px; border: 1px solid var(--rule); }
+  .article-end { margin-top: 72px; border-top: 1px solid var(--rule); padding-block: 28px 64px; font-size: var(--text-xs); color: var(--secondary); }
+  @media (max-width: 860px) {
+    .reader { display: block; padding-top: 28px; max-width: 700px; }
+    .reader-sidebar { position: static; max-height: none; margin-bottom: 44px; }
+    .reader-monogram { display: none; }
+    .reader-toc { margin-top: 24px; }
+    .reader-toc ol { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+    .reader-toc a, .reader-toc .nested a { border-left: 0; padding: 5px 0; font-size: 12px; text-decoration: underline; text-decoration-color: var(--rule); }
+    .reader-toc a[aria-current] { text-decoration-color: var(--ink); }
+    .article-body { font-size: 16px; }
+    .blog-post { grid-template-columns: 1fr auto; gap: 12px; }
+    .blog-post > .blog-eyebrow { grid-column: 1 / -1; }
+  }
 }

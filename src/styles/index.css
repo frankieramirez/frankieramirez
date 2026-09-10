@@ -10,6 +10,8 @@
 @import "./layout/wrap.css" layer(layout);
 @import "./components/folio-rule.css" layer(components);
 @import "./components/spotlight-panel.css" layer(components);
+@import "./components/label.css" layer(components);
+@import "./components/link.css" layer(components);
 @import "./components/header.css" layer(components);
 @import "./components/hero.css" layer(components);
 @import "./components/ledger.css" layer(components);
