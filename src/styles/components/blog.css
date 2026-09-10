@@ -21,7 +21,7 @@
   body.reading::before { animation: none; }
   .reader { max-width: 1280px; margin-inline: auto; padding: 72px calc(var(--pad) + env(safe-area-inset-right, 0px)) 0 calc(var(--pad) + env(safe-area-inset-left, 0px)); display: grid; grid-template-columns: 220px minmax(0, 660px); gap: clamp(48px, 8vw, 128px); align-items: start; }
   .reader-sidebar { position: sticky; top: 48px; max-height: calc(100dvh - 96px); overflow-y: auto; padding: 6px; margin: -6px; }
-  .reader-monogram { display: block; width: fit-content; font-weight: 600; font-size: 28px; letter-spacing: -.08em; margin-bottom: 36px; transition: color var(--duration-fast) var(--ease); }
+  .reader-monogram { --mark-size: 28px; display: block; width: fit-content; font-weight: 600; font-size: 28px; letter-spacing: -.08em; margin-bottom: 36px; transition: color var(--duration-fast) var(--ease); }
   .reader-monogram:is(:hover, :focus-visible) { color: var(--calibration); }
   .reader-monogram span { color: var(--secondary); }
   .reader-back { display: inline-flex; gap: 10px; align-items: center; font-size: var(--text-sm); color: var(--secondary); padding-block: 8px; }
