@@ -3,6 +3,7 @@ title: "Building my own agent skills felt boring. So I gamified it."
 description: "How a fantasy theme turned the agent workflows I kept repeating into mana, a skill stack I wanted to keep building."
 date: "2026-09-09"
 draft: false
+related: [how-im-building-with-ai-agents-right-now]
 source: "https://x.com/frankieramirez/status/2097690861299531916"
 image: "/images/blog/mana.webp"
 imageAlt: "Cover illustration for Building my own agent skills felt boring. So I gamified it."
@@ -17,6 +18,8 @@ I’m also a big fantasy nerd. I love fantasy books and games like Final Fantasy
 Once I brought some of that into my agent skills, the project became about 100 times more interesting.
 
 Review became scan. Implementation became cast. Cleaning up unnecessary code comments became banish. Reviewers became a party of specialists with their own roles.
+
+These skills now run through [my day-to-day workflow with AI agents](/blog/how-im-building-with-ai-agents-right-now/), from planning tickets to reviewing the code they ship.
 
 I called the stack **mana**.
 

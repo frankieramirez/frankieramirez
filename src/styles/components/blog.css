@@ -30,6 +30,12 @@
   .article-header h1 { font-size: clamp(36px, 4.4vw, 58px); line-height: 1.08; font-weight: 600; margin: 24px 0; }
   .article-header .blog-eyebrow span { margin-inline: 10px; }
   .article-deck { font-size: 20px; line-height: 1.6; color: var(--secondary); }
+  .article-byline { margin-top: 12px; font-size: 13px; color: var(--secondary); line-height: 1.8; }
+  .article-byline a, .article-related a { text-decoration: underline; }
+  .article-related { margin-bottom: 32px; }
+  .article-related h2 { color: var(--ink); font-size: 18px; font-weight: 500; }
+  .article-related ul { padding-left: 20px; margin-top: 12px; }
+  .article-related li { margin-block: 12px; line-height: 1.6; }
   .article-source { display: inline-block; margin-top: 20px; font-size: 12px; color: var(--secondary); text-decoration: underline; }
   .article-cover { width: 100%; height: auto; margin-bottom: 40px; border-radius: var(--radius-sm); }
   .article-body { font-size: 17px; line-height: 1.85; overflow-wrap: anywhere; }

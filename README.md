@@ -1,77 +1,56 @@
 # Frankie Ramirez
 
-**Staff Software Engineer, Frontend Architecture and Design Systems.** I build design systems and the frontend architecture that keeps product surfaces coherent as teams scale.
+**Staff Software Engineer focused on frontend architecture and design systems.** Based in New Jersey, with 14+ years building software across CRM, proptech, and SaaS.
 
-The work shows up in tokens, component APIs, contribution paths, and the habits that keep large orgs shipping without local one-offs becoming permanent. Based in New Jersey, with 14+ years across CRM, proptech, SaaS, and the design-system work that ties them together.
+I build component APIs and guide library migrations, with a focus on helping teams ship accessible, consistent interfaces. I've led a design system from beta toward general availability and owned frontend architecture for complex product workflows.
 
-<p>
-  <a href="https://frankieramirez.com"><strong>frankieramirez.com</strong></a> ·
-  <a href="https://www.linkedin.com/in/frankieramirez">LinkedIn</a> ·
-  <a href="mailto:hello@frankieramirez.com">hello@frankieramirez.com</a> ·
-  <a href="https://bushel.sh">bushel</a> ·
-  <a href="https://ripen.dev">Ripen</a> ·
-  <a href="https://github.com/frankieramirez/comicarr">Comicarr</a>
-</p>
+I also build open-source tools and write about the way I use AI agents to develop and review software.
 
----
+[Website](https://frankieramirez.com) · [LinkedIn](https://www.linkedin.com/in/frankieramirez) · [Email](mailto:hello@frankieramirez.com)
 
-### Working model
+## Projects
 
-| Primitive layer | Workflow layer | Adoption layer |
-| --- | --- | --- |
-| Tokens, states, semantics, accessibility, type | Routes, data contracts, review flows, eval tasks | Docs, contribution paths, PR review, release guardrails |
+- **[mana](https://github.com/frankieramirez/mana)**: Reusable agent skills that carry work from scoped tickets through implementation and review. Built around the way I work, with a fantasy theme.
+- **[bushel](https://github.com/frankieramirez/bushel)**: A terminal UI for Apple Containers, built with Rust and Ratatui. Shows the exact command before destructive actions. [Website](https://bushel.sh)
+- **[Ripen](https://github.com/frankieramirez/ripen)**: A Go CLI and daemon for controlled image updates in Portainer and Compose. Waits for image digests to mature before applying them and rolls back failed health checks. [Website](https://ripen.dev)
+- **[Comicarr](https://github.com/frankieramirez/comicarr)**: A self-hosted app for comic collectors, with a React interface. [Website](https://comicarr.com)
 
-### Where I am most useful
+## Writing
 
-Staff frontend and design-system roles that treat interface quality, system governance, adoption, and AI-assisted engineering practice as one job.
-
----
-
-## This repository
-
-The live site and its source live here. It includes a homepage and a Markdown blog, with two production dependencies.
-
-```
-Astro 7 (static) · OKLCH token CSS · self-hosted Geist · @astrojs/sitemap
-2 production dependencies · ~5 KB CSS gzip · pointer spotlight for panel lighting
-```
-
-**Homepage sections, in order:** Hero, Work ledger, Judgment, Contact
-
-### Blog
-
-Add posts as Markdown files in `src/content/blog/` with `title`, `description`, and `date` frontmatter. Set `draft: true` to preview a post locally while excluding it from production. Set `draft: false` to publish it on the next build.
-
-The blog index lives at `/blog/`. Article pages use a separate reading layout with automatic section links from `##` and `###` headings, an active section indicator, and a back link. The section navigation moves above the article on small screens. Optional `source`, `image`, and `imageAlt` fields preserve original publication links and cover images for cross-posted articles.
+I write about frontend architecture and the tools I build, including [how I made my own agent skills](https://frankieramirez.com/blog/building-my-own-agent-skills/). Find more on [the blog](https://frankieramirez.com/blog/).
 
 <details>
-<summary><strong>Stylesheet layout</strong>, for reviewers who read <code>src/styles/</code></summary>
+<summary><strong>About this site and local development</strong></summary>
 
-```
-src/styles/
-  index.css
-  tokens/              primitives · semantic · typography
-  reset.css / base.css / atmosphere.css
-  layout/wrap.css
-  components/
-    folio-rule.css     tapered dividers + shimmer
-    spotlight-panel.css cursor-driven border lighting
-    header · hero · ledger · judgment · contact · footer
-  motion.css           hero stagger · scroll-driven reveal
-```
+This repository also contains the source for [frankieramirez.com](https://frankieramirez.com), a static Astro 7 site with a Markdown blog. It uses OKLCH color tokens and self-hosted Geist fonts. Astro and `@astrojs/sitemap` are its two direct production dependencies.
 
-Techniques in use: CSS subgrid, container queries, `@property` transitions, `color-mix()`, `animation-timeline: view()`, `prefers-reduced-motion` clamps.
+### Run locally
 
-</details>
-
-<details>
-<summary><strong>Local development</strong></summary>
+Use pnpm 10.33.0, as specified in `package.json`.
 
 ```bash
 pnpm install
 pnpm dev        # http://localhost:4321
+pnpm check
 pnpm build
-pnpm preview
+pnpm preview   # preview the production build
 ```
+
+### Add a blog post
+
+Create a Markdown file in `src/content/blog/`:
+
+```yaml
+---
+title: My next post
+description: A short description of the article.
+date: 2026-09-09
+draft: true
+---
+```
+
+Drafts appear on `/blog/` during `pnpm dev` and are excluded from production builds. Set `draft: false` or remove the field to publish on the next deployed build. Posts default to published when `draft` is omitted.
+
+Use `##` and `###` headings for automatic article navigation. Optional `source`, `image`, and `imageAlt` fields support original publication links and cover images.
 
 </details>
