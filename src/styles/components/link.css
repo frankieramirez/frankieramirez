@@ -1,5 +1,4 @@
 .site-nav a,
-.header-contact,
 .ledger-links a,
 .contact-links a,
 .site-footer a,
@@ -14,7 +13,6 @@
 }
 
 .site-nav a,
-.header-contact,
 .site-footer a,
 .not-found-links a {
   display: inline-block;
@@ -40,7 +38,6 @@
 }
 
 .site-nav a:active,
-.header-contact:active,
 .ledger-links a:active,
 .contact-links a:active,
 .site-footer a:active,

@@ -1,7 +1,7 @@
 .header-inner {
   min-height: 72px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(18px, 3vw, 44px);
   align-items: center;
 }
@@ -27,13 +27,6 @@
   gap: clamp(16px, 3vw, 34px);
 }
 
-
-.header-contact {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
-}
-
 @media (max-width: 860px) {
   .header-inner {
     min-height: 86px;
@@ -48,11 +41,6 @@
     grid-column: 1 / -1;
     grid-row: 2;
     justify-content: flex-start;
-  }
-
-  .header-contact {
-    grid-column: 2;
-    grid-row: 1;
   }
 }
 
