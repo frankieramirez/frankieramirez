@@ -1,9 +1,9 @@
 ---
 title: "Building my own agent skills felt boring. So I gamified it."
-description: "How a fantasy theme turned the agent workflows I kept repeating into mana, a skill stack I wanted to keep building."
+description: "Why I gave my coding-agent workflows a fantasy theme, and how I use them to build software."
 date: "2026-09-09"
 draft: false
-related: [how-im-building-with-ai-agents-right-now]
+related: [how-im-building-with-ai-agents-right-now, design-systems-in-the-agentic-era]
 source: "https://x.com/frankieramirez/status/2097690861299531916"
 image: "/images/blog/mana.webp"
 imageAlt: "Cover illustration for Building my own agent skills felt boring. So I gamified it."

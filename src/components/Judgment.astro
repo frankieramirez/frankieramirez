@@ -1,39 +1,25 @@
 ---
 import Section from "@/components/Section.astro";
-const operatingModel = [
-  {
-    label: "Primitive Layer",
-    detail: "Tokens, states, semantics, accessibility, type",
-  },
-  {
-    label: "Workflow Layer",
-    detail: "Routes, data contracts, review flows, eval tasks",
-  },
-  {
-    label: "Adoption Layer",
-    detail: "Docs, contribution paths, PR review, release guardrails",
-  },
-];
-
 const principles = [
   {
-    title: "Component APIs Shape Teams",
-    body: "A primitive earns its place when correct composition is the easiest thing to do with it. Prop count is a side effect of that, never the goal.",
+    title: "Make components easy to use correctly",
+    body: "I design component APIs so teams can follow shared patterns with fewer special cases. Common tasks should be straightforward, and the API should make constraints clear.",
   },
   {
-    title: "Accessibility Is a Product Contract",
-    body: "Keyboard flow, focus, contrast, and labels go into the interface spec alongside the visual work. Anything scoped as a cleanup pass after approval tends to get cut.",
+    title: "Plan accessibility with the interface",
+    body: "I include keyboard behavior and focus management in the interface spec, alongside contrast and labels. Leaving accessibility until after design approval makes it easier to cut.",
   },
   {
-    title: "AI Belongs in the Workflow",
-    body: "I use AI where it saves real time: critique, verification, migration planning, and the mechanical parts of review that eat human attention.",
+    title: "Use AI where the work benefits",
+    body: "I use AI for migration planning and verification, including repeatable checks during code review. At Luxury Presence, I built validation skills for design-system migrations.",
   },
 ];
 ---
 
-<Section label="Judgment" id="judgment" titleId="judgment-title" class="judgment-section">
+<Section label="Approach" id="approach" titleId="approach-title" class="judgment-section">
   <Fragment slot="heading">
-    <h2 id="judgment-title">How I Decide.</h2>
+    <span id="judgment" aria-hidden="true"></span>
+    <h2 id="approach-title">How I work</h2>
   </Fragment>
 
   <div class="judgment-list">
@@ -44,15 +30,4 @@ const principles = [
       </article>
     ))}
   </div>
-  <section class="judgment-working-model" aria-labelledby="working-model-title">
-    <h3 id="working-model-title">Working model</h3>
-    <dl>
-      {operatingModel.map((row) => (
-        <div>
-          <dt>{row.label}</dt>
-          <dd>{row.detail}</dd>
-        </div>
-      ))}
-    </dl>
-  </section>
 </Section>

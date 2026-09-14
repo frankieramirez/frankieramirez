@@ -4,7 +4,6 @@ import Layout from '@/layouts/Layout.astro';
 import BrandMark from '@/components/BrandMark.astro';
 import { formatPostDate, getPublishedPosts, readingMinutes, type BlogPost } from '@/lib/blog';
 import { externalAttrs } from '@/lib/links';
-import '@/styles/components/blog.css';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts({ includeDrafts: true });
@@ -29,6 +28,7 @@ const relatedPosts = publishedPosts.filter((candidate) => candidate.id !== post.
   <div class="reader">
     <aside class="reader-sidebar">
       <a href="/" class="reader-monogram" aria-label="Frankie Ramirez home"><BrandMark /></a>
+      <a href="/" class="reader-home">Frankie Ramirez</a>
       <a class="reader-back" href="/blog/"><span aria-hidden="true">←</span> Back to blog</a>
       {sections.length > 0 && <nav aria-label="Article sections" class="reader-toc">
         <p class="blog-eyebrow">On this page</p>
@@ -44,6 +44,12 @@ const relatedPosts = publishedPosts.filter((candidate) => candidate.id !== post.
           <p class="article-deck">{post.data.description}</p>
           {post.data.source && <a class="article-source" href={post.data.source} {...externalAttrs(post.data.source)}>Originally published on X <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>}
         </header>
+        {sections.length > 0 && <details class="reader-mobile-contents">
+          <summary>On this page</summary>
+          <nav aria-label="Article sections" class="reader-toc">
+            <ol role="list">{sections.map((section) => <li class:list={{ nested: section.depth === 3 }}><a href={`#${section.slug}`}>{section.text}</a></li>)}</ol>
+          </nav>
+        </details>}
         {post.data.image && <img class="article-cover" src={post.data.image} alt={post.data.imageAlt ?? ''} width="1200" height="480" decoding="async" />}
         <div class="article-body"><Content /></div>
         <footer class="article-end">
@@ -51,7 +57,10 @@ const relatedPosts = publishedPosts.filter((candidate) => candidate.id !== post.
             <h2>Related reading</h2>
             <ul>{relatedPosts.map((related) => <li><a href={`/blog/${related.id}/`}>{related.data.title}</a></li>)}</ul>
           </nav>}
-          <a href="/blog/">← All articles</a>
+          <nav class="article-end-links" aria-label="More from Frankie">
+            <a href="/blog/">← All articles</a>
+            <a href="/">About me and my work</a>
+          </nav>
         </footer>
       </article>
     </main>

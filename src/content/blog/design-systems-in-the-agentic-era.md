@@ -1,6 +1,6 @@
 ---
-title: "When Anyone Can Generate UI, What Is a Design System For?"
-description: "Making design decisions explicit, discoverable, and verifiable for the people and agents building our products."
+title: "When anyone can generate UI, what is a design system for?"
+description: "How I document design decisions so people and AI agents can apply them in product work."
 date: "2026-09-14"
 draft: false
 related: [how-im-building-with-ai-agents-right-now, building-my-own-agent-skills]

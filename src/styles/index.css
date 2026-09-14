@@ -18,4 +18,5 @@
 @import "./components/judgment.css" layer(components);
 @import "./components/contact.css" layer(components);
 @import "./components/footer.css" layer(components);
+@import "./components/blog.css";
 @import "./motion.css" layer(motion);
