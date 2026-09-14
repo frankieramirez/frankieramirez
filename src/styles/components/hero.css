@@ -54,6 +54,25 @@
   min-width: 0;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  margin-top: 28px;
+
+  a {
+    padding-block: 8px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  a:is(:hover, :focus-visible) {
+    color: var(--calibration);
+  }
+}
+
 .operating-model {
   --pointer-x: 72%;
   --pointer-y: 18%;
@@ -200,7 +219,7 @@
 
 .hero-meta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 20px);
 }
 

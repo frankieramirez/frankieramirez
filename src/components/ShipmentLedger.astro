@@ -7,12 +7,12 @@ const rows = [
     status: "Public",
     title: "mana",
     summary:
-      "Reusable agent skills for the way I build software. Turns ideas into scoped tickets and carries work through implementation and review, with a fantasy theme that makes the tooling fun to maintain.",
+      "Agent skills I use to plan and build software, with workflows for implementation and review. The fantasy theme makes them fun to maintain.",
     evidence:
-      "Public repository, Claude Code plugin, portable SKILL.md workflows, specialist code reviews, GitHub and Linear tracker support, PR validation and visual proof.",
+      "Portable SKILL.md workflows with specialist code reviews and support for GitHub and Linear. Available as a Claude Code plugin.",
     links: [
-      { label: "Source", href: "https://github.com/frankieramirez/mana" },
-      { label: "The Story", href: "/blog/building-my-own-agent-skills/" },
+      { label: "GitHub", href: "https://github.com/frankieramirez/mana" },
+      { label: "How I built it", href: "/blog/building-my-own-agent-skills/" },
     ],
   },
   {
@@ -21,66 +21,66 @@ const rows = [
     summary:
       "A terminal UI for Apple Containers. It manages the containers, images, and volumes already on the Mac, and shows the exact command before anything destructive runs.",
     evidence:
-      "Public repository, product site, Rust/Ratatui TUI wrapping Apple's container CLI, live telemetry, confirmed destructive actions, Homebrew and shell installers.",
+      "Built with Rust and Ratatui around Apple’s container CLI, with live telemetry. Install through Homebrew or the shell installer.",
     links: [
-      { label: "Site", href: "https://bushel.sh" },
-      { label: "Source", href: "https://github.com/frankieramirez/bushel" },
+      { label: "Visit site", href: "https://bushel.sh" },
+      { label: "GitHub", href: "https://github.com/frankieramirez/bushel" },
     ],
   },
   {
     status: "Public",
     title: "Ripen",
     summary:
-      "Fail-closed image updates for Portainer and Compose. A digest has to mature before it can be applied, and a failed health check rolls the service back and opens the breaker.",
+      "Controlled container updates for Portainer and Compose. Ripen waits for an image to reach a minimum age before updating a service, then rolls back if health checks fail.",
     evidence:
-      "Public repository, product site, Go CLI and daemon, digest pinning, no Docker socket, circuit breaker, Git proposals that never self-merge, signed releases.",
+      "A Go CLI and daemon with signed releases. Pins updates to specific image digests and can propose changes through Git for review.",
     links: [
-      { label: "Site", href: "https://ripen.dev" },
-      { label: "Source", href: "https://github.com/frankieramirez/ripen" },
+      { label: "Visit site", href: "https://ripen.dev" },
+      { label: "GitHub", href: "https://github.com/frankieramirez/ripen" },
     ],
   },
   {
     status: "Public",
     title: "Comicarr",
     summary:
-      "A self-hosted app for comic collectors. React UI, with flows designed for people who come back to it every week.",
-    evidence: "Public repository, product site, self-hosted product surface, state clarity, type-safe interface work.",
+      "A self-hosted app for comic and manga collectors. Tracks new releases and organizes downloaded issues into a personal library.",
+    evidence: "A React interface with filters for reading progress and series status, plus a weekly pull list for new releases.",
     links: [
-      { label: "Site", href: "https://comicarr.com" },
-      { label: "Source", href: "https://github.com/frankieramirez/comicarr" },
+      { label: "Visit site", href: "https://comicarr.com" },
+      { label: "GitHub", href: "https://github.com/frankieramirez/comicarr" },
     ],
   },
   {
     status: "Luxury Presence",
     title: "Design systems & frontend architecture",
     summary:
-      "Led the design system from beta toward general availability and owned frontend direction for CRM and Contacts, from component APIs to navigation and saved-search flows.",
+      "Led the design system from beta toward general availability and owned frontend architecture for CRM and Contacts. The work covered component APIs, navigation, and saved-search flows.",
     evidence:
-      "639+ semantic tokens, a Radix-to-Base UI migration, and snapshot releases with OIDC publishing. Primary frontend contributor on the company’s top product, used by 87,000+ agents.",
+      "Primary frontend contributor on the company’s top product. The design-system work included a migration from Radix to Base UI and snapshot releases with OIDC publishing.",
     links: [],
   },
   {
     status: "Luxury Presence",
     title: "AI-assisted engineering",
     summary:
-      "Introduced Claude Code to the team and built validation skills for design-system migrations. Defined the product architecture for an AI workforce platform and demonstrated AI features to leadership.",
+      "Introduced Claude Code to the team and built validation skills for design-system migrations.",
     evidence:
-      "The migration skills guarded 6 PRs with 0 fix-ups, compared with 5 fix-ups across the previous 20. An architecture proposal drew on 17 competitive analyses and reduced the platform’s object model from 10 concepts to 5.",
+      "Defined the product architecture for an AI workforce platform. The proposal consolidated its object model from 10 concepts to 5, drawing on 17 competitive analyses.",
     links: [],
   },
 ];
 
 const groups = [
-  { id: "personal-projects", title: "Personal projects", rows: rows.filter((row) => row.status === "Public") },
   { id: "professional-experience", title: "Professional experience", rows: rows.filter((row) => row.status !== "Public") },
+  { id: "personal-projects", title: "Personal projects", rows: rows.filter((row) => row.status === "Public") },
 ];
 ---
 
 <Section label="Work" id="work" titleId="work-title" class="ledger-section">
   <Fragment slot="heading">
-    <h2 id="work-title">What I Have Shipped.</h2>
+    <h2 id="work-title">Selected work</h2>
     <p>
-      Independent projects and the systems I’ve built with product teams.
+      The systems I’ve built with product teams and the projects I maintain myself.
     </p>
   </Fragment>
 
@@ -90,17 +90,19 @@ const groups = [
   {groups.map((group) => (
   <section class="work-group" id={group.id} tabindex="-1" aria-labelledby={`${group.id}-title`}>
   <h3 class="work-group-title" id={`${group.id}-title`}>{group.title}</h3>
-  <ul class="ledger" role="list">
+  <ul class:list={["ledger", { "ledger-projects": group.id === "personal-projects" }]} role="list">
     {group.rows.map((row) => (
       <li class="ledger-row spotlight-panel" data-spotlight>
-        <div class="ledger-status">{row.status}</div>
+        {row.status !== "Public" && <div class="ledger-status">{row.status}</div>}
         <div class="ledger-main">
           <h4>{row.title}</h4>
           <p>{row.summary}</p>
         </div>
         <div class="ledger-evidence">
-          <span>Evidence</span>
-          <p>{row.evidence}</p>
+          {row.evidence && <>
+            <span>{row.status === "Public" ? "Details" : "Contribution"}</span>
+            <p>{row.evidence}</p>
+          </>}
         </div>
         {row.links.length > 0 && (
           <ul class="ledger-links" role="list">

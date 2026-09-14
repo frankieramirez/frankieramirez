@@ -1,26 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { formatPostDate, getPublishedPosts } from '@/lib/blog';
-import '@/styles/components/blog.css';
+import { formatPostDate, getPublishedPosts, readingMinutes } from '@/lib/blog';
 
 const posts = await getPublishedPosts({ includeDrafts: true });
 ---
 <Layout
   title="Blog | Frankie Ramirez"
-  description="Frankie Ramirez writes about AI coding workflows, self-hosting, frontend architecture, and design systems."
+  description="Frankie Ramirez writes about building interfaces and the decisions behind them, along with experiments in AI-assisted development and self-hosting."
   mainClass="blog-index wrap"
 >
   <header class="blog-intro">
-    <p class="blog-eyebrow">Notes & observations</p>
     <h1>Blog</h1>
-    <p>On AI coding workflows, self-hosting, frontend architecture, and design systems.</p>
+    <p>I write about building interfaces and the decisions behind them, along with experiments in AI-assisted development and self-hosting.</p>
+    <a class="blog-feed" href="/rss.xml">Follow via RSS</a>
   </header>
-  <div class="blog-posts">
+  <div class="ledger blog-posts">
     {posts.map((post) => (
-      <a class="blog-post" href={`/blog/${post.id}/`}>
-        <span class="blog-eyebrow">{post.data.draft ? 'Sample · draft preview' : formatPostDate(post.data.date)}</span>
-        <div><h2>{post.data.title}</h2><p>{post.data.description}</p></div>
-        <span aria-hidden="true">↗</span>
+      <a class="ledger-row blog-post spotlight-panel" data-spotlight href={`/blog/${post.id}/`}>
+        <span class="blog-eyebrow blog-post-meta">
+          {post.data.draft ? <span>Draft preview</span> : <time datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date, 'short')}</time>}
+          <span>{readingMinutes(post.body)} min read</span>
+        </span>
+        <div class="ledger-main"><h2>{post.data.title}</h2><p>{post.data.description}</p></div>
+        <span class="blog-read" aria-hidden="true">Read article</span>
       </a>
     ))}
     {posts.length === 0 && <p class="blog-empty">The first article is on its way. Check back soon.</p>}

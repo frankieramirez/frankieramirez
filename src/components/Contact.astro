@@ -3,17 +3,17 @@ import Section from "@/components/Section.astro";
 import { externalAttrs, isExternal } from "@/lib/links";
 
 const primaryLinks = [
-  { label: "Email", value: "hello@frankieramirez.com", href: "mailto:hello@frankieramirez.com" },
+  { label: "Email me", value: "hello@frankieramirez.com", href: "mailto:hello@frankieramirez.com" },
   { label: "GitHub", value: "@frankieramirez", href: "https://github.com/frankieramirez" },
-  { label: "Resume", value: "PDF", href: "/resume.pdf" },
+  { label: "View resume", value: "PDF", href: "/resume.pdf" },
 ];
 ---
 
 <Section label="Contact" id="contact" titleId="contact-title" class="contact-section">
   <Fragment slot="heading">
-    <h2 id="contact-title">Where I Fit.</h2>
+    <h2 id="contact-title">Get in touch</h2>
     <p>
-      Staff Software Engineer for frontend architecture and design systems, on a product team that needs someone to own interface quality end to end and put AI to work inside the engineering loop.
+      If your team needs help with frontend architecture or a growing design system, I’d be glad to hear what you’re working on.
     </p>
   </Fragment>
 

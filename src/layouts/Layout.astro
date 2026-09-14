@@ -21,9 +21,9 @@ export interface Props {
   article?: { headline: string; published: Date; updated?: Date };
 }
 
-const defaultTitle = "Frankie Ramirez - Staff Software Engineer, Frontend Architecture and Design Systems";
+const defaultTitle = "Frankie Ramirez | Frontend Architecture & Design Systems";
 const defaultDescription =
-  "Frankie Ramirez is a Staff Software Engineer who leads frontend architecture and design systems, with an engineering practice built around AI-assisted workflows.";
+  "Software engineer focused on frontend architecture and design systems. Explore my product work, open-source projects, and writing.";
 const defaultImage: ShareImage = { src: "/og.png", width: 1200, height: 630 };
 const {
   title = defaultTitle,
@@ -43,9 +43,9 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Frankie Ramirez",
-  jobTitle: "Staff Software Engineer",
+  jobTitle: "Software Engineer",
   description:
-    "Staff Software Engineer and frontend architect who leads design systems and builds with AI-assisted engineering workflows",
+    "Software engineer focused on frontend architecture and design systems",
   url: siteHref,
   email: "mailto:hello@frankieramirez.com",
   sameAs: [
@@ -88,6 +88,7 @@ const articleSchema = article && {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="author" content="Frankie Ramirez" />
+    <link rel="alternate" type="application/rss+xml" title="Frankie Ramirez’s blog" href="/rss.xml" />
     {/* Kept in step with --color-canvas-50 in styles/tokens/primitives.css by
         hand: a meta tag cannot read a custom property. */}
     <meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)" />

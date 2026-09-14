@@ -2,7 +2,7 @@
 import BrandMark from "@/components/BrandMark.astro";
 const navLinks = [
   { href: "/#work", label: "Work" },
-  { href: "/#judgment", label: "Judgment" },
+  { href: "/#approach", label: "Approach" },
   { href: "/blog/", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
@@ -16,7 +16,7 @@ const navLinks = [
     </a>
 
     <nav class="site-nav" aria-label="Primary">
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      {navLinks.map((link) => <a href={link.href} aria-current={Astro.url.pathname === link.href ? "page" : undefined}>{link.label}</a>)}
     </nav>
   </div>
 </header>

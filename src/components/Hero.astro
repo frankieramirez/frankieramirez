@@ -5,19 +5,22 @@ const latestPosts = await getPublishedPosts({ limit: 3 });
 
 const meta = [
   { label: "Experience", value: "14+ years" },
-  { label: "Focus", value: "Frontend architecture" },
-  { label: "Edge", value: "AI-assisted engineering" },
+  { label: "Based in", value: "New Jersey, US" },
 ];
 ---
 
 <section class="hero">
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <p class="hero-kicker">Staff Software Engineer · Frontend Architecture and Design Systems</p>
-      <h1>I keep complex product interfaces coherent as teams grow.</h1>
+      <p class="hero-kicker">Frontend architecture &amp; design systems</p>
+      <h1>I help teams build complex interfaces that stay consistent as they grow.</h1>
       <p class="hero-lede">
-        I lead frontend architecture and design systems for product teams. The job: a complex interface that stays fast and accessible while more people ship into it every week.
+        I lead frontend architecture and design systems, from component APIs to the workflows people use every day. I help teams ship changes while keeping interfaces fast and accessible.
       </p>
+      <nav class="hero-actions" aria-label="Introduction">
+        <a href="/#work">View my work <span aria-hidden="true">↓</span></a>
+        <a href="mailto:hello@frankieramirez.com">Email me</a>
+      </nav>
     </div>
 
     <aside class="hero-aside" aria-label="Latest writing and experience">
@@ -25,7 +28,7 @@ const meta = [
         <div class="operating-model-inner">
           <div class="operating-model-head">
             <span>Latest writing</span>
-            <a class="latest-writing-all" href="/blog/">All posts <span aria-hidden="true">↗</span></a>
+            <a class="latest-writing-all" href="/blog/">All posts</a>
           </div>
           {latestPosts.map((post) => (
             <a class="operating-model-row latest-writing-post" href={`/blog/${post.id}/`}>
