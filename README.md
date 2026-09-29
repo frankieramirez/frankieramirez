@@ -1,39 +1,43 @@
 # Frankie Ramirez
 
-**Staff Software Engineer focused on frontend architecture and design systems.** Based in New Jersey, with 14+ years building software across CRM, proptech, and SaaS.
+**Staff Software Engineer focused on frontend architecture and design systems.** Based in New Jersey, with 14+ years building software.
 
-I build component APIs and guide library migrations, with a focus on helping teams ship accessible, consistent interfaces. I've led a design system from beta toward general availability and owned frontend architecture for complex product workflows.
+I help teams build complex interfaces that stay consistent as they grow. I also build open-source tools, including [Ultima](https://ultima.systems), a React design system whose components install as source you own.
 
-I also build open-source tools and write about the way I use AI agents to develop and review software.
+I write about design systems and how I use AI agents to build and review software.
 
 [Website](https://frankieramirez.com) · [LinkedIn](https://www.linkedin.com/in/frankieramirez) · [Email](mailto:hello@frankieramirez.com)
 
 ## Projects
 
-- **[mana](https://github.com/frankieramirez/mana)**: Reusable agent skills that carry work from scoped tickets through implementation and review. Built around the way I work, with a fantasy theme.
-- **[bushel](https://github.com/frankieramirez/bushel)**: A terminal UI for Apple Containers, built with Rust and Ratatui. Shows the exact command before destructive actions. [Website](https://bushel.sh)
-- **[Ripen](https://github.com/frankieramirez/ripen)**: A Go CLI and daemon for controlled image updates in Portainer and Compose. Waits for image digests to mature before applying them and rolls back failed health checks. [Website](https://ripen.dev)
-- **[Comicarr](https://github.com/frankieramirez/comicarr)**: A self-hosted app for comic collectors, with a React interface. [Website](https://comicarr.com)
+- **[Ultima](https://github.com/frankieramirez/ultima)**: A React design system built with Base UI and StyleX, with components you install as source and guidance for AI agents. [Website](https://ultima.systems)
+- **[mana](https://github.com/frankieramirez/mana)**: Agent skills for planning and building software, with workflows for implementation and specialist code review.
+- **[bushel](https://github.com/frankieramirez/bushel)**: A terminal UI for Apple Containers that shows the exact command before destructive actions, built with Rust and Ratatui. [Website](https://bushel.sh)
+- **[Ripen](https://github.com/frankieramirez/ripen)**: A Go CLI and daemon that waits for container images to reach a minimum age before updating Portainer and Compose services, then rolls back if health checks fail. [Website](https://ripen.dev)
+- **[Comicarr](https://github.com/frankieramirez/comicarr)**: A self-hosted app for comic and manga collectors that tracks new releases and organizes downloaded issues into a personal library. [Website](https://comicarr.com)
 
 ## Writing
 
-I write about frontend architecture and the tools I build, including [how I made my own agent skills](https://frankieramirez.com/blog/building-my-own-agent-skills/). Find more on [the blog](https://frankieramirez.com/blog/).
+- [When anyone can generate UI, what is a design system for?](https://frankieramirez.com/blog/design-systems-in-the-agentic-era/)
+- [Building my own agent skills felt boring. So I gamified it.](https://frankieramirez.com/blog/building-my-own-agent-skills/)
+
+[All posts](https://frankieramirez.com/blog/) · [RSS](https://frankieramirez.com/rss.xml)
 
 <details>
 <summary><strong>About this site and local development</strong></summary>
 
-This repository also contains the source for [frankieramirez.com](https://frankieramirez.com), a static Astro 7 site with a Markdown blog. It uses OKLCH color tokens and self-hosted Geist fonts. Astro and `@astrojs/sitemap` are its two direct production dependencies.
+This repository also contains the source for [frankieramirez.com](https://frankieramirez.com), a static Astro site with a Markdown blog. It uses OKLCH color tokens and self-hosted IBM Plex Sans and IBM Plex Mono fonts.
 
 ### Run locally
 
-Use pnpm 10.33.0, as specified in `package.json`.
+Use the pnpm version pinned in `package.json`.
 
 ```bash
-pnpm install
-pnpm dev        # http://localhost:4321
-pnpm check
-pnpm build
-pnpm preview   # preview the production build
+pnpm install --frozen-lockfile
+pnpm dev       # http://localhost:4321
+pnpm check     # Astro and TypeScript diagnostics
+pnpm build     # Generate the production site in dist/
+pnpm preview   # Preview the production build
 ```
 
 ### Add a blog post
@@ -42,15 +46,22 @@ Create a Markdown file in `src/content/blog/`:
 
 ```yaml
 ---
-title: My next post
-description: A short description of the article.
-date: 2026-09-09
+title: "My next post"
+description: "A short description of the article."
+date: "2026-09-29"
 draft: true
 ---
 ```
 
-Drafts appear on `/blog/` during `pnpm dev` and are excluded from production builds. Set `draft: false` or remove the field to publish on the next deployed build. Posts default to published when `draft` is omitted.
+Drafts appear on `/blog/` during local development and are excluded from production builds. Set `draft: false` or omit the field to publish on the next deployed build.
 
-Use `##` and `###` headings for automatic article navigation. Optional `source`, `image`, and `imageAlt` fields support original publication links and cover images.
+Use `##` and `###` headings for automatic article navigation.
+
+Optional frontmatter fields:
+
+- `updated`: The revision date, on or after the publication date.
+- `related`: An array of related post IDs, matching their filenames without `.md`.
+- `source`: A URL linking to the original publication.
+- `image` and `imageAlt`: A cover image and its alternative text.
 
 </details>
