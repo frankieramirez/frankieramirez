@@ -6,6 +6,8 @@ draft: false
 related: [how-im-building-with-ai-agents-right-now, building-my-own-agent-skills]
 ---
 
+**Update, September 29, 2026:** I released [Ultima](https://ultima.systems), an open-source React design system built with Base UI and StyleX. It includes agent guidance and a CLI for checking setup and tracking changes to installed components. The [source is on GitHub](https://github.com/frankieramirez/ultima).
+
 Ask an agent to follow existing patterns, and it will use the repository as examples for its next implementation. Some of those examples may conflict with what the team wants to build today. OpenAI observed this in its own engineering work: Codex reproduces repository patterns even when they are inconsistent or suboptimal.[^harness]
 
 Imagine a product with several complex forms inside modals. The team has decided that workflows of that complexity deserve dedicated pages, but most older screens still use modals. An agent building a similar feature could copy them and repeat a decision the team has moved away from.
