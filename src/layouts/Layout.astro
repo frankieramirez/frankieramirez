@@ -16,22 +16,20 @@ export interface Props {
   image?: ShareImage;
   type?: "website" | "article";
   canonical?: string;
-  reading?: boolean;
   mainClass?: string;
   article?: { headline: string; published: Date; updated?: Date };
 }
 
 const defaultTitle = "Frankie Ramirez | Frontend Architecture & Design Systems";
 const defaultDescription =
-  "Software engineer focused on frontend architecture and design systems. Explore my product work, open-source projects, and writing.";
-const defaultImage: ShareImage = { src: "/og.png", width: 1200, height: 630 };
+  "Software engineer focused on frontend architecture and design systems, writing about interfaces, AI agents, and self-hosting.";
+const defaultImage: ShareImage = { src: "/og.jpg", width: 1200, height: 630 };
 const {
   title = defaultTitle,
   description = defaultDescription,
   image = defaultImage,
   type = "website",
   canonical,
-  reading = false,
   mainClass,
   article,
 } = Astro.props;
@@ -82,17 +80,25 @@ const articleSchema = article && {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <Font cssVariable="--font-plex-sans" preload />
+    <Font cssVariable="--font-plex-serif" preload />
     <Font cssVariable="--font-plex-mono" />
+
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
 
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="author" content="Frankie Ramirez" />
     <link rel="alternate" type="application/rss+xml" title="Frankie Ramirez’s blog" href="/rss.xml" />
-    {/* Kept in step with --color-canvas-50 in styles/tokens/primitives.css by
-        hand: a meta tag cannot read a custom property. */}
-    <meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#060605" media="(prefers-color-scheme: dark)" />
+    {/* Kept in step with --color-paper in styles/tokens/primitives.css by hand:
+        a meta tag cannot read a custom property. */}
+    <meta name="theme-color" content="#EFEEE9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -120,24 +126,12 @@ const articleSchema = article && {
     {articleSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema).replace(/</g, "\\u003c")} />}
 
   </head>
-  <body class:list={{ reading }}>
+  <body>
     <a href="#main" class="skip-link">Skip to main content</a>
-    {reading ? (
+    <Header />
+    <main id="main" class={mainClass} tabindex="-1">
       <slot />
-    ) : (
-      <>
-        <Header />
-        <main id="main" class={mainClass} tabindex="-1">
-          <slot />
-        </main>
-        <Footer />
-      </>
-    )}
-
-    <script>
-      import { initPointerSpotlights } from "@/scripts/pointer-spotlight";
-
-      initPointerSpotlights();
-    </script>
+    </main>
+    <Footer />
   </body>
 </html>

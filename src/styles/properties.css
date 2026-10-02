@@ -1,5 +1,0 @@
-@property --calibration {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: oklch(0.52 0.22 264);
-}

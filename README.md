@@ -26,7 +26,7 @@ I write about design systems and how I use AI agents to build and review softwar
 <details>
 <summary><strong>About this site and local development</strong></summary>
 
-This repository also contains the source for [frankieramirez.com](https://frankieramirez.com), a static Astro site with a Markdown blog. It uses OKLCH color tokens and self-hosted IBM Plex Sans and IBM Plex Mono fonts.
+This repository also contains the source for [frankieramirez.com](https://frankieramirez.com), a static Astro site with a Markdown blog. It uses a two-ink paper palette with light and dark themes, and self-hosted IBM Plex Sans, Serif, and Mono fonts.
 
 ### Run locally
 

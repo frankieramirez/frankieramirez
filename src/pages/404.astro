@@ -1,20 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Section from "@/components/Section.astro";
 ---
 
-<Layout title="Page not found - Frankie Ramirez" description="That page does not exist on frankieramirez.com.">
-  <Section label="404" titleId="not-found-title">
-    <Fragment slot="heading">
-      <h1 id="not-found-title">That page does not exist.</h1>
-      <p>
-        This site is a single page. The work, the principles, and the contact details all live on the home page.
-      </p>
-    </Fragment>
-    <nav class="not-found-links" aria-label="Recovery links">
-      <a href="/">Home</a>
-      <a href="/#work">Work</a>
-      <a href="/#contact">Contact</a>
+<Layout title="Page not found | Frankie Ramirez" description="That page does not exist on frankieramirez.com.">
+  <section class="wrap intro" aria-labelledby="not-found-title">
+    <p class="label">404</p>
+    <h1 id="not-found-title">That page doesn’t exist.</h1>
+    <p class="intro-lede">
+      It may have moved when the site was redesigned. Everything that’s left is on the homepage or in the writing.
+    </p>
+    <nav class="intro-links" aria-label="Recovery links">
+      <a href="/">Homepage</a>
+      <a href="/blog/">All writing</a>
     </nav>
-  </Section>
+  </section>
 </Layout>

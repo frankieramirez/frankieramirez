@@ -1,14 +1,50 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Hero from "@/components/Hero.astro";
-import ShipmentLedger from "@/components/ShipmentLedger.astro";
-import Judgment from "@/components/Judgment.astro";
-import Contact from "@/components/Contact.astro";
+import { formatPostDate, getPublishedPosts } from "@/lib/blog";
+import { externalAttrs } from "@/lib/links";
+
+const latestPosts = await getPublishedPosts({ limit: 3 });
+const profiles = [
+  { label: "GitHub", href: "https://github.com/frankieramirez" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/frankieramirez" },
+];
 ---
 
 <Layout>
-  <Hero />
-  <ShipmentLedger />
-  <Judgment />
-  <Contact />
+  <section class="wrap intro" aria-labelledby="intro-title">
+    <p class="label">Staff Software Engineer · Frontend Architecture and Design Systems</p>
+    <h1 id="intro-title">I help teams build complex interfaces that stay consistent as they grow.</h1>
+    <p class="intro-lede">
+      I’ve built for the web for 14 years, lately leading design systems and frontend architecture. On the side I’m
+      building <a href="https://ultima.systems" {...externalAttrs("https://ultima.systems")}>Ultima<span class="visually-hidden"> (opens in a new tab)</span></a>,
+      an open-source design system for React. I live in New Jersey.
+    </p>
+    <nav class="intro-links" aria-label="Contact and profiles">
+      <a class="intro-email" href="mailto:hello@frankieramirez.com">hello@frankieramirez.com</a>
+      {profiles.map((profile) => (
+        <a href={profile.href} {...externalAttrs(profile.href)}>
+          {profile.label} <span aria-hidden="true">↗</span>
+          <span class="visually-hidden">(opens in a new tab)</span>
+        </a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="wrap recent" aria-labelledby="recent-title">
+    <div class="recent-head">
+      <h2 id="recent-title" class="label">Recent writing</h2>
+      <a href="/blog/">All posts <span aria-hidden="true">→</span></a>
+    </div>
+    <ul class="recent-list" role="list">
+      {latestPosts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}/`}>
+            <time class="label" datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date, "month-day")}</time>
+            <span class="recent-title">{post.data.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    {latestPosts.length === 0 && <p class="intro-lede">New writing is on its way.</p>}
+  </section>
 </Layout>

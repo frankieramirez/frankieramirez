@@ -1,6 +1,5 @@
 @layer tokens, reset, base, layout, components, motion;
 
-@import "./properties.css";
 @import "./tokens/primitives.css" layer(tokens);
 @import "./tokens/semantic.css" layer(tokens);
 @import "./tokens/typography.css" layer(tokens);
@@ -8,15 +7,10 @@
 @import "./atmosphere.css" layer(base);
 @import "./base.css" layer(base);
 @import "./layout/wrap.css" layer(layout);
-@import "./components/folio-rule.css" layer(components);
-@import "./components/spotlight-panel.css" layer(components);
 @import "./components/label.css" layer(components);
 @import "./components/link.css" layer(components);
 @import "./components/header.css" layer(components);
-@import "./components/hero.css" layer(components);
-@import "./components/ledger.css" layer(components);
-@import "./components/judgment.css" layer(components);
-@import "./components/contact.css" layer(components);
+@import "./components/intro.css" layer(components);
 @import "./components/footer.css" layer(components);
-@import "./components/blog.css";
+@import "./components/blog.css" layer(components);
 @import "./motion.css" layer(motion);

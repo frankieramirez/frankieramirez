@@ -3,8 +3,8 @@
   "short_name": "Frankie",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAFAF8",
-  "theme_color": "#FAFAF8",
+  "background_color": "#EFEEE9",
+  "theme_color": "#EFEEE9",
   "icons": [
     {
       "src": "/icon-192.png",

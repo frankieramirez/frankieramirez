@@ -1,9 +1,5 @@
 :root {
   --sans: var(--font-plex-sans);
+  --serif: var(--font-plex-serif);
   --mono: var(--font-plex-mono);
-
-  --text-xs: 13px;
-  --text-sm: 14px;
-  --text-base: 15px;
-  --text-lead: clamp(17px, 1.7vw, 20px);
 }

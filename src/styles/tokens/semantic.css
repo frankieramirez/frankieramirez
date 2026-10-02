@@ -1,26 +1,21 @@
 :root {
   color-scheme: light dark;
 
-  --bg: var(--color-canvas-50);
-  --surface: var(--color-canvas-100);
-  --ink: var(--color-ink-900);
-  --secondary: var(--color-neutral-500);
-  --rule: var(--color-neutral-300);
-  --calibration: var(--color-calibration-500);
-  --focus: light-dark(
-    color-mix(in oklab, var(--calibration) 38%, white),
-    color-mix(in oklab, var(--calibration) 44%, black)
-  );
-  --selection-bg: light-dark(
-    color-mix(in oklab, var(--calibration) 20%, white),
-    color-mix(in oklab, var(--calibration) 42%, black)
-  );
-  --selection-ink: var(--ink);
+  --bg: var(--color-paper);
+  --ink: var(--color-ink);
+  --secondary: var(--color-ink-soft);
+  --rule: var(--color-ink-rule);
+  --selection-bg: light-dark(rgb(35 35 33 / 0.14), rgb(231 230 225 / 0.2));
 
   --maxw: var(--layout-max);
   --pad: var(--space-fluid-pad);
-  --section-space-sm: var(--space-fluid-section-sm);
-  --section-space: var(--space-fluid-section);
-  --section-space-lg: var(--space-fluid-section-lg);
   --ease: var(--ease-standard);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }

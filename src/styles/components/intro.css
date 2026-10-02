@@ -1,0 +1,102 @@
+.intro {
+  display: grid;
+  justify-items: start;
+  gap: 28px;
+  padding-top: clamp(48px, 10.4vw, 150px);
+
+  & h1 {
+    max-width: 820px;
+    font-family: var(--serif);
+    font-size: clamp(34px, 4.03vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.014em;
+    text-wrap: pretty;
+  }
+}
+
+.intro-lede {
+  max-width: 600px;
+  color: var(--secondary);
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.intro-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 28px;
+  margin-top: -6px;
+  font-size: 16px;
+}
+
+.intro-email {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-style: italic;
+}
+
+.recent {
+  padding-top: clamp(64px, 9vw, 130px);
+}
+
+.recent-head,
+.recent-list {
+  max-width: 620px;
+}
+
+.recent-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding-bottom: 14px;
+
+  & a {
+    font-size: 14px;
+  }
+}
+
+.recent-list {
+  padding: 0;
+  list-style: none;
+
+  & a {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 28px;
+    align-items: baseline;
+    padding-block: 18px;
+    border-top: 1px solid var(--rule);
+  }
+
+  & a:is(:hover, :focus-visible) .recent-title {
+    text-decoration: underline;
+  }
+}
+
+.recent-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  .intro {
+    gap: 20px;
+  }
+
+  .intro-email {
+    flex-basis: 100%;
+    font-size: 18px;
+  }
+
+  .recent-list a {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding-block: 16px;
+  }
+}

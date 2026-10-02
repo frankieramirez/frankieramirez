@@ -1,26 +1,43 @@
 ---
+import { Picture } from "astro:assets";
+import light from "@/assets/scene/el-morro-light.png";
+import dark from "@/assets/scene/el-morro-dark.png";
+import { isExternal } from "@/lib/links";
+
 // `note` is read out after the visible label, so the accessible name still
 // starts with the text on screen (WCAG 2.5.3).
 const links = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/frankieramirez" },
-  { label: "X", href: "https://x.com/frankieramirez", note: "formerly Twitter" },
+  { label: "RSS", href: "/rss.xml" },
   { label: "Bluesky", href: "https://bsky.app/profile/frankieramirez.bsky.social" },
   { label: "Mastodon", href: "https://mastodon.social/@frankieramirez", rel: "me noopener" },
+  { label: "X", href: "https://x.com/frankieramirez", note: "formerly Twitter" },
 ];
+const alt = "Engraving of El Morro in San Juan, Puerto Rico: a stone sentry box on the fortress wall above the sea";
+const phoneCropHeight = 276;
+const art = {
+  formats: ["avif" as const, "webp" as const],
+  widths: [640, 1024, 1584],
+  sizes: `(max-width: 640px) ${Math.round((phoneCropHeight * light.width) / light.height)}px, 100vw`,
+  loading: "lazy" as const,
+  decoding: "async" as const,
+};
 ---
 
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <p>Frankie Ramirez · Software Engineer</p>
-    <nav aria-label="Secondary links">
-      {links.map((link) => (
-        <a href={link.href} target="_blank" rel={link.rel ?? "noopener"}>
-          {link.label}
-          <span class="visually-hidden">
-            {link.note ? ` (${link.note})` : ""} (opens in a new tab)
-          </span>
-        </a>
-      ))}
-    </nav>
-  </div>
+<footer class="site-footer" style={`--scene-crop-height: ${phoneCropHeight}px`}>
+  <nav class="wrap footer-links" aria-label="Elsewhere">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        target={isExternal(link.href) ? "_blank" : undefined}
+        rel={isExternal(link.href) ? (link.rel ?? "noopener") : undefined}
+      >
+        {link.label}
+        {isExternal(link.href) && (
+          <span class="visually-hidden">{link.note ? ` (${link.note})` : ""} (opens in a new tab)</span>
+        )}
+      </a>
+    ))}
+  </nav>
+  <Picture src={light} alt={alt} class="scene-art theme-light-only" {...art} />
+  <Picture src={dark} alt={alt} class="scene-art theme-dark-only" {...art} />
 </footer>
