@@ -16,14 +16,14 @@ const alt = "Engraving of El Morro in San Juan, Puerto Rico: a stone sentry box 
 const phoneCropHeight = 276;
 const art = {
   formats: ["avif" as const, "webp" as const],
-  widths: [640, 1024, 1584],
-  sizes: `(max-width: 640px) ${Math.round((phoneCropHeight * light.width) / light.height)}px, 100vw`,
+  widths: [640, 1024, light.width],
+  sizes: `(max-width: 640px) ${Math.round((phoneCropHeight * light.width) / light.height)}px, (max-width: ${light.width}px) 100vw, ${light.width}px`,
   loading: "lazy" as const,
   decoding: "async" as const,
 };
 ---
 
-<footer class="site-footer" style={`--scene-crop-height: ${phoneCropHeight}px`}>
+<footer class="site-footer" style={`--scene-crop-height: ${phoneCropHeight}px; --scene-max-width: ${light.width}px`}>
   <nav class="wrap footer-links" aria-label="Elsewhere">
     {links.map((link) => (
       <a

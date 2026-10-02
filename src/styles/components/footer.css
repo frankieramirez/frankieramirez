@@ -15,8 +15,13 @@
 }
 
 .scene-art {
+  --feather: clamp(0px, (100vw - var(--scene-max-width)) / 2, 240px);
   width: 100%;
+  max-width: var(--scene-max-width);
   height: auto;
+  margin-inline: auto;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent);
 }
 
 @media (max-width: 640px) {
