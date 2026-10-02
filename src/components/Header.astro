@@ -1,22 +1,59 @@
 ---
-import BrandMark from "@/components/BrandMark.astro";
-const navLinks = [
-  { href: "/#work", label: "Work" },
-  { href: "/#approach", label: "Approach" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/#contact", label: "Contact" },
-];
+import { Image } from "astro:assets";
+import sun from "@/assets/theme/sun.png";
+import moon from "@/assets/theme/moon.png";
+
+const path = Astro.url.pathname;
+const writingCurrent = path === "/blog/" ? "page" : path.startsWith("/blog/") ? "true" : undefined;
 ---
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="Frankie Ramirez home">
-      <BrandMark />
-      <span>frankie ramirez</span>
+    <a class="home-link" href="/" aria-current={path === "/" ? "page" : undefined}>
+      <span aria-hidden="true">f</span>
+      <span class="visually-hidden">Home</span>
     </a>
 
     <nav class="site-nav" aria-label="Primary">
-      {navLinks.map((link) => <a href={link.href} aria-current={Astro.url.pathname === link.href ? "page" : undefined}>{link.label}</a>)}
+      <a href="/blog/" aria-current={writingCurrent}>Writing</a>
+      <a href="/resume.pdf">Résumé</a>
     </nav>
+
+    <button class="theme-toggle" type="button" data-theme-toggle hidden>
+      <Image class="theme-light-only" src={sun} alt="" width={76} height={76} densities={[1, 2]} />
+      <Image class="theme-dark-only" src={moon} alt="" width={76} height={76} densities={[1, 2]} />
+    </button>
   </div>
 </header>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const current = () => root.dataset.theme ?? (prefersDark.matches ? "dark" : "light");
+
+  function sync() {
+    if (!button) return;
+    button.setAttribute("aria-label", current() === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    if (root.dataset.theme) {
+      document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+        meta.content = getComputedStyle(document.body).backgroundColor;
+      });
+    }
+  }
+
+  if (button) {
+    button.hidden = false;
+    button.addEventListener("click", () => {
+      const next = current() === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      sync();
+    });
+    prefersDark.addEventListener("change", sync);
+    sync();
+  }
+</script>

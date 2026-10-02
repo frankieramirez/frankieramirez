@@ -1,53 +1,51 @@
 .site-nav a,
-.ledger-links a,
-.contact-links a,
-.site-footer a,
-.not-found-links a {
-  position: relative;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  transition:
-    color var(--duration-fast) var(--ease),
-    border-color var(--duration-fast) var(--ease),
-    opacity var(--duration-fast) var(--ease);
+.footer-links a,
+.intro-links a,
+.text-link,
+.recent-head a,
+.reader-back {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 10px;
+  line-height: 24px;
 }
 
 .site-nav a,
-.site-footer a,
-.not-found-links a {
-  display: inline-block;
-  padding-block: 6px;
+.footer-links a {
+  font-size: 15px;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--duration-fast) var(--ease);
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 3px;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--duration-fast) var(--ease);
-  }
-
-  &[aria-current="page"]::after,
-  &:hover::after,
-  &:focus-visible::after {
-    transform: scaleX(1);
+  &:is(:hover, :focus-visible, [aria-current]) {
+    text-decoration-color: currentColor;
   }
 }
 
-.site-nav a:active,
-.ledger-links a:active,
-.contact-links a:active,
-.site-footer a:active,
-.not-found-links a:active {
+.footer-links a {
+  color: var(--secondary);
+  font-size: 14px;
+
+  &:is(:hover, :focus-visible) {
+    color: var(--ink);
+  }
+}
+
+.text-link,
+.intro-links a,
+.intro-lede a,
+.article-body a,
+.article-related a {
+  text-decoration-line: underline;
+  text-decoration-color: var(--secondary);
+  transition: text-decoration-color var(--duration-fast) var(--ease);
+
+  &:is(:hover, :focus-visible) {
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+  }
+}
+
+:is(.site-nav, .footer-links, .intro-links, .recent, .post-list, .reader) a:active {
   opacity: 0.7;
-}
-
-.not-found-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 28px;
 }

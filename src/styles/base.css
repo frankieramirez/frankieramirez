@@ -12,35 +12,30 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: color-mix(in oklab, var(--calibration) 18%, transparent);
+  -webkit-tap-highlight-color: var(--selection-bg);
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  text-underline-offset: 0.18em;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
   touch-action: manipulation;
-  transition: color var(--duration-fast) var(--ease);
-}
-
-a:is(:hover, :focus-visible) {
-  color: var(--calibration);
 }
 
 :focus-visible {
-  outline: 2px solid var(--calibration);
-  outline-offset: 4px;
-  box-shadow: 0 0 0 6px var(--focus);
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 ::selection {
   background: var(--selection-bg);
-  color: var(--selection-ink);
+  color: var(--ink);
 }
 
 main:focus-visible {
   outline: none;
-  box-shadow: none;
 }
 
 .visually-hidden {
@@ -72,8 +67,30 @@ main:focus-visible {
   height: auto;
   padding: 10px 12px;
   border: 1px solid var(--ink);
-  background: var(--surface);
+  background: var(--bg);
   color: var(--ink);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.theme-dark-only {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-light-only {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-dark-only {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-light-only {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .theme-dark-only {
+    display: block;
+  }
 }

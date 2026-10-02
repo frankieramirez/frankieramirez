@@ -19,13 +19,13 @@ export async function getPublishedPosts({ includeDrafts = false, limit }: {
 
 /**
  * Post dates in UTC, so a post never shifts a day for readers west of the
- * meridian. `short` is the compact hero listing, `long` the blog and article.
+ * meridian.
  */
-export function formatPostDate(date: Date, style: "short" | "long" = "long") {
+export function formatPostDate(date: Date, style: "month-day" | "full" = "full") {
   return date.toLocaleDateString("en-US", {
-    month: style === "short" ? "short" : "long",
+    month: "short",
     day: "numeric",
-    year: "numeric",
+    year: style === "full" ? "numeric" : undefined,
     timeZone: "UTC",
   });
 }
