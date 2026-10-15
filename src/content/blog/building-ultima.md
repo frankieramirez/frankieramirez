@@ -72,7 +72,7 @@ That boundary matters when evaluating a design system. A polished component gall
 
 [Theme Studio](https://ultima.systems/theme-studio) is where those decisions become easier to explore.
 
-It puts the controls beside a live preview built from Ultima components. You can adjust color, typography, density, shape, elevation, and motion, then see how those changes work together. Every edit applies to both modes, and the Compare view shows light and dark side by side.
+It puts the controls beside a live preview built from Ultima components. You can adjust color, typography, density, shape, elevation, and motion, then see how those changes work together. The guided controls change both modes together, token overrides can set dark and light values separately, and the Compare view shows the two modes side by side.
 
 ![Theme Studio with the Ultima preset selected: theme controls on the left, a live preview of Ultima components on the right, and a contrast summary along the bottom reading 98 of 98 pass.](/images/blog/ultima/theme-studio.webp)
 
