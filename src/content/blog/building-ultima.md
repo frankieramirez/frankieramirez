@@ -8,11 +8,9 @@ related: [design-systems-in-the-agentic-era, building-my-own-agent-skills]
 # imageAlt: ""
 ---
 
-[Ultima](https://ultima.systems) started because I wanted a reusable starting point for my own apps built with [StyleX](https://stylexjs.com), Meta's compile-time styling library.
+[Ultima](https://ultima.systems) started as an exercise. I'd been using Tailwind almost exclusively for the past few years, so I picked up [StyleX](https://stylexjs.com), Meta's compile-time styling library, to train myself on a different styling system.
 
-I work with Tailwind, and I liked shadcn's source-ownership model. I could bring components into a project, understand how they worked, and change them when the project needed it. I wanted the same thing for StyleX, but shadcn's components are built around Tailwind.
-
-<!-- TODO(Frankie): one sentence on why you wanted StyleX. -->
+That naturally turned into wanting a system around StyleX that worked for me and how I work. I wanted a reusable starting point for my own apps, and I liked shadcn's source-ownership model. I could bring components into a project, understand how they worked, and change them when the project needed it. I wanted the same thing for StyleX, but shadcn's components are built around Tailwind.
 
 Once I started looking underneath those components, the work got bigger. A button already carries decisions about spacing, typography, color, borders, and interaction states. A collection of components also assumes that those decisions agree. The medium button should make sense beside the medium input. The same status should have the same meaning across the interface.
 
