@@ -30,7 +30,7 @@ There are also relationships to settle. Ultima uses the same spacing step for th
 
 The solid accent button reads separate tokens for its default, hover, and active backgrounds, plus a token for the foreground color. Its focus ring has its own role. Light and dark modes each need values for all of them.
 
-<p><a href="/images/blog/ultima/button-tokens.webp"><picture><source media="(max-width: 600px)" srcset="/images/blog/ultima/button-tokens-narrow.webp"><img src="/images/blog/ultima/button-tokens.webp" alt="A medium solid accent Button in its rest, hover, and keyboard focus states, labeled with the tokens it reads: --ult-color-accent, --ult-color-accent-hover, and --ult-color-border-focus, plus --ult-space-10 for height, --ult-space-4 and --ult-space-5 for padding, --ult-radius-md for corners, and --ult-color-accent-active when pressed."></picture></a></p>
+<p><a href="/images/blog/ultima/button-tokens.webp"><picture><source media="(max-width: 600px)" srcset="/images/blog/ultima/button-tokens-narrow.webp" width="1080" height="1539"><img src="/images/blog/ultima/button-tokens.webp" width="1720" height="1028" loading="lazy" decoding="async" alt="A medium solid accent Button in its rest, hover, and keyboard focus states, labeled with the tokens it reads: --ult-color-accent, --ult-color-accent-hover, and --ult-color-border-focus, plus --ult-space-10 for height, --ult-space-4 and --ult-space-5 for padding, --ult-radius-md for corners, and --ult-color-accent-active when pressed."></picture></a></p>
 
 I want the next app to inherit those answers, so I can choose the appropriate button and spend my attention on what the action does, what users need to know before taking it, and what happens afterward.
 
@@ -87,17 +87,17 @@ That boundary matters when evaluating a design system. A polished component gall
 
 [Theme Studio](https://ultima.systems/theme-studio) puts theme controls beside a live preview built from Ultima components. You can adjust color, typography, density, shape, elevation, and motion, then see how those changes work together.
 
-[![Theme Studio with the Ultima preset selected: theme controls on the left, a live preview of Ultima components on the right, and a contrast summary along the bottom reading 98 of 98 pass.](/images/blog/ultima/theme-studio.webp)](/images/blog/ultima/theme-studio.webp)
+<p><a href="/images/blog/ultima/theme-studio.webp"><img src="/images/blog/ultima/theme-studio.webp" alt="Theme Studio with the Ultima preset selected: theme controls on the left, a live preview of Ultima components on the right, and a contrast summary along the bottom reading 98 of 98 pass." width="2000" height="1250" loading="lazy" decoding="async"></a></p>
 
 I wanted a way to evaluate the result in context. A color can look good in a swatch and be difficult to use for text or an interactive state. A type scale can look reasonable on its own and feel awkward when headings, labels, and controls share a screen. If a button starts to feel cramped after you change the type, you can adjust typography and density together.
 
 The guided controls change both modes together, token overrides can set dark and light values separately, and the Compare view shows the two modes side by side.
 
-[![Theme Studio's Compare view, showing the same workspace form and project list in the dark and light versions of one theme.](/images/blog/ultima/compare-light-dark.webp)](/images/blog/ultima/compare-light-dark.webp)
+<p><a href="/images/blog/ultima/compare-light-dark.webp"><img src="/images/blog/ultima/compare-light-dark.webp" alt="Theme Studio’s Compare view, showing the same workspace form and project list in the dark and light versions of one theme." width="1800" height="1300" loading="lazy" decoding="async"></a></p>
 
 You can start from one of four presets or build a custom theme. Grove is green and earthy, with a serif and roomy spacing. Cinder is copper, compact, and sharp-cornered. Neutral is the achromatic default, and the Ultima preset keeps the original indigo and cyan look.
 
-[![The same Theme Studio preview under two presets. On the left, Grove: a serif typeface, roomy spacing, rounded corners, and a green accent. On the right, Cinder: a compact sans-serif, tight spacing, square corners, and a copper accent, with more of the preview fitting in the same space.](/images/blog/ultima/presets-grove-cinder.webp)](/images/blog/ultima/presets-grove-cinder.webp)
+<p><a href="/images/blog/ultima/presets-grove-cinder.webp"><img src="/images/blog/ultima/presets-grove-cinder.webp" alt="The same Theme Studio preview under two presets. On the left, Grove: a serif typeface, roomy spacing, rounded corners, and a green accent. On the right, Cinder: a compact sans-serif, tight spacing, square corners, and a copper accent, with more of the preview fitting in the same space." width="2000" height="748" loading="lazy" decoding="async"></a></p>
 
 A shuffle control explores combinations. You can lock the groups you want to keep, like typography, shuffle the rest, and undo when a direction doesn't work. When one value needs attention, a token override sets it directly, and it stays set when you adjust a broader control later.
 
