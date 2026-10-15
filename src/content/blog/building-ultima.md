@@ -10,7 +10,7 @@ related: [design-systems-in-the-agentic-era, building-my-own-agent-skills]
 
 [Ultima](https://ultima.systems) started because I wanted a reusable starting point for my own apps built with [StyleX](https://stylexjs.com), Meta's compile-time styling library.
 
-I work with Tailwind, and I liked shadcn's source-ownership model. I could bring components into a project, understand how they worked, and change them when the project needed it. I wanted the same thing for StyleX, but shadcn's components and most public component libraries assume Tailwind.
+I work with Tailwind, and I liked shadcn's source-ownership model. I could bring components into a project, understand how they worked, and change them when the project needed it. I wanted the same thing for StyleX, but shadcn's components are built around Tailwind.
 
 <!-- TODO(Frankie): one sentence on why you wanted StyleX. -->
 
@@ -103,7 +103,7 @@ You can start from one of four presets or build a custom theme. Grove is green a
 
 A shuffle control explores combinations. You can lock the groups you want to keep, like typography, shuffle the rest, and undo when a direction doesn't work. When one value needs attention, a token override sets it directly, and it stays set when you adjust a broader control later.
 
-The checks need a similarly clear scope. Studio checks 49 token pairings against WCAG 2.2 AA in each mode, 98 checks in all, and shows which ones fail. Exporting a failing draft asks you to acknowledge it first. Passing those checks still leaves the application's accessibility to evaluate, including keyboard behavior, focus, labels, content, and the way components are combined.
+The checks need a similarly clear scope. Studio checks 49 token pairings against WCAG 2.2 AA in each mode, 98 checks in all, and shows which ones fail. If your edits leave a pairing failing, Studio asks you to acknowledge that before it exports. Passing those checks still leaves the application's accessibility to evaluate, including keyboard behavior, focus, labels, content, and the way components are combined.
 
 For someone evaluating Ultima, Studio is also a way to answer a practical question before adopting it: can these components take on the visual character my product needs?
 
