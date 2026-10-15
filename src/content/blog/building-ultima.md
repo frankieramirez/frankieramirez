@@ -1,11 +1,11 @@
 ---
 title: "Building Ultima: a design system you can make your own"
 description: "Why I built Ultima for StyleX, and how Theme Studio lets you give its components your product's look."
-date: "2026-10-15"
-draft: true
+date: "2026-10-16"
+draft: false
 related: [design-systems-in-the-agentic-era, building-my-own-agent-skills]
-# image: "/images/blog/ultima.webp"
-# imageAlt: ""
+image: "/images/blog/ultima.webp"
+imageAlt: "The Ultima wordmark beside its cyan app icon on a dark background."
 ---
 
 [Ultima](https://ultima.systems) started as an exercise. I'd been using Tailwind almost exclusively for the past few years, so I picked up [StyleX](https://stylexjs.com), Meta's compile-time styling library, to train myself on a different styling system.
@@ -42,12 +42,12 @@ A component needs to ask for the surface color, muted text, or an accent's hover
 
 In Ultima, a token such as `--ult-color-accent-hover` keeps the same name across themes and color modes. Its value can change. Components keep referring to the same role.
 
-Ultima keeps those semantic names as CSS custom properties, so a theme can override them from plain CSS or from a StyleX theme. Both routes change the same values.
+Ultima keeps those semantic names as CSS custom properties, so a theme can override them from plain CSS or from a StyleX theme. Both routes change the same values. Here's the Cinder preset's dark accent, set each way:
 
 ```css
 [data-theme="dark"] {
-  --ult-color-accent: #2f6fdf;
-  --ult-color-accent-hover: #4a84ec;
+  --ult-color-accent: #ea786a;
+  --ult-color-accent-hover: #fc8779;
 }
 ```
 
@@ -55,9 +55,9 @@ Ultima keeps those semantic names as CSS custom properties, so a theme can overr
 import * as stylex from '@stylexjs/stylex';
 import { color } from '@/lib/tokens.stylex';
 
-export const brandDark = stylex.createTheme(color, {
-  '--ult-color-accent': '#2f6fdf',
-  '--ult-color-accent-hover': '#4a84ec',
+export const cinderDark = stylex.createTheme(color, {
+  '--ult-color-accent': '#ea786a',
+  '--ult-color-accent-hover': '#fc8779',
 });
 ```
 
@@ -119,9 +119,9 @@ ultima-theme.registry.json  installs the CSS, the draft, and DESIGN.md
 
 The preview and exports come from the same resolved draft. That connection matters: choosing a theme would be much less useful if the exported files represented a different set of values.
 
-So one function does the resolving. `resolveDraft` takes a draft and returns every token value for dark and light, with any per-mode overrides applied. The Studio preview calls it, and so does each export. Color shuffle calls it too, and only applies a palette that passes every contrast check. The Ultima docs site resolves its own theme the same way.
+So I put the resolving in one function. `resolveDraft` takes a draft and returns every token value for dark and light, with any per-mode overrides applied. The Studio preview calls it, and so does each export. Color shuffle calls it too, and only applies a palette that passes every contrast check. The Ultima docs site resolves its own theme the same way.
 
-Sharing a function still leaves room for drift, because each format gets compiled and loaded differently. A browser test covers that gap. For every preset, a shuffled draft, per-mode overrides, and a draft that fails contrast, it renders the preview, then checks that the exported stylesheet and the compiled StyleX module produce the same computed values.
+Sharing a function still leaves room for drift, because each format gets compiled and loaded differently. A browser test covers that gap. It renders the preview for every preset, a shuffled draft, per-mode overrides, and a draft that fails contrast, then checks that the exported stylesheet and the compiled StyleX module produce the same computed values.
 
 Drafts are versioned too. When a preset changes, Studio keeps the earlier revision resolvable, so a theme you saved before a preset update reopens with the values you saved.
 

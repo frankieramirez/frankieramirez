@@ -18,6 +18,7 @@ I write about design systems and how I use AI agents to build and review softwar
 
 ## Writing
 
+- [Building Ultima: a design system you can make your own](https://frankieramirez.com/blog/building-ultima/)
 - [When anyone can generate UI, what is a design system for?](https://frankieramirez.com/blog/design-systems-in-the-agentic-era/)
 - [Building my own agent skills felt boring. So I gamified it.](https://frankieramirez.com/blog/building-my-own-agent-skills/)
 
