@@ -3,7 +3,7 @@ title: "When anyone can generate UI, what is a design system for?"
 description: "How I document design decisions so people and AI agents can apply them in product work."
 date: "2026-09-14"
 draft: false
-related: [how-im-building-with-ai-agents-right-now, building-my-own-agent-skills]
+related: [how-im-building-with-ai-agents-right-now, building-my-own-agent-skills, building-ultima]
 ---
 
 **Update, September 29, 2026:** I released [Ultima](https://ultima.systems), an open-source React design system built with Base UI and StyleX. It includes agent guidance and a CLI for checking setup and tracking changes to installed components. The [source is on GitHub](https://github.com/frankieramirez/ultima).
