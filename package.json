@@ -8,7 +8,8 @@
     "dev:background": "astro dev --background",
     "build": "astro build",
     "check": "astro check",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "og:video": "node scripts/og-video.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
