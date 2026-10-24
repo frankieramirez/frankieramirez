@@ -24,6 +24,9 @@ const defaultTitle = "Frankie Ramirez | Frontend Architecture & Design Systems";
 const defaultDescription =
   "Software engineer focused on frontend architecture and design systems, writing about interfaces, AI agents, and self-hosting.";
 const defaultImage: ShareImage = { src: "/og.jpg", width: 1200, height: 630 };
+// The default card plays a loop of og.jpg with gulls circling the sentry box.
+// Rendered by scripts/og-video.mjs.
+const defaultVideo: ShareImage = { src: "/og/el-morro.mp4", width: 1200, height: 630 };
 const {
   title = defaultTitle,
   description = defaultDescription,
@@ -37,6 +40,9 @@ const {
 const siteHref = Astro.site?.href ?? "https://frankieramirez.com/";
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteHref).href;
 const ogImage = new URL(image.src, siteHref).href;
+// A page with its own share image keeps a still card; the video only matches og.jpg.
+const video = image === defaultImage ? defaultVideo : undefined;
+const ogVideo = video && new URL(video.src, siteHref).href;
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -112,6 +118,16 @@ const articleSchema = article && {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content={String(image.width)} />
     <meta property="og:image:height" content={String(image.height)} />
+    {video && ogVideo && (
+      <>
+        <meta property="og:video" content={ogVideo} />
+        <meta property="og:video:url" content={ogVideo} />
+        <meta property="og:video:secure_url" content={ogVideo} />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content={String(video.width)} />
+        <meta property="og:video:height" content={String(video.height)} />
+      </>
+    )}
     <meta property="og:site_name" content="Frankie Ramirez" />
     <meta property="og:locale" content="en_US" />
 
