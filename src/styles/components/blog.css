@@ -127,6 +127,7 @@
 }
 
 .article-body {
+  font-family: var(--serif);
   font-size: 18px;
   line-height: 1.7;
   overflow-wrap: anywhere;

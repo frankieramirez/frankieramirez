@@ -28,6 +28,21 @@ export default defineConfig({
       fallbacks: ["ui-serif", "Georgia", "serif"],
     },
     {
+      provider: fontProviders.local(),
+      name: "Geist Serif",
+      cssVariable: "--font-geist-serif",
+      fallbacks: ["ui-serif", "Georgia", "serif"],
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/geist-serif/GeistSerif-Regular.woff2"],
+            weight: 400,
+            style: "normal",
+          },
+        ],
+      },
+    },
+    {
       provider: fontProviders.fontsource(),
       name: "IBM Plex Mono",
       cssVariable: "--font-plex-mono",
