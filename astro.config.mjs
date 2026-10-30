@@ -23,9 +23,24 @@ export default defineConfig({
       name: "IBM Plex Serif",
       cssVariable: "--font-plex-serif",
       weights: [400],
-      styles: ["normal", "italic"],
+      styles: ["italic"],
       subsets: ["latin"],
       fallbacks: ["ui-serif", "Georgia", "serif"],
+    },
+    {
+      provider: fontProviders.local(),
+      name: "Geist Serif",
+      cssVariable: "--font-geist-serif",
+      fallbacks: ["ui-serif", "Georgia", "serif"],
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/geist-serif/GeistSerif-Regular.woff2"],
+            weight: 400,
+            style: "normal",
+          },
+        ],
+      },
     },
     {
       provider: fontProviders.fontsource(),
