@@ -23,7 +23,7 @@ export default defineConfig({
       name: "IBM Plex Serif",
       cssVariable: "--font-plex-serif",
       weights: [400],
-      styles: ["normal", "italic"],
+      styles: ["italic"],
       subsets: ["latin"],
       fallbacks: ["ui-serif", "Georgia", "serif"],
     },

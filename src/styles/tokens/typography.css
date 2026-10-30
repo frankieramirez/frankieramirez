@@ -1,6 +1,6 @@
 :root {
   --sans: var(--font-plex-sans);
-  /* Preview: Geist Serif Regular. Revert to var(--font-plex-serif). */
-  --serif: var(--font-geist-serif);
+  --serif: var(--font-plex-serif);
+  --display: var(--font-geist-serif);
   --mono: var(--font-plex-mono);
 }
