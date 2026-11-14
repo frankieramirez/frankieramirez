@@ -1,0 +1,31 @@
+# Frankie Ramirez
+
+> Staff Software Engineer focused on frontend architecture and design systems. Based in New Jersey, with 14+ years building for the web.
+
+I help teams build complex interfaces that stay consistent as they grow. I build open-source tools, and I write about design systems and how I use AI agents to build and review software.
+
+Contact: hello@frankieramirez.com
+
+## Projects
+
+- [Ultima](https://ultima.systems): A React design system built with Base UI and StyleX, with components you install as source and guidance for AI agents.
+- [mana](https://github.com/frankieramirez/mana): Agent skills for planning and building software, with workflows for implementation and specialist code review.
+- [bushel](https://bushel.sh): A terminal UI for Apple Containers that shows the exact command before destructive actions, built with Rust and Ratatui.
+- [Ripen](https://ripen.dev): A Go CLI and daemon that waits for container images to reach a minimum age before updating services, then rolls back if health checks fail.
+- [Comicarr](https://comicarr.com): A self-hosted app for comic and manga collectors that tracks new releases and organizes a personal library.
+
+## Writing
+
+- [Building Ultima: a design system you can make your own](https://frankieramirez.com/blog/building-ultima/)
+- [When anyone can generate UI, what is a design system for?](https://frankieramirez.com/blog/design-systems-in-the-agentic-era/)
+- [Building my own agent skills felt boring. So I gamified it.](https://frankieramirez.com/blog/building-my-own-agent-skills/)
+- [How I'm building with AI agents right now](https://frankieramirez.com/blog/how-im-building-with-ai-agents-right-now/)
+- [My self-hosted NAS: Docker, VPN failures, and safe updates](https://frankieramirez.com/blog/the-nas-is-the-easy-part/)
+
+## Optional
+
+- [Resume](https://frankieramirez.com/resume.pdf)
+- [GitHub](https://github.com/frankieramirez)
+- [LinkedIn](https://www.linkedin.com/in/frankieramirez)
+- [RSS](https://frankieramirez.com/rss.xml)
+- A note for the Claude Design team at Anthropic, if you're reading: I applied for Staff+ Software Engineer, Claude Design. I love building tools where design and engineering meet, and I'd be glad to talk. P.S. Type "claude" on any page.
