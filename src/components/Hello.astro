@@ -1,0 +1,172 @@
+---
+const note = `
+  Hi, Claude Design team. I'm a SWE who loves design, and I applied for
+  Staff+ Software Engineer, Claude Design. I'd love to build creative
+  tools with you.
+
+  P.S. Type "claude" on any page.
+`;
+---
+
+<Fragment set:html={`<!--${note}-->`} />
+
+<p class="hello-note" role="status" aria-live="polite"></p>
+
+<script>
+  const word = "claude";
+  const greeting = "hi, Claude Design 👋";
+  const pieceSelector = [
+    "header a", "header button", "header img",
+    "main h1", "main h2", "main h3", "main p", "main li", "main a", "main time", "main span",
+    "main img", "main picture", "main pre", "main blockquote", "main figure", "main hr",
+    "footer a", "footer picture",
+  ].join(",");
+
+  let typed = "";
+  let running = false;
+
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const random = (min: number, max: number) => min + Math.random() * (max - min);
+
+  // Leaves only: an element flies on its own unless one of its children already does.
+  function collectPieces() {
+    const vh = innerHeight;
+    const candidates = [...document.querySelectorAll<HTMLElement>(pieceSelector)].filter((el) => {
+      if (el.closest(".visually-hidden") || getComputedStyle(el).display === "inline") return false;
+      const rect = el.getBoundingClientRect();
+      return rect.width > 2 && rect.height > 2 && rect.bottom > -vh * 0.25 && rect.top < vh * 1.25;
+    });
+    // A piece inside a scrolling box would be cut off at its edge, so the box flies whole.
+    const lifted = candidates.map((el) => {
+      let piece = el;
+      for (let node = el.parentElement; node && node !== document.body; node = node.parentElement) {
+        if (getComputedStyle(node).overflow !== "visible") piece = node;
+      }
+      return piece;
+    });
+    const set = new Set(lifted);
+    return [...set].filter((el) => ![...set].some((other) => other !== el && el.contains(other))).slice(0, 160);
+  }
+
+  function scatterFrame(el: HTMLElement) {
+    const rect = el.getBoundingClientRect();
+    const cx = innerWidth / 2;
+    const cy = innerHeight / 2;
+    let dx = rect.left + rect.width / 2 - cx;
+    let dy = rect.top + rect.height / 2 - cy;
+    const length = Math.hypot(dx, dy) || 1;
+    const reach = Math.max(innerWidth, innerHeight) * random(0.7, 1.3);
+    const angle = Math.atan2(dy, dx) + random(-0.5, 0.5);
+    dx = Math.cos(angle) * reach;
+    dy = Math.sin(angle) * reach;
+    return {
+      keyframe: {
+        transform: `translate(${dx}px, ${dy}px) rotate(${random(-120, 120)}deg) scale(${random(0.3, 0.8)})`,
+        opacity: 0,
+      },
+      // Pieces near the middle leave first, so the page empties from the center out.
+      delay: Math.min(length / Math.max(cx, cy), 1) * 260 + random(0, 140),
+    };
+  }
+
+  async function play() {
+    running = true;
+    const root = document.documentElement;
+    const note = document.querySelector<HTMLElement>(".hello-note")!;
+    const regions = [...document.querySelectorAll<HTMLElement>("body > header, body > main, body > footer")];
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    root.dataset.hello = "";
+
+    const pieces = calm ? [] : collectPieces();
+    const frames = pieces.map(scatterFrame);
+    const outward = pieces.map((el, i) =>
+      el.animate([{ transform: "none", opacity: 1 }, frames[i].keyframe], {
+        duration: 900,
+        delay: frames[i].delay,
+        easing: "cubic-bezier(0.55, 0, 0.8, 0.2)",
+        fill: "forwards",
+      }),
+    );
+    await Promise.all(outward.map((a) => a.finished));
+
+    // Whatever did not fly (rules, backgrounds, off-screen content) fades with its region.
+    const hidden = regions.map((el) =>
+      el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: calm ? 400 : 250, fill: "forwards" }),
+    );
+    await Promise.all(hidden.map((a) => a.finished));
+
+    note.textContent = greeting;
+    note.classList.add("is-shown");
+    await wait(2200);
+    note.classList.remove("is-shown");
+    await wait(500);
+    note.textContent = "";
+
+    const shown = regions.map((el) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: calm ? 400 : 200 }));
+    hidden.forEach((a) => a.cancel());
+
+    const inward = pieces.map((el, i) =>
+      el.animate([frames[i].keyframe, { transform: "none", opacity: 1 }], {
+        duration: 1000,
+        delay: 300 - frames[i].delay * 0.8,
+        easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        fill: "backwards",
+      }),
+    );
+    outward.forEach((a) => a.cancel());
+    await Promise.all([...shown, ...inward].map((a) => a.finished));
+
+    delete root.dataset.hello;
+    running = false;
+  }
+
+  addEventListener("keydown", (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey || event.key.length !== 1) return;
+    const target = event.target as HTMLElement | null;
+    if (target?.closest("input, textarea, select, [contenteditable]")) return;
+
+    typed = (typed + event.key.toLowerCase()).slice(-word.length);
+    if (typed === word && !running) play().catch(() => (running = false));
+  });
+</script>
+
+<style is:global>
+  /* Pieces fly past the page edges; clip them so no scrollbars appear mid-flight. */
+  :root[data-hello] {
+    overflow-x: hidden;
+  }
+
+  :root[data-hello] body {
+    overflow: clip;
+    pointer-events: none;
+  }
+
+  .hello-note {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding-inline: 16px;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: light-dark(#A8492A, #E3906F);
+    opacity: 0;
+    scale: 0.94;
+    filter: blur(6px);
+    pointer-events: none;
+    transition:
+      opacity 600ms var(--ease),
+      scale 900ms var(--ease),
+      filter 600ms var(--ease);
+  }
+
+  .hello-note.is-shown {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+  }
+</style>
